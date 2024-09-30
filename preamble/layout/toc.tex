@@ -1,0 +1,35 @@
+%% Table of Contents
+% \addtocontents{toc}{\vspace{-0.9em}}  % change space after "Contents" title in TOC
+\NewDocumentCommand{\contents}{}{
+    {\hypersetup{hidelinks}
+        \tableofcontents
+        % \listoftheorems[title=List of Definitions and Theorems, onlynamed, swapnumber]
+        % \listoffigures
+    }
+}
+
+%%% TOC formatting
+\usepackage{titletoc}   % formatting of TOC entries
+\usepackage{tocbibind}  % more things in table of contents
+
+\setcounter{secnumdepth}{1} % subsections are not numbered (no need for *), but are included in the TOC
+\setcounter{tocdepth}{2}    % include subsections in toc, but not subsubsections (this is the default)
+\contentsmargin[0.6em]{2em} % margin for the page numbers in the TOC
+
+%% bold math for chapter titles in TOC, slightly bigger space between label and title
+%% BUG: pdfLaTeX with changed `\contentsmargin` does not properly align page numbers
+%% HACK: to obatain proper placement of page numbers we need to toggle off
+%%       `\bfseries` with `\normalfont`, and only then apply it inside `\contentspage`
+\titlecontents{chapter}[1.6em]{\vspace{2.4ex}\boldmath\bfseries} % <section> <left> <above-code>
+{\contentslabel{1.4em}}{\hspace*{-1.4em}} % <numbered-entry-format> <numberless-entry-format>
+{\hfill\normalfont\contentspage[\bfseries\thecontentspage]} % <filler-page-format> <--- HACK
+
+%% prettier visual alignment of section label with chapter title
+\titlecontents{section}[4.0em]{} % <section> <left> <above-code>
+{\contentslabel{2.3em}}{\hspace*{-2.3em}} % <numbered-entry-format> <numberless-entry-format>
+{\textcolor{gray}{\titlerule*[9pt]{.}}\contentspage} % <filler-page-format>
+
+%% subsection entries in TOC are "inline" separated by a bullet
+\titlecontents*{subsection}[4.7em]{\footnotesize\color{black!70}}  % <section> <left> <above-code>
+{}{}{ \thecontentspage} % <numbered-entry-format> <numberless-entry-format> <filler-page-format>
+[][\ \textbullet\ ][\hspace*{0.6em}\vspace{0.1em}]  % <begin> <separator> <end>

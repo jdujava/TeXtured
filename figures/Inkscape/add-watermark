@@ -1,0 +1,26 @@
+#!/bin/sh
+
+usage() {
+    echo "Usage: $0 <file.pdf> <watermark text>"
+    exit 1
+}
+
+[ "$#" -ne 2 ] && usage && exit 1
+[ ! -f "$1" ] && echo "File not found: $1" && exit 1
+
+directory=$(dirname "$1")
+[ ! -f "$directory/watermark-template.ps" ] && echo "Watermark template not found: $directory/watermark-template.ps" && exit 1
+
+## Temporary files
+watermark=$(mktemp --suffix=.ps)
+tempfile=$(mktemp --suffix=.pdf)
+
+## Replace the watermark text in the template
+sed "s/<watermark>/$2/" "$directory/watermark-template.ps" >"$watermark"
+
+## Add the watermark to the PDF
+gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+    -sOutputFile="$tempfile" "$watermark" "$1"
+
+mv "$tempfile" "$1"
+rm "$watermark"

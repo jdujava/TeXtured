@@ -1,0 +1,32 @@
+%%% Helper TODO/WIP environments
+
+%% Quick inline todo command
+\NewDocumentCommand{\todo}{m}{%
+    \IfBlankTF{#1}{%
+        \textcolor{red}{\textsf{TODO.}}%
+    }{%
+        \textcolor{red}{\textsf{TODO:} #1}%
+    }%
+}
+
+%% Base style for todo-like environments
+\tcbset{
+    todolike/.style={
+        % breakable, after upper=\strut, parbox=false,
+        breakable, parbox=false,
+        colframe=pink, sharp corners=west, boxrule=0pt, leftrule=4pt,
+        coltitle=black, fonttitle=\sffamily\bfseries,
+        attach title to upper={\ },
+        beforeafter skip=0.5\baselineskip plus 2pt,
+    }
+}
+%% Factory for new todo-like environments
+\NewDocumentCommand{\NewTodoLike}{mm}{
+    \NewTColorBox{#1}{o}{todolike, colback=#2, title={#1\IfValueT{##1}{ \textmd{(##1)}}.}}
+}
+
+%% Define todo-like environments
+\NewTodoLike{Todo}{pink!20}
+\NewTodoLike{Question}{orange!10}
+\NewTodoLike{Suggestion}{cyan!10}
+\NewTodoLike{Note}{cyan!50!green!10}

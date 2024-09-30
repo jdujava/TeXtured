@@ -1,0 +1,22 @@
+#!/bin/sh
+
+[ -z "$1" ] && echo "Usage: $0 <figure name>" && exit 1
+[ ! -f "$1.svg" ] && echo "File $1.svg not found" && exit 1
+
+## Export Inkscape SVG to PDF+LaTeX code
+inkscape "$1.svg" --export-area-drawing --export-dpi=300 --export-latex --export-filename="$1.pdf"
+
+## Disable interpolation in the PDF (to conform with PDF/A standard)
+# sed -i 's|/Interpolate true$|/Interpolate false|' "$1.pdf" # SOMETIMES BORKS THE PDF
+## https://stackoverflow.com/questions/20011515/how-to-remove-anti-aliasing-in-pdf-images
+perl -M-encoding -0777pe "s|/Interpolate true|' 'x17|ge" <"$1.pdf" >"$1-fixed.pdf"
+
+## Add watermark to the PDF (if watermark script is available)
+directory=$(dirname "$1")
+if [ -f "$directory/add-watermark" ]; then
+    ## NOTE: edit the watermark string here
+    watermark_string="$(date +%Y) Jonas Dujava"
+    "$directory"/add-watermark "$1-fixed.pdf" "$watermark_string"
+fi
+
+mv "$1-fixed.pdf" "$1.pdf"

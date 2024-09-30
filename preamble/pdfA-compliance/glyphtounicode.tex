@@ -1,0 +1,72 @@
+%%% PDF/A compliance - glyph to Unicode mappings
+
+%% NOTE: metadata are set up using the `hyperref` package in `preamble/general/hyperref.tex`
+
+%% WARN: `pdfx` package is SUPERSEDED by built-in LaTeX support for PDF/A
+%%       However, in case additional fonts are used, some glyphs may not be covered
+%%       by default Unicode mappings, in which case they need to be mapped to Unicode
+%%       code points manually (see below for GUIDE and examples).
+
+%%% GUIDE: How to add missing unicode mappings for glyphs
+%%
+%% Consider following part of VeraPDF output for a non-compliant PDF:
+%%   <rule specification="ISO 19005-2:2011" clause="6.2.11.7.2" testNumber="1" status="failed" passedChecks="0" failedChecks="1">
+%%     <description>The Font dictionary of all fonts shall define the map of all used character codes to Unicode values,
+%%                  either via a ToUnicode entry, or other mechanisms as defined in ISO 19005-2, 6.2.11.7.2.</description>
+%%     <object>Glyph</object>
+%%     <test>toUnicode != null</test>
+%%     <check status="failed">
+%%       <context>root/document[0]/pages[58](1323 0 obj PDPage)/contentStream[0](1324 0 obj PDContentStream)
+%%                                          /operators[654]/usedGlyphs[0](RMTQUN+MSAM10 RMTQUN+MSAM10 57 0  0)</context>
+%%       <errorMessage>The glyph can not be mapped to Unicode</errorMessage>
+%%     </check>
+%%   </rule>
+%%
+%% This means that some glyph on page 59 (indicated by a 0-based index `pages[58]`)
+%% is missing a Unicode mapping. To fix this, we need to find the name of the glyph,
+%% and provide a Unicode mapping for it. For further instructions how to proceed see
+%% `preamble/pdfA-compliance/LaTeX-find-glyph-name/LaTeX-find-glyph-name.tex`.
+
+\RequirePackage{iftex}
+\ifluatex % only for luaLaTeX (sourced by default for pdfLaTeX)
+    \RequirePackage{luatex85}
+    \input{glyphtounicode.tex} % probably not loaded automatically for luatex
+    \pdfgentounicode=1         % probably disabled by default for luatex
+\fi
+
+%% Enable in case some glyphs are missing from imported PDF figures
+\pdfinclusioncopyfonts=1
+
+%% Additional Unicode mappings for mathematical symbols (provided by `pdfx`)
+%% https://gist.github.com/literalplus/045c4d090e2fe742157b4c903a984d24
+\input{glyphtounicode-cmr.tex} % <- /usr/share/texmf-dist/tex/latex/pdfx/glyphtounicode-cmr.tex
+% \input{glyphtounicode-ntx.tex} % <- /usr/share/texmf-dist/tex/latex/pdfx/glyphtounicode-ntx.tex
+
+
+%%% Additional Unicode mappings for various extra glyphs
+
+%% Glyphs: double brackets (of various sizes)
+%% name of glyph found in /usr/share/texmf-dist/fonts/afm/public/stmaryrd/stmary5.afm
+\pdfglyphtounicode{llbracket}{27E6} % https://codepoints.net/U+27E6
+\pdfglyphtounicode{rrbracket}{27E7} % https://codepoints.net/U+27E7
+\pdfglyphtounicode{largellbracket}{27E6 FE01} % variants according to size
+\pdfglyphtounicode{largerrbracket}{27E7 FE01} % ... ... .. ....
+\pdfglyphtounicode{Largellbracket}{27E6 FE02} % ... ... .. ....
+\pdfglyphtounicode{Largerrbracket}{27E7 FE02} % ... ... .. ....
+\pdfglyphtounicode{LARGEllbracket}{27E6 FE03} % ... ... .. ....
+\pdfglyphtounicode{LARGErrbracket}{27E7 FE03} % ... ... .. ....
+\pdfglyphtounicode{hugellbracket} {27E6 FE04} % ... ... .. ....
+\pdfglyphtounicode{hugerrbracket} {27E7 FE04} % ... ... .. ....
+\pdfglyphtounicode{Hugellbracket} {27E6 FE05} % ... ... .. ....
+\pdfglyphtounicode{Hugerrbracket} {27E7 FE05} % ... ... .. ....
+\pdfglyphtounicode{Hugellbrackettop}{23A5 23A1} % separate top, middle, bottom
+\pdfglyphtounicode{Hugellbracketex} {23A5 23A2} % ... ... .. ....
+\pdfglyphtounicode{Hugellbracketbot}{23A6 23A3} % ... ... .. ....
+\pdfglyphtounicode{Hugerrbrackettop}{23A4 23A2} % ... ... .. ....
+\pdfglyphtounicode{Hugerrbracketex} {23A5 23A2} % ... ... .. ....
+\pdfglyphtounicode{Hugerrbracketbot}{23A6 23A2} % ... ... .. ....
+
+%% Glyph: short minus
+\pdfglyphtounicode{axisshort}{2212} % short minus -> minus https://codepoints.net/U+2212
+
+%%% TODO: maybe use `\pdfstringdefDisableCommands` for something (in PDF metadata?)

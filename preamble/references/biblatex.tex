@@ -1,0 +1,58 @@
+%%% References/Bibliography
+\usepackage[
+    style=ext-numeric-verb, sorting=none,
+    date=year, articlein=false, isbn=false,
+    maxnames=16, maxcitenames=4,
+    backref=true, backrefstyle=none,
+    datamodel=preamble/references/biblatex-extra-fields,
+]{biblatex}
+
+%% Custom bibliography fields can be added in `preamble/references/biblatex-extra-fields.dbx`
+%% see for example explanation in https://suchicodes.com/resources/blog/65a59395
+
+%% Add bibliography resource
+\addbibresource{preamble/bibliography.bib}
+
+\newcommand{\references}{
+    \defbibnote{note}{%
+        % \vspace{-3em}
+        \begin{flushright}
+            \footnotesize
+            % Asterisk in [\textcolor{black!35}{Author(s) Year}*] and (\textcolor{black!35}{Year}*) marks a secondary source/review article. \\
+            % Asterisk in \texttt{[\({\mspace{1mu}\color{black!30}\bullet}\)*]} marks a secondary source/review article. \\
+            Back-references to the pages where the publication was cited are given by \pagebox{\(\color{black!60}\bullet\)}.
+        \end{flushright}
+        \vspace{0.4em}
+    }
+    % \emergencystretch=1em % prevent some of the overfull hboxes
+    % \hyphenpenalty 100 % try to prevent (some) hyphenation
+    % \printbibliography[heading=bibintoc, title=References]
+    \printbibliography[heading=bibintoc, title=References, prenote=note]
+}
+
+
+%%% Custom categories
+%% `todo` category for references to be added (marked with red)
+\DeclareBibliographyCategory{todo}
+\addtocategory{todo}{TODO}
+
+%% `secondary` category for secondary sources (will be marked with `*`)
+\DeclareBibliographyCategory{secondary}
+%% add secondary citations to this category 
+\addtocategory{secondary}{secondary_review}
+
+
+%% Modification of fields
+\input{preamble/references/fields}
+
+%% Modification of `cite` command -> wrap whole citation with a `tcolorbox` frame
+\input{preamble/references/cite}
+
+%% Style tweaks
+\input{preamble/references/style}
+
+%% Customize DOI/arXiv/GitHub/URL formatting
+\input{preamble/references/doi-eprint-url}
+
+%% Custom backreferences
+\input{preamble/references/backref}

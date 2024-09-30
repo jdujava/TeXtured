@@ -1,0 +1,18 @@
+%% Ensure consistent height of the final line with `\strut`
+%% NOTE: `\hspace{-1.␣␣em}` to enable longer last line in theorem-like environments,
+%%       otherwise the line was getting breaked earlier then necesarry
+\NewDocumentCommand{\theoremqed}{}{\hspace{-1.195em}\strut}
+
+%% Factory for new theorem-like environments
+%% NOTE: at this point they are not breakable, maybe think about implementing something like
+%% "torn page" effect in ~/Documents/customfiles/phd-thesis-valentin/tex/preamble/settings/theorems.tex
+%% NOTE: ENABLED BREAKABLE for better flow when WIP
+\NewDocumentCommand{\NewTheoremLike}{O{qed=\theoremqed} m}{
+    \declaretheorem[sibling=table, style=thmcommon, #1]{#2} % same numbering as tables/figures
+    % \tcolorboxenvironment{#2}{parbox=false}                 % wrap in a `tcolorbox`
+    \tcolorboxenvironment{#2}{parbox=false, breakable}      % wrap in a `tcolorbox`, allow breaking
+}
+\NewDocumentCommand{\NewTheoremLikes}{>{\SplitList{,}}m}{\ProcessList{#1}{\NewTheoremLike}}
+
+%% Define theorem-like environments
+\NewTheoremLikes{definition, theorem, lemma, corollary, proposition}

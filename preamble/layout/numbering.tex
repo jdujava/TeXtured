@@ -1,0 +1,14 @@
+%% Page numbering style and counters for different parts of the document
+\makeatletter
+\NewDocumentCommand{\frontmatter}{}{     % the frontmatter with
+    \pagenumbering{roman}                % roman page numbering
+    \gdef\thechapter{\@Alph\c@chapter}   % uppercase roman chapter numbering
+}
+\NewDocumentCommand{\mainmatter}{}{      % the mainmatter with
+    \pagenumbering{arabic}               % arabic page numbering
+    \setcounter{chapter}{0}              % reset chapter counter
+    \setcounter{section}{0}              % reset section counter
+    \gdef\thechapter{\@arabic\c@chapter} % arabic chapter numbering
+}
+\NewDocumentCommand{\backmatter}{}{}     % the backmatter (continue with arabic page numbering)
+\makeatother

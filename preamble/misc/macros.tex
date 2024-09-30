@@ -1,0 +1,20 @@
+\NewDocumentCommand{\pdfTeX}{}{pdf\hspace{0.05em}\TeX}
+\NewDocumentCommand{\LuaTeX}{}{Lua\hspace{-0.1em}\TeX}
+
+%% Enclose with gray delimiters (by default parantheses)
+\NewDocumentCommand{\grayenclose}{s O{(} m O{)}}{%
+    \ifmmode
+        \let\colorcmd\mathcolor% TODO: maybe do this everywhere for math mode
+        \DeclareCommandCopy{\Left}{\left}%
+        \DeclareCommandCopy{\Right}{\right}%
+    \else%
+        \let\colorcmd\textcolor%
+        \DeclareCommandCopy{\Left}{\big}%
+        \DeclareCommandCopy{\Right}{\big}%
+    \fi%       (just use one command everywhere)
+    \IfBooleanTF{#1}{%
+        \colorcmd{gray}{\Left#2}#3\colorcmd{gray}{\Right#4}%
+    }{%
+        \colorcmd{gray}{#2}#3\colorcmd{gray}{#4}%
+    }%
+}

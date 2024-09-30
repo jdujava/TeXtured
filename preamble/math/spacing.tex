@@ -1,0 +1,46 @@
+%%% Space tweaking macros, thanks goes to https://github.com/valentjn/thesis-arxiv
+
+% math version of \settowidth, automatically choosing the right style
+% (textstyle, displaystyle, ...)
+\makeatletter
+\def\mathsettowidth#1#2{%
+    \setbox\@tempboxa\hbox{\(\m@th\mathpalette{}{#2}\)}%
+    #1=\wd\@tempboxa%
+    \setbox\@tempboxa\box\voidb@x%
+}
+\makeatother
+
+%% \halfhphantom works like \hphantom, except that it creates a box
+%% that is only half as wide as that of \hphantom
+\newlength{\halfhphantomlength}
+\NewDocumentCommand{\halfhphantom}{m}{%
+    \ifmmode\mathsettowidth{\halfhphantomlength}{#1}%
+    \else\settowidth{\halfhphantomlength}{#1}\fi%
+    \setlength{\halfhphantomlength}{\halfhphantomlength/2}%
+    \hspace{\halfhphantomlength}%
+}
+
+%% \lefthphantom{abc}{defghij} positions the text "abc" as follows:
+%% |abc    |
+%%  defghij
+\NewDocumentCommand{\lefthphantom}{mm}{%
+    \ifmmode\mathrlap{#1}\else\rlap{#1}\fi%
+    \hphantom{#2}%
+}
+
+%% \centerhphantom{abc}{defghij} positions the text "abc" as follows:
+%% |  abc  |
+%%  defghij
+\NewDocumentCommand{\centerhphantom}{mm}{%
+    \halfhphantom{#2}%
+    \ifmmode\mathclap{#1}\else\clap{#1}\fi%
+    \halfhphantom{#2}%
+}
+
+%% \righthphantom{abc}{defghij} positions the text "abc" as follows:
+%% |    abc|
+%%  defghij
+\NewDocumentCommand{\righthphantom}{mm}{%
+    \hphantom{#2}%
+    \ifmmode\mathllap{#1}\else\llap{#1}\fi%
+}

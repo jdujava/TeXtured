@@ -1,0 +1,18 @@
+%%% Wrap whole citation with braces in a `\citebox` frame, the whole being clickable link
+
+% \DeclareOuterCiteDelims{cite}{\bibopenbracket}{\bibclosebracket}
+\DeclareOuterCiteDelims{cite}{}{} % disable default outer delimiters
+
+%% modifying /usr/share/texmf-dist/tex/latex/biblatex/cbx/numeric-verb.cbx
+%% loaded subsequently in /usr/share/texmf-dist/tex/latex/biblatex-ext/ext-numeric-verb.cbx
+\renewbibmacro*{cite}{%
+    \printtext[bibhyperref]{%
+        \citebox{%    <---- wrap the whole citation with a `tcolorbox` frame
+            \lbrack%  <---- always consistently use brackets
+            \printfield{labelprefix}%
+            \printfield{labelnumber}%
+            \ifbool{bbx:subentry}{\printfield{entrysetcount}}{}%
+            \rbrack%  <---- always consistently use brackets
+        }%
+    }%
+}

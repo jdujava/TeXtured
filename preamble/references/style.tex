@@ -1,0 +1,49 @@
+%%% References style tweaks
+
+%% separation modifications
+\setlength\bibitemsep{0.53\baselineskip}
+\setlength\biblabelsep{1.5\labelsep}
+
+%% label number always in brackets with monospaced font
+%% -> modifying /usr/share/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+\DeclareFieldFormat{labelnumberwidth}{\texttt{\mkbibbrackets{#1}}}
+% \DeclareFieldFormat{labelnumberwidth}{\citebox{\mkbibbrackets{#1}}}
+
+%% red color for `todo` category
+%% asterisk in labelnumber for secondary sources (in `secondary` category)
+\DeclareFieldFormat{labelnumber}{%
+    \ifcategory{todo}{\color{red}\(\sbullet[1.2]\)}{#1}%
+    \ifcategory{secondary}{*}{}%
+}
+
+%% names in "small caps"
+% \DeclareNameWrapperFormat*{author}{\textsc{#1}}
+
+%% type "editor(s)" in parentheses
+\DeclareFieldFormat{editortype}{\mkbibparens{#1}}
+\DeclareDelimFormat{editortypedelim}{\addspace}
+
+%% titles in sans-serif (with red for `todo` category)
+\DeclareFieldFormat*{title}{\textsf{\ifcategory{todo}{\textcolor{red}{#1}}{#1}}}
+
+%% punctuation between title and subtitle
+\renewcommand*{\subtitlepunct}{ {\normalfont\textbullet} }
+
+%% smaller space after "in:"
+\renewcommand*{\intitlepunct}{\addcolon\;}
+% \renewcommand*{\intitlepunct}{\addcolon\space}
+
+%% emphasize publishers (same as journals in IEEE style)
+% \DeclareListFormat{publisher}{\mkbibemph{#1}}
+
+%% emphasize journals and publishers, in dark gray color
+% \DeclareListFormat{publisher}{\mkbibemph{\textcolor{darkgray}{#1}}}
+% \DeclareFieldFormat{journaltitle}{\mkbibemph{\textcolor{darkgray}{#1}}}
+% \DeclareFieldFormat{booktitle}{\mkbibemph{\textcolor{darkgray}{#1}}}
+
+%% date in bold (without parentheses)
+\DeclareFieldFormat{issuedate}{#1}
+\renewcommand*{\volnumdatedelim}{\addcomma\space}
+\DeclareFieldFormat*{date}{\mkbibbold{#1}}
+% \DeclareFieldFormat*{date}{\ifcategory{secondary}{\mkbibbold{#1}*}{\mkbibbold{#1}}}
+% \DeclareFieldFormat{biblabeldate}{\mkbibparens{\mkbibbold{#1}}}

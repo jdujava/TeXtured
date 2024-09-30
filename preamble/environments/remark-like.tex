@@ -1,0 +1,46 @@
+%% Mark denoting end of remark-like environment;
+%% `\strut` to ensure consistent height of the final line
+%% NOTE: `\hspace{-0.9em}` to enable longer last line in remark-like environments,
+%%       otherwise the line was getting breaked earlier then necesarry
+\NewDocumentCommand{\remarkqed}{}{\hspace{-0.9em}\textcolor{black!60}{\(\lrcorner\)}\strut}
+
+%% Factory for new remark-like environments
+\NewDocumentCommand{\NewRemarkLike}{O{qed=\remarkqed} m}{
+    \declaretheorem[sibling=table, style=thmcommon, #1]{#2}
+    \tcolorboxenvironment{#2}{parbox=false, breakable, blanker,  % allow page breaks, no frame
+        % overlay first={\node[font=\scriptsize, gray, anchor=south] at (frame.south east) {\(\triangledown\)}; },
+        overlay first and middle={ %% customized breakable boxes [zathura:273:~/Documents/Books/IT/LaTeX/tcolorbox.pdf]
+            \path[fill=black!10] ([xshift=2.5mm,yshift=0.8mm]frame.south east) -- +(120:2mm) -- +(60:2mm)-- cycle;
+            \draw[line width=1.5pt, dotted, black!10] ([xshift=2.5mm,yshift=0.3mm]frame.south east) -- +(-90:2mm);
+        },
+        overlay middle and last={
+            \path[fill=black!10] ([xshift=-2.5mm,yshift=-0.8mm]frame.north west) -- +(-120:2mm) -- +(-60:2mm)-- cycle;
+            \draw[line width=1.5pt, dotted, black!10] ([xshift=-2.5mm,yshift=-0.3mm]frame.north west) -- +(90:2mm);
+        },
+    }
+    % \tcolorboxenvironment{#1}{parbox=false, breakable, blanker, borderline horizontal={0.4pt}{0pt}{red}}
+}
+\NewDocumentCommand{\NewRemarkLikes}{>{\SplitList{,}}m}{\ProcessList{#1}{\NewRemarkLike}}
+
+%% Define remark-like environments
+\NewRemarkLikes{remark, example, derivation, calculation}
+
+
+%%% Proof environment
+
+%% Proof QED symbol
+%% NOTE: `\hspace{-1em}` to enable longer last line in proof environment,
+%%       otherwise the line was getting breaked earlier then necesarry
+\NewDocumentCommand{\proofqed}{}{
+    \color{black!60}% lighter color for the smaller square QED symbol
+    \hspace{-1em}\raisebox{-0.01em}{\(\square[0.4em][bottom]\mspace{1mu}\)}% tweak positioning
+    \strut% ensure consistent height of the final line
+}
+
+%% Make proof environment remark-like without numbering
+\let\proof\relax
+\NewRemarkLike[numbered=no, qed=\proofqed]{proof}
+
+%% NOTE: Suggestion on how to pass arguments to `tcolorbox` when calling proof
+%% https://tex.stackexchange.com/questions/565220/is-it-possibe-to-pass-options-to-a-tcolorboxenvironment
+%% Maybe useful for nesting, or other rare behavior.

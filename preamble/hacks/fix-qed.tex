@@ -1,0 +1,24 @@
+%%  HACK: Fix bug, where \qedhere overwrotes the proper behavior of \tag
+%%        I dont entirely know what I am doing here, but seems to work
+%%        -> changed from /usr/share/texmf-dist/tex/latex/amscls/amsthm.sty
+\makeatletter
+\RenewDocumentCommand{\equation@qed}{}{%
+    \iftagsleft@
+        \hbox{\phantom{\quad\qedsymbol}}%
+        \gdef\alt@tag{%
+            \rlap{\hbox to\displaywidth{\hfil\qedsymbol}}%
+            \global\let\alt@tag\@empty
+        }%
+    \else
+        \gdef\alt@tag{%
+            \global\let\alt@tag\@empty
+            \vtop{\ialign{\hfil####\cr
+                    % \tagform@\theequation\cr % <--- original
+                    \make@display@tag\cr % <--- changed
+                    \qedsymbol\cr}}%
+            % \setbox\z@ % <--- original
+            \if@eqnsw \setbox\z@ \fi % <--- changed
+        }%
+    \fi
+}
+\makeatother

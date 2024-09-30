@@ -1,0 +1,39 @@
+%% add format for `github` field
+\DeclareFieldFormat*{github}{%
+    \bibstring{github}\addcolon\space%
+    \ifhyperref{\href{https://github.com/#1}{\nolinkurl{#1}}}{\nolinkurl{#1}}%
+}
+
+%% put DOI/arXiv/GitHub/URL on a new line
+%% support also `github` field
+%%  -> changed from /usr/share/texmf-dist/tex/latex/biblatex-ext/ext-standard.bbx
+\renewbibmacro*{doi+eprint+url}{%
+    \setlength{\parskip}{0pt} % fix spacing of \fullcite in the body text of the document
+    \printtext{\par} % doi+eprint+url are printed on a new line
+    \footnotesize    % make it small, so it (ideally) fits on one line
+    \raggedright     % right-align the text (so that there are no overfull hboxes for long URLs)
+    \renewcommand{\newunitpunct}{\space}                  % no periods on this line
+    \renewcommand{\newblockpunct}{\penalty-9\relax\space} % avoid line breaks after labels "DOI:", "arXiv:", ...
+    \ifboolexpr{togl {bbx:doi} and not test {\iffieldxref{doi}}}{\printfield{doi}}{}%
+    \newunit\newblock
+    \ifboolexpr{togl {bbx:eprint} and not test {\iffieldxref{eprint}}}{\usebibmacro{eprint}}{}%
+    \newunit\newblock
+    \ifboolexpr{not test {\iffieldxref{github}}}{\printfield{github}}{}% <--- added print of `github` field
+    \newunit\newblock
+    \ifboolexpr{togl {bbx:url} and not test {\iffieldxref{url}}}{\usebibmacro{url+urldate}}{}
+}
+
+%% print arXiv via \bibstring{arxiv}
+%%  -> changed from /usr/share/texmf-dist/tex/latex/biblatex/biblatex.def
+\DeclareFieldFormat*{eprint:arxiv}{%
+    \bibstring{arxiv}\addcolon\space % <--- added \bibstring{arxiv}
+    \ifhyperref
+    {\href{https://arxiv.org/abs/#1}{%
+            \nolinkurl{#1}%
+            \iffieldundef{eprintclass}
+            {}
+            {\addspace\texttt{\mkbibbrackets{\thefield{eprintclass}}}}}}
+    {\nolinkurl{#1}%
+        \iffieldundef{eprintclass}
+        {}
+        {\addspace\texttt{\mkbibbrackets{\thefield{eprintclass}}}}}}

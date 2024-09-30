@@ -1,0 +1,63 @@
+%% Thesis type: bachelor, master, doctoral
+\NewExpandableDocumentCommand{\ThesisType}{}{master}
+
+%% Thesis title (exactly as in the formal assignment)
+\NewExpandableDocumentCommand{\ThesisTitle}{}{\TeXtured{} Demo}
+%% Plaintext version for PDF metadata, uncomment if needed (defauls to \ThesisTitle)
+\NewExpandableDocumentCommand{\ThesisTitlePlaintext}{}{TeXtured Demo}
+%% Thesis title (if custom formatting is needed for the title page, defauls to \ThesisTitle)
+% \NewExpandableDocumentCommand{\ThesisTitleFront}{}{
+%     \TeXtured{}\\
+%     Demo
+% }
+
+%% Author of the thesis
+\NewExpandableDocumentCommand{\ThesisAuthor}{}{\textcolor{red}{Author's Name}}
+%% Plaintext version for PDF metadata, uncomment if needed (defauls to \ThesisAuthor)
+\NewExpandableDocumentCommand{\ThesisAuthorPlaintext}{}{Author's Name}
+
+%% Year when the thesis is submitted
+\NewDocumentCommand{\YearSubmitted}{}{2024}
+%% Year of the last revision, uncomment if it is different from \YearSubmitted
+% \NewDocumentCommand{\YearRevision}{}{2025}
+
+%% University
+\NewDocumentCommand{\University}{}{Charles University}
+
+%% Name of the department or institute, where the work was officially assigned
+%% (according to the Organizational Structure of MFF UK in English,
+%% or a full name of a department outside MFF)
+\NewDocumentCommand{\Department}{}{\textcolor{red}{Name of the Department/Institute}}
+
+%% Is it a Department (katedra), or an Institute (ústav)?
+\NewDocumentCommand{\DeptType}{}{Institute}
+
+%% Thesis supervisor: name, surname and titles
+\NewDocumentCommand{\Supervisor}{}{\textcolor{red}{Name, Surname, and Titles}}
+%% Thesis co-supervisor: name, surname and titles (uncomment if applicable)
+% \NewDocumentCommand{\CoSupervisor}{}{Name, Surname, and Titles}
+
+%% Supervisor's department/institute (again according to Organizational structure of MFF)
+\NewDocumentCommand{\SupervisorsDepartment}{}{\textcolor{red}{Supervisor's Department/Institute}}
+
+%% Study programme and specialization
+\NewDocumentCommand{\StudyProgramme}{}{\textcolor{red}{Study Programme}}
+
+%% Abstract (recommended length around 80-200 words; this is not a copy of your thesis assignment!)
+\NewDocumentCommand{\Abstract}{}{%
+    \textcolor{red}{Write abstract here.}
+}
+
+%% Subject (short description for PDF metadata)
+\NewExpandableDocumentCommand{\Subject}{}{%
+    Write subject here.
+}
+
+%% Keywords (about 3-7)
+\NewExpandableDocumentCommand{\Keywords}{}{%
+    \textcolor{red}{Demo, Draft, WIP}
+}
+%% Plaintext version for PDF metadata, uncomment if needed (defauls to \Keywords)
+\NewExpandableDocumentCommand{\KeywordsPlaintext}{}{%
+    Demo, Draft, WIP
+}

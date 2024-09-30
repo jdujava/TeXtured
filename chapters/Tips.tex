@@ -1,0 +1,117 @@
+\chapter{Tips \& Tricks} \label{ch:Tips}
+
+\begin{Note}[WIP Disclaimer]
+    This chapter is Work-in-Progress.
+\end{Note}
+
+In this chapter we will see how to utilize and extend capabilities of \TeXtured{}.
+Also, there will be sprinkled miscellaneous tips on how to improve the quality of your document.
+
+\begin{Suggestion}[TODO]
+    It would be nice to differentiate between built-in \LaTeX{} commands and commands defined by \TeXtured{}.
+\end{Suggestion}
+
+\section{Structure}%
+\label{sec:Structure}
+
+\begin{itemize}
+    \item numbered and \enquote{lettered} chapters
+          \begin{Todo}
+              Describe \verb|\chapternotnumbered|, and \enquote{lettered} chapters in front matter.
+          \end{Todo}
+    \item Use nicely named \textcolor{gray}{sub}sections --- easier to navigate (also better ToC and Index)
+          \begin{Todo}
+              Describe \verb|\texorpdfstring|.
+              If you want, you can even use UTF-8 math characters (superscripts/subscripts, emulate math fonts).
+          \end{Todo}
+    \item Utilize remark/definition environments to make the document more structured and easier to read.
+          Important concepts will stick out more and will be remembered better.
+          \begin{Todo}
+              Describe creating of new environments, \verb|\qedhere|, ...
+          \end{Todo}
+    \item Try to motivate every definition/theorem with \enquote{normal} text, do not let the document degenerate just into a listing of definitions/theorems/proofs/...
+    \item Use references to other remarks/definitions/sections to make the document more interconnected, which can help the reader to look at a bigger picture, recollect necessary information to proceed further, or to understand the context better.
+          \begin{Todo}
+              %% BUG: tree-sitter-latex doesn't support `\verb`
+              Describe \verb|\Cref|, \verb|\Nref|.
+          \end{Todo}
+          \begin{Todo}
+              Show using \verb|\autocite{TODO}| in the text \autocite{TODO}.
+              Helps to not forget to add the citation later.
+          \end{Todo}
+\end{itemize}
+
+
+\section{Typography}%
+\label{sec:Typography}
+
+\begin{itemize}
+    \item use \verb|~| to enter non-breakable space, or also after dot in initials/after titles
+          (otherwise one gets bigger space than is proper), for example \verb|M.Sc.~Name Surname|
+    \item proper usage of hyphens/dashes --- learn when to use hyphen - (\verb|-|), when en-dash -- (\verb|--|), and when em-dash --- (\verb|---|)
+    \item use \emph{emphasis} for the names of new and important concepts
+    \item for quotation marks use \verb|\enquote| from \texttt{csquotes} package
+    \item sometimes using gray text instead of parentheses may result in a cleaner look, for example instead of \enquote{(pseudo-)Riemannian} just gray out \enquote{pseudo-} like \enquote{\textcolor{gray}{pseudo-}Riemannian}
+    \item choose capitalization style of titles, and stick with it --- I choose \enquote{titlecase}
+\end{itemize}
+
+
+\section{Mathematics}%
+\label{sec:Mathematics}
+
+Learn stuff in \texttt{amsmath} and \texttt{mathtools} packages.
+Then it is possible to write stuff like this:
+\begin{alignat*}{3}
+    % NOTE: maybe there is a better way to center parameters (t,r,\overline{x})?
+    \iota\colon & (\Sphere^{1}, \R_{\ge 0}, \Sphere^{\spacedim - 1})                                                                           && \longrightarrow \coset{\AdS}{\Z} \\
+                & (\centerhphantom{t}{\Sphere^{1}},\centerhphantom{r}{\R_{\ge 0}},\centerhphantom{\overline{\bm{x}}}{\Sphere^{\spacedim - 1}}) && \longmapsto \bm{x} =
+    \iota(t,r,\overline{\bm{x}}) \equiv \smash[t]{
+        \begin{dcases}
+            \begin{aligned}
+                \bm{x}^{\shortminusone} & = \sq{\ell^{2} + r^{2}} \cos(t/\ell), \\
+                \bm{x}^{0}              & = \sq{\ell^{2} + r^{2}} \sin(t/\ell), \\
+                \bm{x}^{i}              & = r \overline{\bm{x}}^{i} \qq{for} i=1,\ldots,\spacedim
+            \end{aligned}
+        \end{dcases}
+    }
+\end{alignat*}
+
+\begin{Todo}
+    Maybe show diagrams with \texttt{TikZ} package.
+\end{Todo}
+\begin{Todo}
+    Describe \verb|\DeclareDocumentCommand|, ...
+\end{Todo}
+
+
+\section{\texorpdfstring{\LaTeX{}}{LaTeX} Coding}%
+\label{sec:LaTeX Coding}
+
+\begin{Todo}
+    Describe how to create custom macros with \verb|\NewDocumentCommand|, \verb|\RenewDocumentCommand|, \verb|\NewCommandCopy|, ...
+\end{Todo}
+\begin{Question}
+    Difference between \enquote{macro} and \enquote{function} in \LaTeX{}? Which nomenclature is appropriate?
+\end{Question}
+\begin{Note}
+    Using macro inside text in the form \verb|\foo| can swallow following whitespace. When this is not the desired behavior, call the macro like \verb|\foo{}|. This passes an empty argument to the macro, leaving the following whitespace intact.
+\end{Note}
+\begin{Todo}
+    Describe \verb|\makeatletter| and \verb|\makeatother|.
+\end{Todo}
+\begin{Todo}
+    Describe \verb|\ensuremath|.
+\end{Todo}
+\begin{Todo}
+    Describe \verb|\includeonlysmart|.
+\end{Todo}
+\begin{Note}
+    Be careful about implicit endline spaces in function definitions, sometimes necessary to use \verb|%| after last command on the line.
+\end{Note}
+\begin{Todo}
+    Describe WIP mode (particularly with \LuaTeX{}).
+\end{Todo}
+\begin{Note}
+    Some comments in source code refer to files from \TeX{}Live installation on Arch Linux.
+    On other distributions or operating systems the paths might be different.
+\end{Note}

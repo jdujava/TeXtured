@@ -1,0 +1,9 @@
+## LaTeX auxiliary files:
+.aux
+*.synctex.gz
+
+## LanguageTool
+.ltex
+
+## ignore "old" PDF files
+*_old.pdf

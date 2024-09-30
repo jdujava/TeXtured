@@ -1,0 +1,22 @@
+% \setcounter{chapter}{16} % "Q" (17th letter, but latex first increments -> 17-1=16)
+% \chapter{Quick Summary}
+\chapternotnumbered{Quick Summary} \label{ch:Quick Summary}
+
+\vspace{2ex} % extra vertical space, since letter Q has a long tail
+
+%% TODO: maybe use \nameref{}, and more fluid description of chapters
+
+In \textbf{\Cref*{ch:notation}} we exhibit an example of a \emph{front matter} chapter.
+
+%% NOTE: `\makebox` is used to fix the width of "In Chapter X" part
+\makebox{In \textbf{\Cref*{ch:Design}}} we present design \emph{Principles} to which \TeXtured{} adheres.
+
+\makebox{In \textbf{\Cref*{ch:Features}}} we describe various implemented \emph{features}, design choices, and \LaTeX{} packages helping with the task of realizing goals sketched in \Cref*{ch:Design}.
+
+\makebox{In \textbf{\Cref*{ch:Tips}}} we give tips and tricks on how to fully utilize and even extend capabilities of \TeXtured{}.
+
+In \textbf{\Cref*{appendix:example}} we show an example of an Appendix chapter.
+
+\begin{Note}[WIP Disclaimer]
+    Both \Cref{ch:Features} and \Cref{ch:Tips} are as of now Work-in-Progress. There is a lot of stuff yet to be exhibited and explained.
+\end{Note}

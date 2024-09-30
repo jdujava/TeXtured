@@ -1,0 +1,38 @@
+\chapternotnumbered{Introduction} \label{ch:Introduction}
+
+Already when I started writing my bachelor thesis \autocite{Dujava2022}, I tweaked a lot the original \LaTeX{} template (which itself was slightly updated since then \autocite{MaresTemplate}) provided for students at MFF CUNI --- Faculty of Mathematics and Physics, Charles University in Prague.
+
+Some design choices originated already during this stage, particularly the significant use of theorem-like and remark-like environments with highly interlinked structure of the text.
+
+I picked up right where I left off when I started writing my master thesis \autocite{TODO}, and I have been refining the template ever since.
+Improved understanding of the coding backbone behind \LaTeX{} and its package ecosystem enabled me to customize it even further to my liking, and add even more \enquote{bells and whistles}.
+
+\begin{remark}[Template Purpose]
+    While primarily targeting theses, \TeXtured{} can be used for other document types as well.
+\end{remark}
+
+To make it user-friendly, I have restructured the preamble into several files, each of which is responsible for a specific aspect of the document.
+This way, the user can (and is encouraged to) easily find the relevant part of the code and modify it.
+
+Numerous comments and explanations are provided throughout the code to further aid the user in understanding the template without always having to consult the documentation of packages (which is recommended for more advanced changes).
+
+\begin{remark}[How to Setup]
+    To setup \TeXtured{} template for your document, you can clone the repository on GitHub \autocite{TODO}.
+    Then, you can start modifying the files to suit your needs.
+    \begin{Todo}
+        Maybe describe how to change the GitHub origin of a local clone, so that the user can push their versions to their own repository.
+    \end{Todo}
+    Also make sure to check the \texttt{README.md} file for more detailed instructions, particularly on various software dependencies.
+\end{remark}
+
+\begin{remark}[MFF CUNI Template Compatibility]
+    \TeXtured{} can be used out of the box for theses at the Faculty of Mathematics and Physics, Charles University in Prague.
+    Just be sure to include all \emph{front matter pages} and fill out necessary data:
+    \begin{itemize}
+        \item \textsf{Title Page} with the faculty logo (among other things),
+        \item \textsf{Declaration},
+        \item \textsf{Dedication} (optional),
+        \item \textsf{Information Page} including the abstract.
+    \end{itemize}
+    Layout of these front matter pages is adapted and modified from the original MFF CUNI template \autocite{MaresTemplate}. However, always make sure it is compliant with the faculty guidelines, otherwise please raise an issue on GitHub \autocite{TODO}.
+\end{remark}

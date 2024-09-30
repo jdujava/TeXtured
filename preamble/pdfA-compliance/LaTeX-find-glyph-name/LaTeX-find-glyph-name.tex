@@ -1,0 +1,33 @@
+%%% Find out the name of a glyph in LaTeX
+%% based on https://tex.stackexchange.com/a/66302
+
+%% To obtain PDF/A compliant PDF, we need to have Unicode mapping for all
+%% glyphs used in the document. This can be done in LaTeX by using the
+%% `\pdfglyphtounicode{<glyph_name>}{<Unicode_code_point>}` command.
+
+%% Name of the problematic glyph can be found by generating the following PDF.
+%% By disabling the PDF compression, we can inspect the whole PDF file as if
+%% it were a text file. Searching for `CharSet` in the PDF file we can find
+%% something like `/CharSet (/axisshort)`, which tells us that the glyph is
+%% named `axisshort`.
+
+%% Adequate Unicode code point can be found for example on the website
+%% https://codepoints.net/. Since the glyph in question is used as a short
+%% minus sign, we can search for `minus` and find the code point `U+2212`.
+
+%% The corresponding glyph to unicode mapping is then simply
+%% `\pdfglyphtounicode{axisshort}{2212}`.
+
+\pdfcompresslevel=0 % disable compression, such that we can inspect the PDF
+\documentclass[a6paper,12pt]{article}
+
+%% Load all the packages/fonts containing the problematic glyph
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\DeclareMathSymbol{\shortminus}{\mathbin}{AMSa}{"39}
+\NewDocumentCommand{\shortminusone}{}{\mspace{-1.2mu}\shortminus\mspace{-1.5mu} 1}
+
+\begin{document}
+%% INCLUDE HERE THE PROBLEMATIC GLYPH (and ideally nothing else), for example:
+\(\shortminusone\) % This contains the problematic glyph
+\end{document}

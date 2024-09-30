@@ -1,0 +1,26 @@
+%% Hyperlinks, PDF metadata
+\usepackage{hyperref}   % clickable links and metadata
+\usepackage{nameref}    % cross-referencing by name
+
+%% Fallbacks for PDF metadata commands
+\ProvideExpandableDocumentCommand{\ThesisAuthorPlaintext}{}{\ThesisAuthor}
+\ProvideExpandableDocumentCommand{\ThesisTitlePlaintext}{}{\ThesisTitle}
+\ProvideExpandableDocumentCommand{\KeywordsPlaintext}{}{\Keywords}
+
+\hypersetup{
+    linktoc=all,         % whole entry in TOC is clickable link
+    bookmarksnumbered,   % include chapter/section numbers in PDF outline
+    pdfborder={0 0 0},   % to disable borders/frames around links
+    pdflinkmargin=1.0pt, % extra link area around the text box (default 1pt)
+    citebordercolor=CiteColor,
+    linkbordercolor=LinkColor,
+    urlbordercolor=UrlColor,
+    % PDF metadata
+    pdfauthor=\ThesisAuthorPlaintext,
+    pdftitle=\ThesisTitlePlaintext,
+    pdfsubject=\Subject,
+    pdfkeywords=\KeywordsPlaintext,
+}
+
+%% NOTE: look of references, hyperlinks, and citations is customized
+%%       mainly in `preamble/hacks/custom-reference-boxes.tex`

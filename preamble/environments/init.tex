@@ -1,0 +1,40 @@
+%%% Macros for definitions, theorems, claims, examples, ...
+\usepackage{amsthm}    % enhanced theorem/proof environments
+\usepackage{thmtools}  % easier/advanced interface for theorem environments
+\usepackage{cleveref}  % enhanced cross-referencing
+
+\usepackage{tcolorbox} % flexible frames/boxes
+\tcbuselibrary{skins, breakable, theorems}
+
+%% Default style options for `tcolorbox` environments (used in theorems, remarks, ...)
+\newlength{\depthofj} \settodepth{\depthofj}{j} % save depth of character "j" (typical descender)
+\tcbset{
+    enhanced, % TODO: need to test for differences
+    colframe=black, colback=white,
+    boxrule=0.4pt, arc=3pt, boxsep=0em,
+    left=0.9em, right=0.9em, top=1.3ex, bottom=1.3ex-0.8\depthofj, % try to reduce effect of descenders
+    % enlarge bottom at break by=-\depthofj,
+    % pad at break*=3ex,
+    beforeafter skip=0.5\baselineskip plus 2pt,
+}
+
+%%% Definitions of theorem/remark-like environments
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily, bodyfont=\normalfont,
+    postheadhook=\strut,  % always same height (of the first line)
+    % prefoothook=\strut, % [this messes up the spacing when the last line is an equation]
+    %% ----------------- %%   -> better to handle with the qed symbol using `qedhere`
+]{thmcommon}
+
+%% More flexible placement of "qed" symbol (star/optional argument tweaks the vertical shift)
+%% NOTE: this is used in all theorem/remark-like environments to ensure consistent height
+%%       of the final line, particularly when the last line is an equation
+\NewCommandCopy{\oldqedhere}{\qedhere}
+\RenewDocumentCommand{\qedhere}{s o}{%
+    \def\qedshift{0.6ex}%                % by default, set shift corresponfing to normal height display math
+    \IfBooleanT{#1}{\def\qedshift{1.5ex}}% if starred, set shift corresponding to big operators (\sum, ...)
+    \IfValueT{#2}{\def\qedshift{#2}}%    % if optional argument is passed, set shift to the custom value
+    \NewCommandCopy{\oldqed}{\qedsymbol}%
+    \RenewDocumentCommand{\qedsymbol}{}{\raisebox{-\qedshift}{\oldqed}}%
+    \oldqedhere%
+}

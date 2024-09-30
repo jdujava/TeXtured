@@ -1,0 +1,52 @@
+%%% Preamble
+
+%% Data about the document, like title, author, etc.
+\input{preamble/data}
+
+%% Typesetting, figures, tables, etc.
+\input{preamble/general/typesetting}
+
+%% Colors
+\input{preamble/general/colors}
+
+%% Hyperlinks, PDF metadata
+\input{preamble/general/hyperref}
+
+%% Miscellaneous commands/macros
+\input{preamble/misc/macros}
+\input{preamble/misc/tikz}
+\input{preamble/misc/inkscape}
+
+%% Layout of the document, formatting of chapters, sections, TOC, etc.
+\input{preamble/layout/geometry}
+\input{preamble/layout/numbering}
+\input{preamble/layout/headers}
+\input{preamble/layout/titles}
+\input{preamble/layout/toc}
+
+%% Bibliography/References configuration
+\input{preamble/references/biblatex}
+
+%% Math stuff
+\input{preamble/math/packages}
+\input{preamble/math/fonts}
+\input{preamble/math/macros}
+\input{preamble/math/spacing}
+
+%% Theorem-like, Remark-like, and Todo-like environments
+\input{preamble/environments/init}
+\input{preamble/environments/theorem-like}
+\input{preamble/environments/remark-like}
+\input{preamble/environments/todo-like}
+
+%% Hacky stuff, oftentimes overriding commands of other packages
+\input{preamble/hacks/custom-reference-boxes}
+\input{preamble/hacks/fix-qed}
+
+%% DEBUG: various helper debug goodies
+\input{preamble/debug/commands}
+\input{preamble/debug/watermarks}
+
+%% User macros
+\input{preamble/user/macros}
+\input{preamble/user/math}

@@ -1,0 +1,59 @@
+%% Enable built-in LaTeX support for PDF/A compliance (must be before `\documentclass`)
+\DocumentMetadata{pdfversion=1.7, pdfstandard=A-2u}
+\input{preamble/pdfA-compliance/glyphtounicode}
+
+%% NOTE: Choose the desirable page layout version (electronic vs print)
+\documentclass[12pt,a4paper]{report}                      % single-side (electronic)
+% \documentclass[12pt,a4paper,openright,twoside]{report}  % two-sided (for printing)
+
+\newif\ifWIP
+%% NOTE: Comment out the following line for the final version
+\WIPtrue % THIS IS A WORK-IN-PROGRESS VERSION
+
+%% Preamble - data, packages, macros, and more
+\input{preamble/main}
+
+%% Only uncommented files are included (faster compilation)
+%% NOTE: If no files are uncommented, all files are included
+\includeonlysmart{
+    % frontmatter/title,
+    % frontmatter/declaration,
+    % frontmatter/dedication,
+    % frontmatter/information,
+    % chapters/Introduction,
+    % chapters/QuickSummary,
+    % chapters/Notation,
+    % chapters/Design,
+    % chapters/Features,
+    % chapters/Tips,
+    % chapters/Summary,
+    % chapters/Appendix,
+}
+
+\begin{document}
+
+\frontmatter
+\include{frontmatter/title}
+% \include{frontmatter/declaration}
+% \include{frontmatter/dedication}
+% \include{frontmatter/information}
+
+\contents
+
+\include{chapters/Introduction}
+\include{chapters/QuickSummary}
+\include{chapters/Notation}
+
+\mainmatter
+\include{chapters/Design}
+\include{chapters/Features}
+\include{chapters/Tips}
+\include{chapters/Summary}
+
+\appendix
+\include{chapters/Appendix}
+
+\backmatter
+\references
+
+\end{document}

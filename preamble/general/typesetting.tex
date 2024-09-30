@@ -1,0 +1,39 @@
+%%% Typesetting, figures, tables, etc.
+
+\ifpdftex % only for pdfLaTeX
+    \usepackage[utf8]{inputenc} % utf8 encoding
+    \usepackage[T1]{fontenc}    % better support for accented characters
+\fi
+\usepackage{lmodern}        % Latin Modern fonts
+\usepackage{fetamont}       % Logo font
+\usepackage{microtype}      % improve typography
+\usepackage{parskip}        % no paragraph indentation
+\usepackage{csquotes}       % context-sensitive quotation facilities
+
+%% Enumerate/itemize environments
+\usepackage{paralist}   % improved enumerate and itemize
+\setdefaultleftmargin{1.87em}{1.7em}{1.5em}{1em}{1em}{1em}
+\setdefaultitem{$\bullet$}{\textbullet}{\textasteriskcentered}{\textperiodcentered}
+\setdefaultenum{\bfseries (1)}{\bfseries (a)}{\bfseries (i)}{A.}
+
+%% Figures, tables, captions, etc.
+\usepackage{graphicx}       % embedding of pictures
+\graphicspath{{./figures/}{./figures/Inkscape/}{./frontmatter/img/}} % paths to figures
+\usepackage{adjustbox}      % center big tables
+\usepackage{array}          % custom column types in tables
+\usepackage{booktabs}       % improved horizontal lines in tables
+% \usepackage{tabularray}     % better LaTeX tables ...
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup{
+    font=footnotesize,
+    labelfont={sf,bf},
+    format=hang,
+    tableposition=bottom,
+}
+
+%% Same numbering for equations, figures, and tables
+\makeatletter
+\let\c@figure\c@table
+\let\c@equation\c@table
+\makeatother

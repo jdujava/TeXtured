@@ -1,0 +1,39 @@
+\chapter{Design Principles} \label{ch:Design}
+
+It is not like I stated the \emph{Principles} at the beginning and then tried to follow them.
+They emerged more naturally.
+So the causal structure is more like
+\[
+    \raisebox{-0.15ex}{\parbox[c]{6em}{\centering made some design choices}}
+    \mspace{12mu} \text{and} \mspace{10mu}
+    \parbox[c]{7em}{\centering implemented certain features}
+    \quad\longleadsto{}\quad
+    \parbox[c]{10em}{\centering recognized\\\textcolor{gray}{at first subconscious} overarching principles}~.
+\]
+Anyway, here they are.
+\begin{definition}[Design Principles] \label{def:Design Principles}
+    The main design \emph{Principles} are:
+    \begin{itemize}
+        \item \textbf{Elegance} --- Have classy, typographically elegant, and functional layout.
+        \item \textbf{Structure} --- Create smart, easy to reference and skim through structure.
+        \item \textbf{Clarity} --- Eliminate distractions and strive for clear explanations. \qedhere
+    \end{itemize}
+\end{definition}
+\begin{remark}[Common Goal, Alternative Definition via Antiprinciples]
+    There is also an alternative point of view. The common goal of \Nref*{def:Design Principles} is to minimize the following \emph{Antiprinciples}:
+    \begin{itemize}
+        \item We should be concise, and that means fewer pages, the better.
+              Long blocks of text without noticeable space between paragraphs are preferred (the reader should go on a walk to have some breathing spacetime).
+        \item Avoid creating distinct anchor points for important concepts, since an attentive reader should be able to extract them from blocks of text.
+        \item Do not waste time referencing earlier discussions and reflecting on them from the current context and point of view, as the reader is anyway making such connections all the time. \qedhere
+    \end{itemize}
+\end{remark}
+
+Each of these principles is somehow reflected in the design choices and features included (or omitted) in \TeXtured{}, see \Cref{ch:Features} for more details.
+
+\begin{remark}[Disclaimer]
+    The following is at places highly opinionated, and not applicable to all
+    scenarios and use-cases.
+    I tried to describe my reasons for specific design choices, with which you can certainly disagree.
+    I hope that at least it can provoke more people \emph{(especially you!)} to contemplate about document creation, ideally resulting in production of documents with overall better quality.
+\end{remark}

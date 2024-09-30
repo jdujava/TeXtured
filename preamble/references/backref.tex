@@ -1,0 +1,17 @@
+%%% Custom `backref`
+%% https://tex.stackexchange.com/questions/272159/biblatex-change-format-of-backreference
+%% https://tex.stackexchange.com/questions/76133/bibliography-backref-on-new-line-with-smaller-font-size
+%% https://tex.stackexchange.com/questions/91548/bump-right-aligned-text-to-next-line-iff-no-room
+%% -> changed from /usr/share/texmf-dist/tex/latex/biblatex/biblatex.def
+\renewcommand*{\finentrypunct}{}
+\DeclareFieldFormat{pagerefformat}{
+    \nobreak\hfill\penalty50\hskip0.5em\null\nobreak
+    % \hfill\mkbibparens{{\scriptsize #1}}\normalsize
+    \hfill\scriptsize{#1}\normalsize%
+    \parfillskip=0pt \finalhyphendemerits=0 \par
+}
+\renewbibmacro*{pageref}{%
+    \iflistundef{pageref}
+    {}
+    {\printtext[pagerefformat]{% use custom format
+            \printlist[pageref][-\value{listtotal}]{pageref}}}}%

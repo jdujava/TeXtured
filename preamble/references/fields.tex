@@ -1,0 +1,36 @@
+%%% Modification of fields in References/Bibliography
+
+%% if DOI is present, remove URL
+%% ignore certain fields completely
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+        \map[overwrite]{
+            \step[fieldsource=doi, final]  % if DOI is not present, terminate
+            \step[fieldset=url, null]      % (if DOI is present) remove URL
+            % \step[fieldset=eprint, null]
+        }
+        \map{
+            \step[fieldset=pages, null]
+            \step[fieldset=number, null]
+            \step[fieldset=volume, null]
+            \step[fieldset=series, null]
+            \step[fieldset=location, null]
+            \step[fieldset=address, null]
+        }
+    }
+}
+
+%% Custom localisation strings
+\DeclareCapitalPunctuation{} % disable automatic capitalization of localisation strings
+\NewBibliographyString{arxiv, github} % define new localisation strings
+\DefineBibliographyStrings{english}{
+    url = {\textsc{url}},
+    arxiv = {\textsc{arXiv}},
+    github = {\textsc{GitHub}},
+    in = {\textsc{in}},
+    % in = {},
+    editor = {editor},
+    editors = {editors},
+}
+
+%% TODO: PhD or Ph.D.?

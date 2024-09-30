@@ -1,0 +1,55 @@
+%% Chapter without number, but included in header and TOC
+\NewDocumentCommand{\chapternotnumbered}{m}{
+    \chapter*{#1}
+    \markboth{#1}{#1}                   % use chapter title in header
+    \addcontentsline{toc}{chapter}{#1}  % include chapter in TOC
+}
+
+%%% Chapter and section formatting
+\usepackage{titlesec}
+
+%% Make math bold in (sub)section titles by default with `\boldmath`
+\titleformat{\section}{\normalfont\Large\boldmath\bfseries}{\thesection}{1em}{}
+%% NOTE: also include `\phantomsection` so even non-numbered subsections have proper anchors for hyperlinks
+\titleformat{\subsection}{\phantomsection\normalfont\large\boldmath\bfseries}{\thesubsection}{1em}{}
+
+%%% Chapter title formatting
+%% No extra space above and below chapter headings, big number/letter behind chapter title
+%% inspired by https://tex.stackexchange.com/a/690632
+%% TODO: try to shift chapter anchors a little bit up, so reference links give a nice view
+\makeatletter
+\def\@chaphead#1#2{
+    {\setlength{\parindent}{0pt} \raggedright \normalfont
+        % \vspace*{15pt}%
+        % \Huge\bfseries \thechapter\hspace{0.5em} #1
+        \chapterheadingletter{#2}% Chapter number/letter
+        \Huge\boldmath\bfseries #1 % Chapter title (\boldmath to also make math bold by default)
+        \par\nobreak
+        \vspace{20pt}
+    }}
+\def\@makechapterhead#1{\@chaphead{#1}{\thechapter}}      % Use Chapter number
+\def\@makeschapterhead#1{\@chaphead{#1}{\extract{#1}{1}}} % Extract first letter of the current chapter title
+\makeatother
+
+%% Chapter number/letter formatting
+\NewDocumentCommand{\chapterheadingletter}{m}{%
+    \makebox[0pt][l]{%              Make box of zero width, don't move other stuff horizontally
+        \raisebox{-3ex}[0pt][0pt]{% Align the number vertically, don't move other stuff vertically
+            \hspace{0.7em} \color{ChapterNumberColor}% Horizontal whitespace, text color
+            % BUG: \color[gray]{0.6} latex-tree-sitter grammar does not recognize this
+            \usefont{T1}{qzc}{m}{it}\fontsize{20ex}{20ex}\selectfont% Font type and size (TeX Gyre Chorus)
+            #1 % Chapter heading letter
+        }%
+    }%
+}
+%% Macro to extract first `#2` characters from `#1`
+%% https://tex.stackexchange.com/questions/402835/extract-first-character-of-string-stored-in-macro-using-expl3
+%% TODO: latex treesitter grammar support ExplSyntaxOn/Off, command names containting also `_:`
+\ExplSyntaxOn
+\cs_generate_variant:Nn \tl_item:nn { f }
+\DeclareExpandableDocumentCommand{\extract}{mm}{
+    \tl_item:fn { #1 } { #2 }
+}
+\ExplSyntaxOff
+
+%% TODO: check for inital letters in the chapter ~/Documents/customfiles/phd-thesis-valentin/tex/preamble/settings/initials.tex

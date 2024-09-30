@@ -1,0 +1,32 @@
+%% serif semi-bold --- but it is just `sbc` (serif bold condensed)
+%% used for serif in chapter/section/... titles
+%% https://tex.stackexchange.com/questions/27843/level-of-boldness-changeable
+\NewDocumentCommand{\sbseries}{}{\sffamily\fontseries{sbc}\selectfont}
+\DeclareTextFontCommand{\textsb}{\sbseries}
+
+%% set the default bold math sans font to be `serif bold condensed`
+\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{sbc}{\updefault}
+
+%% math serif italic font
+\DeclareMathAlphabet{\mathsfit}{T1}{\sfdefault}{\mddefault}{\sldefault}
+\SetMathAlphabet{\mathsfit}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
+
+%% Serif Greek Letters
+%% see https://mirrors.nic.cz/tex-archive/fonts/cmbright/cmbright.pdf
+\DeclareSymbolFont{sfletters}{OML}{cmbrm}{m}{it}
+\DeclareSymbolFont{sflettersbold}{OML}{cmbrm}{b}{it}
+\DeclareMathSymbol{\sGamma}{\mathalpha}{sflettersbold}{0}
+\DeclareMathSymbol{\salpha}{\mathalpha}{sfletters}{11}
+\DeclareMathSymbol{\sbeta}{\mathalpha}{sfletters}{12}
+\DeclareMathSymbol{\sgamma}{\mathalpha}{sfletters}{13}
+\DeclareMathSymbol{\sepsilon}{\mathalpha}{sfletters}{34}
+
+%% Load doublebrackets symbols
+%% (need to declare `pdfglyphtounicode` translations to satisfy PDF/A -> done in `pdfA-compliance.tex`)
+\DeclareSymbolFont{stmry}{U}{stmry}{m}{n}
+\DeclareMathDelimiter{\dblbracketleft}{\mathopen}{stmry}{"4A}{stmry}{"71}
+\DeclareMathDelimiter{\dblbracketright}{\mathclose}{stmry}{"4B}{stmry}{"79}
+
+%% Shorter minus sign - https://tex.stackexchange.com/a/469724
+\DeclareMathSymbol{\shortminus}{\mathbin}{AMSa}{"39}
+\NewDocumentCommand{\shortminusone}{}{\mspace{-1.2mu}\shortminus\mspace{-1.5mu} 1}

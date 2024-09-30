@@ -1,0 +1,26 @@
+\setcounter{chapter}{13} % "N" (14th letter, but latex first increments -> 14-1=13)
+\chapter{Notation \& Conventions} \label{ch:notation}
+% NOTE: since we are in the "frontmatter" part, we need to manually set headers
+%       we didn't use `\chapternotnumbered`, because we want its letter in TOC,
+%       and the numbering of environments to be of the form "N.1"
+\markboth{Notation \& Conventions}{Notation \& Conventions}
+
+\vspace{2ex}
+
+\begin{example}[Usage of Mathematical Fonts]
+    To make the text more readable and beautiful, we can use different types of mathematical fonts for different types of objects (striving to be at least somewhat consistent):
+    \begin{itemize}
+        \item \(\bm{Bold}\) often for tensorial object (abstract index).
+        \item \(\mathsf{Serif}\) for groups, certain spaces, or some operations/maps.
+        \item \(\mathfrak{Fraktur}\) for algebras (and densities).
+        \item \(\mathcal{C}a\ell\ell i\textsl{g}raphic\) (available are only capital letters, and \(\ell\), also different \textsl{g}).
+        \item \(\mathbb{D}\)ouble-\(\mathbb{S}\)truck for fields like \(\R\), spaces like \(\Sphere^{n}\) and \(\CP^{n}\).
+        \item \(\mathtt{Typewriter}\) for code functions, or other special objects. \qedhere
+    \end{itemize}
+\end{example}
+
+\begin{remark}
+    This chapter is numbered (or perhaps more precisely \enquote{lettered}). This means that is appears in Table of Contents with its letter \textbf{N}, which also prefixes all numbering of environments in this chapter.
+
+    On the other hand, \Nref{ch:Introduction} and \Nref{ch:Quick Summary} are unnumbered (or \enquote{unlettered}) in this sense.
+\end{remark}

@@ -1,0 +1,258 @@
+\chapter{Features of \TeXtured{}} \label{ch:Features}
+
+\begin{Note}[WIP Disclaimer]
+    This chapter is Work-in-Progress.
+\end{Note}
+\begin{Todo}
+    When referencing to a package, link to its documentation/CTAN page.
+\end{Todo}
+
+First two sections are about typography of the document, next are more about its contents and structure.
+
+\section{Page Layout and Style}%
+\label{sec:Page Layout}
+
+\subsection{Page Dimensions, Printing Layout}%
+\label{sub:Page Dimensions}
+
+\texttt{geometry} package --- set up the page layout (supported single/double-sided printing).
+Apply \verb|\flushbottom| --- try to make text body on all pages have the same height.
+
+\subsection{Headers, Footers}%
+\label{sub:Headers Footers}
+
+\texttt{fancyhdr} package --- headers and footers --- consistent style also for initial page of a chapter (not totally different style with numbering in the bottom center \ldots).
+
+\subsection{Heading Style}%
+\label{sub:Heading Style}
+
+Pretty chapter heading style --- big calligraphic number/letter behind the title.
+
+
+\section{Sane Typographical Defaults}%
+\label{sec:Sane Typographical Defaults}
+
+Now we will concern ourselves with more intricate and detailed typography (more at level of sentences, words, and even letters).
+
+\subsection{Paragraphs, Captions}%
+\label{sub:Paragraphs}
+
+No paragraph indentation, proper space between paragraphs --- \texttt{parskip}.
+Caption styling --- hang, \verb|\footnotesize| font, bold serif label (like other environments).
+
+\subsection{Font and Related Stuff}%
+\label{sub:Font}
+
+Nothing special here.
+The default choice are Latin Modern fonts --- classic really.
+Quotation --- \texttt{csquotes}.
+
+\subsection{Micro-Typography}%
+\label{sub:Micro-Typography}
+
+Enable micro-typographic extensions with package \texttt{microtype}, most prominently character protrusion and font expansion.
+
+Following quote from \texttt{microtype} documentation nicely explains what it is about:
+\begin{displayquote}
+    Micro-typography is the art of enhancing the appearance and readability of a
+    document while exhibiting a minimum degree of visual obtrusion.
+    It is concerned with what happens between or at the margins of characters, words or lines.
+    Whereas the macro-typographical aspects of a document (i.e., its layout) are clearly visible even to the untrained eye, micro-typographical refinements should ideally not even be recognisable.
+    That is, you may think that a document looks beautiful, but you might not be able to tell exactly why: good micro-typographic practice tries to reduce all potential irritations that might disturb a reader.
+\end{displayquote}
+
+
+\section{Document Structure}%
+\label{sec:Document Structure}
+
+Implemented mostly via \texttt{tcolorbox} package (and \texttt{thmtools}).
+
+\subsection{Theorem/Remark--like Environments}%
+\label{sub:Theorem/Remark--like Environments}
+
+\begin{itemize}
+    \item clear structure, enables high level of interlinking
+    \item include title if possible --- rough idea after first look, quicker navigation/finding
+    \item non-intrusive indicators for the end of non-boxed environments
+    \item shared numbering, together with tables, figures, equations, \ldots
+          --- linear increase of reference number, easier to find
+    \item easy to skim through, get quickly an idea, and know what to expect
+    \item not only for physics/math texts, can be used to highlight key ideas
+    \item no emphasis for the whole body of definitions \ldots we have box for that \ldots
+\end{itemize}
+
+\begin{Note}
+    There are also helper environments for TODO-like notes.
+\end{Note}
+
+\begin{Note}
+    No \enquote{code listing} setup yet.
+    PRs welcome.
+\end{Note}
+
+\subsection{References, Links}%
+\label{sub:References Links}
+
+Custom reference/link/citation styles.
+\begin{itemize}
+    \item I like distinguished references/links/citations
+    \item always use \verb|\Cref| from \texttt{cleveref} package
+    \item frames are useful, but not that pretty (they can obscure punctuation \ldots),
+          and the PDF viewer must support them
+    \item just color is sometimes alright, but less ideal when printing
+    \item sometimes good to have an idea where they point (mainly when printed, no ability to click) --- include page number
+    \item there is slight inconvenience due to small flexibility around line breaks (would be nice to have proper workaround, like link breaking or something like that)
+\end{itemize}
+
+\subsection{Table of Contents, Index}%
+\label{sub:Table of Contents and Index}
+
+Clear Table of Contents.
+\begin{itemize}
+    \item subsections included (in a compact style), but not numbered...
+    \item don't frame references in the Contents, just keep it clean and simple
+    \item include everything important
+\end{itemize}
+
+Proper Index (ToC in PDF viewer).
+\begin{itemize}
+    \item very handy for navigating longer documents
+    \item include also other important pages other then just initial pages of main chapters: Contents, Introduction, References, \ldots
+    \item I use Zathura as my PDF viewer, where Index is just one \texttt{Tab} away \ldots
+\end{itemize}
+
+
+\section{Bibliography/References}%
+\label{sec:Bibliography/References}
+
+Clear Bibliography/References, via \texttt{biblatex} package.
+
+\subsection{Bibliography Style}%
+\label{sub:Bibliography Style}
+
+Entries in \todo{somehow reference References}:
+\begin{itemize}
+    \item have clean consistent style based on \texttt{ext-numeric-verb}
+    \item support (new) \texttt{github} field
+    \item have DOI/arXiv/URL/GitHub links on the new line
+    \item include \enquote{backlinks}
+\end{itemize}
+
+\begin{Note}
+    Make sure to gather all the relevant data you need for every reference. There is then a way to reduce unimportant information, for example
+    \begin{itemize}
+        \item remove \texttt{url} field if \texttt{doi} field is present
+        \item ignore unwanted fields (\texttt{pages}, \texttt{number}, \texttt{volume}, \texttt{series}, \texttt{location}, \ldots)
+    \end{itemize}
+\end{Note}
+
+\subsection{Citation Style}%
+\label{sub:Citation Style}
+
+Include \texttt{[} and \texttt{]} characters around citation number inside the link (and wrap in \texttt{tcolorbox} \ldots), for example \autocite{Dujava2022}.
+
+
+\section{PDF/A Compliance}%
+\label{sec:PDF/A Compliance}
+
+Proper metadata setup (via \texttt{hyperref} and \verb|\DocumentMetadata|).
+\begin{Note}
+    Various data about the work should be entered in \texttt{preamble/data.tex} file. When the relevant entries contain \LaTeX{} commands (for example to obtain specific formatting of the title), it is necessary to provide \enquote{plaintext} variations, so that \texttt{hyperref} can properly setup PDF metadata.
+\end{Note}
+
+Next we will describe various common violations of PDF/A standard, and how to fix them.
+
+\subsection{Glyph to Unicode Map}%
+\label{sub:Glyph to Unicode Map}
+
+\begin{Todo}
+    Link to guide on how to find the name of a glyph, and how to provide \emph{glyph to Unicode} mapping.
+\end{Todo}
+
+\subsection{PDF \texorpdfstring{\texttt{/Interpolation}}{/Interpolation} Key}%
+\label{sub:PDF Interpolation Key}
+
+Some PDFs can have enabled the \texttt{/Interpolation} key, for example \texttt{Inkscape} generated PDFs with blur parts.
+However, PDF/A requires it to be disabled.
+
+
+\section{Code Organization}%
+\label{sec:Code Organization}
+
+\begin{itemize}
+    \item broke the code into multiple files by its function
+    \item use \verb|aux_dir| to minimize clutter
+    \item no big, hard to navigate, preamble files
+    \item try to follow \enquote{one sentence per line} rule --- improves diffs for versioning systems like \texttt{git} --- tools like \texttt{latexindent} can help
+          \begin{Note}
+              My config for \texttt{latexindent} mostly works, but some corner cases can surface.
+              Will share someday.
+          \end{Note}
+\end{itemize}
+
+\begin{Suggestion}
+    Enter your own macros in the \texttt{preamble/user/} directory, which is reserved precisely for this purpose. Then, if you would like to update to a newer version of \TeXtured{}, you will be having easier time --- less mixing of your code with the template code will result in fewer conflicts you must resolve manually.
+\end{Suggestion}
+
+
+\subsection{Math Macros}%
+\label{sub Macros}
+
+\begin{itemize}
+    \item frequently define macros for notation used more than once
+          --- easier switch to different \ldots, since now we have syntactically differentiated,
+          otherwise there could be conflicts between different brackets and so on
+          --- better automation of fine-tuning (spacing, different versions \ldots)
+    \item \verb|\ensuremath| for easier use outside math mode
+    \item better extendable arrows with \texttt{tikz}
+\end{itemize}
+
+
+\subsection{\texorpdfstring{\texttt{Inkscape}}{Inkscape} Integration}%
+\label{sub:Inkscape Integration}
+
+\begin{itemize}
+    \item automatic export after changing the \texttt{svg} (need to enable \verb|--shell-escape| for \pdfTeX{} or \LuaTeX{}, done via \texttt{.latexmkrc})
+    \item watermark via \texttt{ps} injection
+        \begin{Note}[Watermark String]
+            Edit the watermark text in the shell script \verb|figures/Inkscape/inkscape-export-to-latex| to your liking.
+        \end{Note}
+        \begin{Todo}
+            Make it easier to change the watermark text. Or extract it somehow automatically from the PDF document?
+        \end{Todo}
+    \item automatic fix of \texttt{/Interpolation} key problem
+\end{itemize}
+
+
+\section{Non-Features}%
+\label{sec:Non-Features}
+
+These features were deemed unnecessary, or even counterproductive, and thus were not implemented/not customized.
+This does not mean that it is hard or not compatible to use them with \TeXtured{}.
+
+\subsection{Footnotes}%
+\label{sub:Footnotes}
+
+\begin{itemize}
+    \item they break the flow of reading, can be distracting
+    \item either it is important and you want it there --- no need to use footnotes,
+          or it is not so important (maybe just a reminder/remark), but then there
+          are in my opinion better ways to handle such situation
+          \begin{itemize}
+              \item grayed out/smaller text, sidenotes are better alternative, if the page layout enables them
+              \item it is not bad to remind reader of something in the main text\ldots
+          \end{itemize}
+\end{itemize}
+
+\subsection{List of Figures, List of ...}%
+\label{sub:List of Figures List of ...}
+
+Don't really see the point, but one is free to include it.
+
+\subsection{Index, Glossary}%
+\label{sub:Index Glossary}
+
+\begin{itemize}
+    \item since the text is primarily intended for electronic use, finding usage of certain terms is easy
+    \item text should be ideally structured in such a way, that finding definitions of important terms is straightforward --- interlinking/referencing in proper places to indicate where the notion to be used was defined/discussed
+\end{itemize}

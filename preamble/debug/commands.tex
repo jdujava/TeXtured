@@ -1,0 +1,15 @@
+%% Include only listed files
+%% NOTE: ignored if the document is not in WIP mode, or if the argument is empty
+\NewDocumentCommand{\includeonlysmart}{m}{
+    \ifWIP                              % ignore if not WIP
+        \IfBlankF{#1}{\includeonly{#1}} % ignore if empty argument
+    \fi
+}
+
+%% Draw black "slugs" whenever a line overflows, so that we can spot it easily
+\ifWIP
+    \overfullrule=1mm
+    \ifluatex % only for luaLaTeX
+        \usepackage{lua-visual-debug}
+    \fi
+\fi

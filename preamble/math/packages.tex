@@ -1,0 +1,32 @@
+%% Math/Physics packages
+\usepackage{amsmath}    % extensions for typesetting of math
+\usepackage{mathtools}  % advanced math typesetting
+\usepackage{scalerel}   % scaling of math symbols (\ThisStyle, \SavedStyle, ...)
+% \usepackage{esint}      % various fancy integral symbols
+% \usepackage{arydshln}   % dashlines
+
+%% Math fonts & symbols
+\usepackage{amsfonts}   % math fonts
+\usepackage{amssymb}    % math fonts
+\usepackage{bm}         % boldface math via `\bm`
+
+%% Some notation used in physics
+\usepackage[italicdiff]{physics}
+
+% \usepackage{tensor}     % tensor indices
+\usepackage{tensind}    % tensor indices
+\tensordelimiter{@}
+\tensorformat{c}
+\NewDocumentCommand{\tens}{o m m}{
+    \IfValueTF{#1}{@[#1]{#2}#3@}{@{#2}#3@}
+}
+
+%% Units
+\usepackage{siunitx}
+\sisetup{
+    exponent-product = \ensuremath{\cdot},
+    uncertainty-mode = separate,
+    % table-align-uncertainty = false,
+    table-alignment-mode = format,
+    % table-number-alignment = center,
+}

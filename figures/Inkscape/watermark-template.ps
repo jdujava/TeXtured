@@ -1,0 +1,23 @@
+% https://community.adobe.com/t5/postscript-discussions/make-text-watermark-on-top-of-background-image/m-p/5223824
+% https://stackoverflow.com/questions/12243044/is-it-possible-in-ghostscript-to-add-watermark-to-every-page-in-pdf
+% https://www.tek-tips.com/viewthread.cfm?qid=830058
+<<
+  /BeginPage % pushes an integer on the operand stack indicating how many times showpage has been invoked
+  {
+    0 eq {                                      % only on the first page (0th invocation)
+      currentpagedevice /PageSize get aload pop % get the page size (stack: `width` `height`)
+      /ph exch def /pw exch def                 % save page height to `ph` and width to `pw`
+      gsave                                     % save current graphics state (used for restoring it later)
+      /NimbusMonoPS-Regular findfont            % find a font
+      2 scalefont setfont 0.9 setgray           % set the font size and the gray level
+      /myString (<watermark>) def               % define watermark text
+      myString dup stringwidth pop 2.5 add      % ignore the height and get the width of the string (+extra offset for ©)
+      pw exch sub 1.2 moveto                    % move to (x,y)=(`pw`-`stringwidth`-2.5,1.2) -> bottom right corner
+      /copyright glyphshow                      % print the copyright symbol
+      show                                      % print the watermark text
+      grestore                                  % restore graphics state (to not disturb original content)
+      true                                      % show the page
+    }
+    { true } ifelse                             % just show the page
+  } bind
+>> setpagedevice

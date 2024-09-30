@@ -1,0 +1,13 @@
+%% Inkscape figures
+%% https://mirrors.nic.cz/tex-archive/info/svg-inkscape/InkscapePDFLaTeX.pdf
+%% this is (and a lot more) already implemented in `svg` package, but no reason to use it
+%% TODO: disable this for ArXiv submission (probably just leaving SVGs out will work fine)
+\usepackage{shellesc}
+\usepackage{filemod}
+\NewDocumentCommand{\includesvg}{O{0.8\linewidth} O{./figures/Inkscape/} m}{%
+    \filemodCmp{#2#3.pdf}{#2#3.svg}{}{% regenerate PDF+LaTeX code if SVG is newer
+        \ShellEscape{#2inkscape-export-to-latex "#2#3"}
+    }
+    \def\svgwidth{#1} % set the width of the figure
+    \input{#2#3.pdf_tex}
+}

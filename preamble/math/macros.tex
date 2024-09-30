@@ -1,0 +1,221 @@
+%%% Macros for math symbols
+
+%% Misc math macros
+\NewCommandCopy{\sq}{\sqrt}
+\DeclareMathOperator{\sgn}{sgn}
+\NewDocumentCommand{\Id}{}{\bm{1}}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\diag}{diag}
+\NewDocumentCommand{\bdry}{m}{\partial #1}
+\NewDocumentCommand{\disjunion}{}{\sqcup} % TODO: spacing too small sometimes (in subscripts)
+\NewDocumentCommand{\inclusion}{}{\hookrightarrow}
+\NewDocumentCommand{\surjection}{}{\twoheadrightarrow}
+
+%% Imaginary unit and Euler's number
+%% inspired by Niklas Beisert
+\NewDocumentCommand{\iunit}{}{\mathring{\imath}}
+\NewDocumentCommand{\eunit}{}{\mathinner{\mathrm{e}}}
+\NewDocumentCommand{\eunits}{}{\mathrm{e}}
+
+%%% Various fields and number sets
+\NewDocumentCommand{\R}{}{\mathbb{R}}
+\NewDocumentCommand{\Z}{}{\mathbb{Z}}
+\NewDocumentCommand{\C}{}{\mathbb{C}}
+\NewDocumentCommand{\F}{}{\mathbb{F}}
+\NewDocumentCommand{\N}{}{\mathbb{N}}
+
+%% Override `physics` package command `\dd` to optionally use bold `d`
+\RenewDocumentCommand{\dd}{s O{ } m}{
+    \mathinner{
+        \IfBooleanTF{#1}{\mathrm{d}}{\mathbf{d}}^{\mspace{-1mu}#2}#3
+    }
+}
+
+%% Group/Representation Theory
+\NewDocumentCommand{\Sym}{}{S}
+\NewDocumentCommand{\Symtrless}{}{\Sym_{\odot}}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\gl}{\mathfrak{gl}}
+\DeclareMathOperator{\GL}{\mathsf{GL}}
+\let\sl\relax % override (anyway deprecated) `sl` command
+\DeclareMathOperator{\sl}{\mathfrak{sl}}
+\DeclareMathOperator{\SL}{\mathsf{SL}}
+\DeclareMathOperator{\oo}{\mathfrak{o}}
+\DeclareMathOperator{\OO}{\mathsf{O}}
+\DeclareMathOperator{\so}{\mathfrak{so}}
+\DeclareMathOperator{\SO}{\mathsf{SO}}
+\DeclareMathOperator{\spin}{\mathfrak{spin}}
+\DeclareMathOperator{\Spin}{\mathsf{Spin}}
+\DeclareMathOperator{\U}{\mathsf{U}}
+\DeclareMathOperator{\su}{\mathfrak{su}}
+\DeclareMathOperator{\SU}{\mathsf{SU}}
+\DeclareMathOperator{\Sp}{\mathsf{Sp}}
+\NewDocumentCommand{\g}{}{\ensuremath{\mathfrak{g}}}
+\NewDocumentCommand{\rankgroup}{}{\ensuremath{\mathsf{r}}}
+
+%% Differential Geometry
+\DeclareMathOperator{\Sect}{Sect}
+\NewDocumentCommand{\Lie}{}{\mathcal{L}}
+\DeclarePairedDelimiterX{\Liebracket}[2]{\dblbracketleft}{\dblbracketright}{#1,#2}
+% \DeclarePairedDelimiterX{\Liebracket}[2]{\lbrack}{\rbrack}{#1,#2}
+
+\DeclareMathOperator{\Tor}{\mathsf{Tor}}
+\NewDocumentCommand{\Riem}{}{\bm{R}}
+\NewDocumentCommand{\Ric}{}{\mathbf{Ric}}
+\NewDocumentCommand{\Rscalar}{}{\mathcal{R}}
+
+%% Covariant derivative (with optional arguments for space tweaking)
+%% BUG: latex-grammar ERROR https://github.com/latex-lsp/tree-sitter-latex/issues/157
+\NewDocumentCommand{\cder}{s O{a} e{_}}{
+    \IfBooleanT{#1}{\mspace{-2mu}} % use starred variant when more \cder after each other
+    \bm{\nabla}
+    \IfValueT{#3}{                  % when subscript index is given
+        _{                          % start subscript
+            \mspace{-7mu}           % remove extra space after nabla
+            \centerhphantom{#3}{#2} % print #3 with the width of #2
+        }
+    }
+}
+%% Coordinate derivative
+\NewDocumentCommand{\cpartial}{}{\bm{\partial}}
+
+
+
+%%% Tweaking of math index positioning, spacing, etc.
+%%% (also definitions of new arrows, etc.)
+
+%% TODO: see if \cramped{...} could be used sometimes to make
+%%       (inline) math prettier (to avoid weird line spacing weird)
+
+%% Modify position of superscript for \bigwedge
+\NewDocumentCommand{\Ext}{e{^}}{
+    \mathop{\bigwedge\nolimits\IfValueT{#1}{^{\mspace{-5mu}\raisebox{-0.13em}{\scriptsize\(#1\)}}}}
+}
+\NewDocumentCommand{\textExt}{m}{\text{\scalebox{.9}{\(\displaystyle\Ext#1\)}}}
+
+%% Exchange \epsilon and \varepsilon
+\NewCommandCopy{\oldepsilon}{\epsilon}
+\RenewCommandCopy{\epsilon}{\varepsilon}
+\RenewCommandCopy{\varepsilon}{\oldepsilon}
+
+%% Modify subscript position
+\NewDocumentCommand{\lowerindex}{O{0pt} O{0pt} e{_^}}{
+    _{\IfValueT{#3}{\raisebox{#1}{\(\scriptstyle #3\)}}}
+    ^{\IfValueT{#4}{\raisebox{#2}{\(\scriptstyle #4\)}}}
+}
+
+%% Modify superscript/subscript positions for some greek letters
+%% NOTE: maybe use \mathstrut or \xmathstrut
+\NewCommandCopy{\oldchi}{\chi}
+\RenewDocumentCommand{\chi}{}{\oldchi\lowerindex[-1.5pt]}
+\NewCommandCopy{\olddelta}{\delta}
+\RenewDocumentCommand{\delta}{}{\olddelta\lowerindex[1pt][1.0pt]}
+\NewDocumentCommand{\bmdelta}{}{\bm{\olddelta}\lowerindex[1pt][1.0pt]}
+\NewDocumentCommand{\altdelta}{}{{\olddelta\xmathstrut[-0.2]{0.0}}}
+\NewDocumentCommand{\altbmdelta}{}{{\bm{\olddelta}\xmathstrut[-0.2]{0.0}}}
+
+%% Determinants (use normal position of superscript/subscript)
+\NewCommandCopy{\olddet}{\det}
+\RenewDocumentCommand{\det}{}{\olddet\nolimits}
+\DeclareMathOperator{\Det}{Det}
+
+%% Fix spacing of \left( .. \middle| .. \right)
+\NewCommandCopy{\originalleft}{\left}
+\NewCommandCopy{\originalright}{\right}
+\NewCommandCopy{\originalmiddle}{\middle}
+\RenewDocumentCommand{\left}{}{\mathopen{}\mathclose\bgroup\originalleft}
+\RenewDocumentCommand{\right}{}{\aftergroup\egroup\originalright}
+\RenewDocumentCommand{\middle}{m}{\mathrel{}\originalmiddle#1\mathrel{}}
+
+%% Less space around \setminus (\mathord instead of \mathinner)
+\DeclareMathSymbol{\setminus}{\mathord}{symbols}{"6E}
+
+%% Redefine `\square` to Young tableaux
+\usepackage{ytableau}           % Young Tableaux
+\ytableausetup{centertableaux}
+\NewCommandCopy{\oldsquare}{\square}
+\NewCommandCopy{\oldotimes}{\otimes}
+\RenewDocumentCommand{\square}{O{0.55em} O{top} O{}}{%
+    \IfBlankTF{#1}{\ytableausetup{boxsize=0.55em}}{\ytableausetup{boxsize=#1}}%
+    \ytableausetup{aligntableaux=#2}%
+    \operatorname{\ydiagram[#3]{1}}%
+}
+\NewDocumentCommand{\smallsquare}{O{0.35em}}{\square[#1]}
+
+%% Smaller \in, \notin, \subset, ...
+%% https://tex.stackexchange.com/questions/34393/the-mysteries-of-mathpalette
+\NewDocumentCommand{\smallerrel}{m}{\mathrel{\mathpalette\smallerrelaux{#1}}}
+\NewDocumentCommand{\smallerrelaux}{mm}{\raisebox{.1ex}{\scalebox{.85}{\(#1#2\)}}}
+\NewDocumentCommand{\smallin}{}{\smallerrel{\in}}
+\NewDocumentCommand{\smallnotin}{}{\smallerrel{\notin}}
+\NewDocumentCommand{\smallsubset}{}{\smallerrel{\subset}}
+\NewDocumentCommand{\smallotimes}{}{\mspace{+1mu}\raisebox{.275ex}{\scalebox{.5}{\(\oldotimes\)}}\mspace{+1mu}}
+
+
+%% Sizeable bullet
+\NewCommandCopy{\oldbullet}{\bullet}
+\NewDocumentCommand{\sbullet}{O{0.5}}{%
+    \mathbin{\ThisStyle{\vcenter{\hbox{\scalebox{#1}{\(\SavedStyle\bullet\)}}}}}
+}
+
+%% (abstract) index placeholders
+\NewDocumentCommand{\aind}{}{\bullet}
+\NewDocumentCommand{\ind}{}{\mathcolor{lightgray}{\bullet}}
+
+%% square argument placeholder
+\NewDocumentCommand{\argument}{s o}{
+    \def\squaresize{0.4em}                 % default size
+    \IfBooleanT{#1}{\def\squaresize{0.3em}} % if starred, set size corresponding to scriptstyle
+    \IfValueT{#2}{\def\squaresize{#2}}      % if optional argument is passed, set size to custom value
+    \mathcolor{Gray40}{\square[\squaresize][top][*(LightGrayFill)]}
+}
+
+%% Curly arrows
+\tikzset{
+    leadsto/.style={-{Stealth[length=0.6em,open,round]},decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.1em,post length=0.6em}},
+    correspondsto/.style={{Stealth[length=0.6em,open,round]}-{Stealth[length=0.6em,open,round]},decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.7em,post length=0.7em}},
+}
+\NewDocumentCommand{\longleadsto}{O{2.8em}}{
+    \tikz[baseline=-0.5ex]{ \draw[line width=0.7pt, leadsto] (0,0) -- (#1,0); }
+}
+%% https://tex.stackexchange.com/questions/170092/xleftrightarrows-command-in-tikz-with-arrows-matching-the-latex-font?rq=1
+\NewDocumentCommand{\correspondsto}{O{}O{}}{%
+    \ensuremath{\mathrel{
+            \tikz[baseline=-0.5ex, font=\scriptsize]{
+                \node[minimum width=3.48em, inner xsep=0.8em, align=center] (a){\hphantom{#1}\\[0ex]\hphantom{#2}};
+                \IfBlankF{#1}{\node[inner sep=0.3ex, above=0.3ex] at (a){#1};}
+                \IfBlankF{#2}{\node[inner sep=0.3ex, below=0.3ex] at (a){#2};}
+                \draw[line width=0.6pt, correspondsto] (a.west) -- (a.east);
+            }
+        }}%
+}
+
+%% Quotient macro
+\NewDocumentCommand{\bigslant}{O{0.2}O{1.7}mm}{
+    \left. \raisebox{#1em}{\(#3\)}
+    \mspace{-#2mu} \originalmiddle/ \mspace{-\fpeval{#2+1}mu}
+    \raisebox{-#1em}{\(#4\)} \mspace{-\fpeval{5*#1}mu} \right.
+}
+% \NewDocumentCommand{\coset}{O{0.05} O{0.1} m m}{\bigslant[#1][#2]{#3}{#4}}
+\NewDocumentCommand{\coset}{O{}O{} m m}{#3/#4}
+\NewDocumentCommand{\gt}{}{\bigslant{\g}{\mathfrak{t}}}
+\NewDocumentCommand{\gts}{}{\bigslant[0.15]{\scriptstyle\g}{\scriptstyle\mathfrak{t}}}
+\NewDocumentCommand{\onehalf}{}{\!\bigslant[0.15]{\scriptscriptstyle 1 \mspace{-1.2mu}}{\scriptscriptstyle 2}}
+
+%% Cancel macro
+\definecolor{cancelgray}{gray}{0.85}
+\tikzset{
+    main node/.style={inner sep=0,outer sep=0},
+    label node/.style={inner sep=0.3em,font=\tiny,overlay},
+    strike out/.style={shorten <=-.2em,shorten >=-.2em,overlay,thick,double distance = 0em,line cap=round},
+}
+\NewDocumentCommand{\cancel}{O{cancelgray}mo}{%
+    \tikz[baseline=(N.base)]{
+        \node[main node](N){\(#2\)};
+        \IfValueT{#3}{\node[label node, gray, anchor=south] at (N.north){#3};}
+        \draw[strike out, #1]  (N.south west) -- (N.north east);
+    }
+}

@@ -1,0 +1,68 @@
+%% Functionality of PDF frames around links is nice, but their look can be improved.
+%% Moreover, not all PDF viewers support/show them.
+%% In the following we setup frames around ref/href/url/cite links via `tcolorbox`.
+
+%% Universal style options applied to all links
+\tcbset{
+    link/.style={
+        nobeforeafter, box align=base, boxsep=0em, before upper={\vphantom{]}},
+        left=0.15em, right=0.15em, top=0.25ex, bottom=0.05ex,
+        arc=0.1em, rounded corners=all, boxrule=0.3mm,
+        grow sidewards by=0.05em, enlarge bottom by=-0.05ex, enlarge top by=-0.4ex,
+    }
+}
+%% Style modifications for different types of links
+\tcbset{
+    refbox/.style ={colframe=black!30, colback=black!3},
+    % refbox/.style ={colframe=black!30, colback=black!3, fontupper=\sffamily},
+    pagebox/.style={refbox, boxsep=0.1ex, bottom=0.25ex, fontupper=\ttfamily},
+    hrefbox/.style={colframe=black!10!LinkColor!70, colback=LinkColor!15},
+    citebox/.style={left=0em, right=0em, bottom=0.25ex, colframe=black!10!CiteColor!80, colback=CiteColor!20, fontupper=\ttfamily},
+}
+%% Definition of the link boxes (loading corresponding styles)
+\NewTCBox{\refbox} {!O{}}{link,refbox, #1}
+\NewTCBox{\pagebox}{!O{}}{link,pagebox,#1}
+\NewTCBox{\hrefbox}{!O{}}{link,hrefbox,#1}
+\NewTCBox{\citebox}{!O{}}{link,citebox,#1}
+
+%% Save the original link commands
+\NewCommandCopy{\hrefold}{\href}
+\NewCommandCopy{\hyperlinkold}{\hyperlink}
+\NewCommandCopy{\urlold}{\url}
+
+%% Overwrite the default link commands to use the new boxes
+\RenewDocumentCommand{\href}{O{} m m}{\hrefold[#1]{#2}{\hrefbox{#3}}}   % remote links (DOI, arXiv, etc.)
+\RenewDocumentCommand{\url}{m}{\href{#1}{\nolinkurl{#1}}}               % URLs (using the new \href command)
+\RenewDocumentCommand{\hyperlink}{m m}{\hyperlinkold{#1}{\pagebox{#2}}} % used for backref links in References
+% \crefdefaultlabelformat{#2\refbox{#1}#3}                                % \Cref references
+
+%% \Cref reference with page number in a superscript, wrapped in a box
+%% TODO: maybe automatically omit the page number if the reference is on the same page?
+%% TODO: maybe (optionally) append name of theorem/remark/...?
+\RenewDocumentCommand{\Cref}{s m}{%
+    \hyperref[#2]{%                         link around the whole frame
+        \refbox[right=0.1em]{%              frame around the reference (tweak right padding)
+            \nameCref{#2}~\labelcref*{#2}%  reference name and number
+            \IfBooleanF{#1}{%               if not starred, add page number to the superscript
+                \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\labelcpageref*{#2}}%
+            }%
+        }%
+    }%
+}
+
+%% Like \Cref, but use reference title
+%% TODO: maybe overwrite \nameref?
+\NewDocumentCommand{\Nref}{s m}{%
+    \hyperref[#2]{%                         link around the whole frame
+        \refbox[right=0.1em]{%              frame around the reference (tweak right padding)
+            \nameref*{#2}%                  reference title
+            \IfBooleanF{#1}{%               if not starred, add page number to the superscript
+                \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\labelcpageref*{#2}}%
+            }%
+        }%
+    }%
+}
+
+%% TODO: figure out how to push `tcbox` on the next line if it would cause overfull hbox...
+%%          issues: https://github.com/T-F-S/tcolorbox/issues/223
+%%                  https://github.com/T-F-S/tcolorbox/issues/272

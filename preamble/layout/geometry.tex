@@ -1,0 +1,27 @@
+%%% Page dimensions
+%% single-side (electronic) -> use `\documentclass[12pt,a4paper]{report}`
+%% two-sided (for printing) -> use `\documentclass[12pt,a4paper,twoside,openright]{report}`
+\usepackage{geometry} % flexible interface for adjusting page layout/dimensions
+\makeatletter
+\if@twoside%
+    \def\Gm@bindingoffset{15mm} % binding offset for two-sided printing
+\fi%
+\makeatother
+\geometry{
+    width=145mm,
+    height=250mm,
+    hmarginratio=1:1,   % space ratio between left and right margins
+    vmarginratio=3:4,   % space ratio between top and bottom margins
+    includehead,        % include header in total height
+    headheight=2.5em,   % height of the header (includes space below the rule)
+    headsep=0mm,        % no extra space between header and text
+    % showframe,          % for DEBUG: helper lines for adjusting layout
+}
+
+%% try to make all pages have the same height (default for `twoside`)
+\flushbottom
+
+%% following text appears on a next page (right-hand page for two-sided printing)
+%% (empty page is inserted if necessary for two-sided printing)
+\NewCommandCopy{\oldcleardoublepage}{\cleardoublepage}
+\RenewDocumentCommand{\cleardoublepage}{}{\begingroup\pagestyle{empty}\oldcleardoublepage\endgroup}
