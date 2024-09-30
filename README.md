@@ -11,7 +11,8 @@ typographically professional layout and structured, clear, and revealing content
 can only help. This template tries to aid you in both of these endeavors.
 
 To learn more about the design principles behind `TeXtured` and its capabilities, look
-at the [`TeXtured` Demo](https://jdujava.github.io/TeXtured/thesis.pdf) (still WIP 🚧).
+at the [TeXtured Demo](https://jdujava.github.io/TeXtured/thesis.pdf). It showcases the
+features of `TeXtured` template and provides a guide on how to use them (still WIP 🚧).
 
 > [!TIP]
 > If you find something interesting or useful, but adopting the whole template
@@ -32,6 +33,11 @@ LaTeX build tools:
 - `latexmk` - LaTeX build tool
 - `pdflatex`/`lualatex` - LaTeX engine (you can choose one in `.latexmkrc`)
 - `biber` - bibliography processing tool for `biblatex`
+
+> [!WARNING]
+> At this point it is unclear what is the minimal required LaTeX installation.
+> Full `TeX Live` distribution is surely enough, since it is used in GitHub Actions
+> to automatically build the latest version of the [TeXtured Demo](https://jdujava.github.io/TeXtured/thesis.pdf).
 
 > [!NOTE]
 > Some scripts assume `linux` environment. These include:
