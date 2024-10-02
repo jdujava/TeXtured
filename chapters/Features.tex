@@ -157,7 +157,8 @@ Include \texttt{[} and \texttt{]} characters around citation number inside the l
 
 Proper metadata setup (via \texttt{hyperref} and \verb|\DocumentMetadata|).
 \begin{Note}
-    Various data about the work should be entered in \texttt{preamble/data.tex} file. When the relevant entries contain \LaTeX{} commands (for example to obtain specific formatting of the title), it is necessary to provide \enquote{plaintext} variations, so that \texttt{hyperref} can properly setup PDF metadata.
+    Various data about the work should be entered in \texttt{preamble/data.tex} file.
+    When the relevant entries contain \LaTeX{} commands (for example to obtain specific formatting of the title), it is necessary to provide \enquote{plaintext} variations, so that \texttt{hyperref} can properly setup PDF metadata.
 \end{Note}
 
 Next we will describe various common violations of PDF/A standard, and how to fix them.
@@ -191,7 +192,8 @@ However, PDF/A requires it to be disabled.
 \end{itemize}
 
 \begin{Suggestion}
-    Enter your own macros in the \texttt{preamble/user/} directory, which is reserved precisely for this purpose. Then, if you would like to update to a newer version of \TeXtured{}, you will be having easier time --- less mixing of your code with the template code will result in fewer conflicts you must resolve manually.
+    Enter your own macros in the \texttt{preamble/user/} directory, which is reserved precisely for this purpose.
+    Then, if you would like to update to a newer version of \TeXtured{}, you will be having easier time --- less mixing of your code with the template code will result in fewer conflicts you must resolve manually.
 \end{Suggestion}
 
 
@@ -214,13 +216,32 @@ However, PDF/A requires it to be disabled.
 \begin{itemize}
     \item automatic export after changing the \texttt{svg} (need to enable \verb|--shell-escape| for \pdfTeX{} or \LuaTeX{}, done via \texttt{.latexmkrc})
     \item watermark via \texttt{ps} injection
-        \begin{Note}[Watermark String]
-            Edit the watermark text in the shell script \verb|figures/Inkscape/inkscape-export-to-latex| to your liking.
-        \end{Note}
-        \begin{Todo}
-            Make it easier to change the watermark text. Or extract it somehow automatically from the PDF document?
-        \end{Todo}
+          \begin{Note}[Watermark String]
+              Edit the watermark text in the shell script \verb|figures/Inkscape/inkscape-export-to-latex| to your liking.
+          \end{Note}
+          \begin{Todo}
+              Make it easier to change the watermark text.
+              Or extract it somehow automatically from the PDF document?
+          \end{Todo}
     \item automatic fix of \texttt{/Interpolation} key problem
+\end{itemize}
+
+
+\section{GitHub Actions}%
+\label{sec:GitHub Actions}
+
+Describe implemented Github Actions:
+\begin{itemize}
+    \item Automatic \texttt{latexmk} build of the latest PDF version.
+    \item PDF/A verification via veraPDF.
+    \item Deploy to \texttt{gh-pages} branch.
+          One can furthermore enable (in repo settings) Github Pages for \texttt{gh-pages} branch, which will automatically upload latest PDF to \texttt{https://username.github.io/reponame/thesis.pdf}.
+          This enables convenient sharing of your (even continuously evolving) work without needing to commit the PDF (resulting in large repository size) or compiling the PDF on the receiving side.
+          \begin{Note}[Private Repositories]
+              Even for private repositories such link is publicly accessible.
+              This is why Github Pages setup is not done automatically for you.
+              If you want to share the work more \enquote{privately}, there are other solutions, for example Github Action which uploads PDF to Google Drive, and sharing via private link.
+          \end{Note}
 \end{itemize}
 
 
