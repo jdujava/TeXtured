@@ -1,6 +1,6 @@
 <div align="center">
-    <img alt="TeXtured Template" src="./figures/TeXtured-logo-light-mode.svg#gh-light-mode-only">
-    <img alt="TeXtured Template" src="./figures/TeXtured-logo-dark-mode.svg#gh-dark-mode-only">
+    <img alt="TeXtured Template" src="https://raw.githubusercontent.com/jdujava/TeXtured/refs/heads/master/figures/TeXtured-logo-light-mode.svg#gh-light-mode-only">
+    <img alt="TeXtured Template" src="https://raw.githubusercontent.com/jdujava/TeXtured/refs/heads/master/figures/TeXtured-logo-dark-mode.svg#gh-dark-mode-only">
 </div>
 
 ## 🚀 Elevator Pitch
