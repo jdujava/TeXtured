@@ -7,8 +7,9 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
-## thanks to https://github.com/mff-cuni-cz/cuni-thesis-validator
 jobs:
+  ## thanks to https://github.com/exaexa/better-mff-thesis
+  ##       and https://github.com/mff-cuni-cz/cuni-thesis-validator
   build:
     name: Build PDF and upload as an artifact
     runs-on: ubuntu-latest
@@ -26,7 +27,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Thesis
-          path: thesis.pdf
+          path: |
+            README.md
+            thesis.pdf
   verify:
     name: Verify PDF/A
     runs-on: ubuntu-latest
@@ -38,25 +41,24 @@ jobs:
       - name: Verify the PDF file with VeraPDF
         run: verify Thesis/*.pdf | tee /dev/stderr | grep -qE 'nonCompliant="0" failedJobs="0"'
 
+  ## inspired by https://github.com/Pseudomanifold/latex-mimosis
   deploy:
-    name: Deploy PDF to gh-pages branch
+    name: Deploy latest build of PDF and README.md to gh-pages branch
     if: github.event_name == 'push' # only deploy on push
     runs-on: ubuntu-latest
     needs: build
     permissions:
       contents: write
     steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-      - name: Get the PDF file from the artifact
+      - name: Get the PDF and README.md from the artifact
         uses: actions/download-artifact@v4
-      - name: Commit the PDF file
+      - name: Commit and push the PDF and README.md to `gh-pages` branch
         run: |
-          cp Thesis/*.pdf .
+          cd Thesis
+          git init -b temp
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add *.pdf
-          git commit --amend --no-edit
-          git push --force
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+          git add .
+          git commit -m "[CI] Update to latest PDF and README.md"
+          git push --force origin temp:gh-pages
