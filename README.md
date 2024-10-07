@@ -17,8 +17,8 @@ Here’s what the **TeXtured** Template offers:
 - 📄 **PDF/A compliance** and *front matter* supporting theses at [MFF](https://www.mff.cuni.cz/en) 🎓.
 
 To learn more about the design principles behind `TeXtured` and its capabilities, look
-at the [TeXtured Demo](https://jdujava.github.io/TeXtured/thesis.pdf). It showcases the
-features of `TeXtured` template and provides a guide on how to use them.
+at the [TeXtured Demo](https://jdujava.github.io/TeXtured/thesis.pdf) 📖.
+It showcases the features of `TeXtured` template and provides a guide on how to use them.
 
 > [!NOTE]
 > Please note that the documentation is still a work-in-progress 🚧,
@@ -47,7 +47,7 @@ LaTeX build tools:
 > [!WARNING]
 > At this point it is unclear what is the minimal required LaTeX installation.
 > Full `TeX Live` distribution is surely enough, since it is used in GitHub Actions
-> to automatically build the latest version of the [TeXtured Demo](https://jdujava.github.io/TeXtured/thesis.pdf).
+> to automatically build the latest version of the [TeXtured Demo](https://jdujava.github.io/TeXtured/thesis.pdf) 📖.
 
 > [!NOTE]
 > Some scripts assume `linux` environment. These include:
@@ -59,7 +59,7 @@ LaTeX build tools:
 >     + `sed` - substituting placeholders in PDF watermark
 >     + `ghostscript` - injecting `postscript` watermark into PDF
 
-Version control:
+Version control (optional):
 - `git` - (obviously) the preferred version control system
 - `git-lfs` - [Git Large File Storage](https://git-lfs.github.com/) - for storing PDFs, figures, etc.
 
