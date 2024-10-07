@@ -11,10 +11,10 @@ typographically professional layout and structured, clear, and revealing content
 can only help. This template tries to aid you in both of these endeavors.
 
 Here’s what the **TeXtured** Template offers:
-- ✨ **A typographically elegant layout** with various features to make your document stand out.
-- 🛠️ **A clean code structure** with plenty of comments to help you easily customize the template to your needs.
-- 🔗 **Seamless GitHub integration** (via GitHub Actions) to streamline version control and collaboration.
-- 📄 **PDF/A compliance** and *front matter* supporting theses at [MFF](https://www.mff.cuni.cz/en) 🎓.
+- ✨ **typographically elegant layout** with various features to make your document stand out
+- 🧙 **clean code structure** with plenty of comments to help you easily customize the template to your needs
+- 🔗 **seamless GitHub integration** (via GitHub Actions) to streamline version control and collaboration
+- 📄 **PDF/A compliance** and *front matter* supporting theses at [MFF](https://www.mff.cuni.cz/en) 🎓
 
 To learn more about the design principles behind `TeXtured` and its capabilities, look
 at the [TeXtured Demo](https://jdujava.github.io/TeXtured/thesis.pdf) 📖.
