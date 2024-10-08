@@ -91,11 +91,14 @@ Then it is possible to write stuff like this:
     Describe how to create custom macros with \verb|\NewDocumentCommand|, \verb|\RenewDocumentCommand|, \verb|\NewCommandCopy|, ...
 \end{Todo}
 \begin{Question}
-    Difference between \enquote{macro} and \enquote{function} in \LaTeX{}? Which nomenclature is appropriate?
+    Difference between \enquote{macro} and \enquote{function} in \LaTeX{}?
+    Which nomenclature is appropriate?
 \end{Question}
-\begin{Note}
-    Using macro inside text in the form \verb|\foo| can swallow following whitespace. When this is not the desired behavior, call the macro like \verb|\foo{}|. This passes an empty argument to the macro, leaving the following whitespace intact.
-\end{Note}
+\begin{remark}[Macro Space Handling]
+    Using macro inside text in the form \verb|\foo| can swallow the following whitespace.
+    When this is not the desired behavior, call the macro like \verb|\foo{}|.
+    In this way an empty argument is passed to the macro, leaving the following whitespace intact.
+\end{remark}
 \begin{Todo}
     Describe \verb|\makeatletter| and \verb|\makeatother|.
 \end{Todo}
@@ -106,7 +109,8 @@ Then it is possible to write stuff like this:
     Describe \verb|\includeonlysmart|.
 \end{Todo}
 \begin{Note}
-    Be careful about implicit endline spaces in function definitions, sometimes necessary to use \verb|%| after last command on the line.
+    Be careful about implicit end of line spaces in function definitions, sometimes necessary to use \verb|%| after last command on the line.
+    \todo{Describe this in more detail.}
 \end{Note}
 \begin{Todo}
     Describe WIP mode (particularly with \LuaTeX{}).

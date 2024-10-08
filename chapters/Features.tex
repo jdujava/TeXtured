@@ -57,7 +57,7 @@ Following quote from \texttt{microtype} documentation nicely explains what it is
     Micro-typography is the art of enhancing the appearance and readability of a
     document while exhibiting a minimum degree of visual obtrusion.
     It is concerned with what happens between or at the margins of characters, words or lines.
-    Whereas the macro-typographical aspects of a document (i.e., its layout) are clearly visible even to the untrained eye, micro-typographical refinements should ideally not even be recognisable.
+    Whereas the macro-typographical aspects of a document (i.e., its layout) are clearly visible even to the untrained eye, micro-typographical refinements should ideally not even be recognizable.
     That is, you may think that a document looks beautiful, but you might not be able to tell exactly why: good micro-typographic practice tries to reduce all potential irritations that might disturb a reader.
 \end{displayquote}
 
@@ -81,9 +81,10 @@ Implemented mostly via \texttt{tcolorbox} package (and \texttt{thmtools}).
     \item no emphasis for the whole body of definitions \ldots we have box for that \ldots
 \end{itemize}
 
-\begin{Note}
-    There are also helper environments for TODO-like notes.
-\end{Note}
+\begin{remark}
+    There are also helper environments for \textsf{TODO}-like notes.
+    By default, there are \textsf{Todo}, \textsf{Note}, \textsf{Suggestion}, and \textsf{Question} environments, but you can easily create your own.
+\end{remark}
 
 \begin{Note}
     No \enquote{code listing} setup yet.
@@ -117,8 +118,8 @@ Clear Table of Contents.
 Proper Index (ToC in PDF viewer).
 \begin{itemize}
     \item very handy for navigating longer documents
-    \item include also other important pages other then just initial pages of main chapters: Contents, Introduction, References, \ldots
-    \item I use Zathura as my PDF viewer, where Index is just one \texttt{Tab} away \ldots
+    \item include also other important pages other than just initial pages of main chapters: Contents, Introduction, References, \ldots
+    \item I use \texttt{Zathura} as my PDF viewer, where Index is just one \texttt{Tab} away \ldots
 \end{itemize}
 
 
@@ -138,13 +139,15 @@ Entries in \todo{somehow reference References}:
     \item include \enquote{backlinks}
 \end{itemize}
 
-\begin{Note}
-    Make sure to gather all the relevant data you need for every reference. There is then a way to reduce unimportant information, for example
+\begin{remark}[Bibliography Data]
+    Make sure to gather all the relevant data you need for every reference.
+    If you later decide you want to reduce the amount of presented information, \texttt{biblatex} can help you with that.
+    For example, it is possible to automatically
     \begin{itemize}
-        \item remove \texttt{url} field if \texttt{doi} field is present
-        \item ignore unwanted fields (\texttt{pages}, \texttt{number}, \texttt{volume}, \texttt{series}, \texttt{location}, \ldots)
+        \item remove \texttt{url} field if \texttt{doi} field is present,
+        \item ignore unwanted fields (\texttt{pages}, \texttt{number}, \texttt{volume}, \texttt{series}, \texttt{location}, \ldots). \qedhere*
     \end{itemize}
-\end{Note}
+\end{remark}
 
 \subsection{Citation Style}%
 \label{sub:Citation Style}
@@ -156,10 +159,10 @@ Include \texttt{[} and \texttt{]} characters around citation number inside the l
 \label{sec:PDF/A Compliance}
 
 Proper metadata setup (via \texttt{hyperref} and \verb|\DocumentMetadata|).
-\begin{Note}
+\begin{remark}[Document Data]
     Various data about the work should be entered in \texttt{preamble/data.tex} file.
     When the relevant entries contain \LaTeX{} commands (for example to obtain specific formatting of the title), it is necessary to provide \enquote{plaintext} variations, so that \texttt{hyperref} can properly setup PDF metadata.
-\end{Note}
+\end{remark}
 
 Next we will describe various common violations of PDF/A standard, and how to fix them.
 
@@ -191,10 +194,10 @@ However, PDF/A requires it to be disabled.
           \end{Note}
 \end{itemize}
 
-\begin{Suggestion}
+\begin{remark}[Custom User Macros]
     Enter your own macros in the \texttt{preamble/user/} directory, which is reserved precisely for this purpose.
     Then, if you would like to update to a newer version of \TeXtured{}, you will be having easier time --- less mixing of your code with the template code will result in fewer conflicts you must resolve manually.
-\end{Suggestion}
+\end{remark}
 
 
 \subsection{Math Macros}%
@@ -216,9 +219,9 @@ However, PDF/A requires it to be disabled.
 \begin{itemize}
     \item automatic export after changing the \texttt{svg} (need to enable \verb|--shell-escape| for \pdfTeX{} or \LuaTeX{}, done via \texttt{.latexmkrc})
     \item watermark via \texttt{ps} injection
-          \begin{Note}[Watermark String]
+          \begin{remark}[Watermark String]
               Edit the watermark text in the shell script \verb|figures/Inkscape/inkscape-export-to-latex| to your liking.
-          \end{Note}
+          \end{remark}
           \begin{Todo}
               Make it easier to change the watermark text.
               Or extract it somehow automatically from the PDF document?
@@ -235,13 +238,13 @@ Describe implemented Github Actions:
     \item Automatic \texttt{latexmk} build of the latest PDF version.
     \item PDF/A verification via veraPDF.
     \item Deploy to \texttt{gh-pages} branch.
-          One can furthermore enable (in repo settings) Github Pages for \texttt{gh-pages} branch, which will automatically upload latest PDF to \texttt{https://username.github.io/reponame/thesis.pdf}.
+          One can furthermore enable (in repo settings) GitHub Pages for \texttt{gh-pages} branch, which will automatically upload latest PDF to \texttt{https://username.github.io/reponame/thesis.pdf}.
           This enables convenient sharing of your (even continuously evolving) work without needing to commit the PDF (resulting in large repository size) or compiling the PDF on the receiving side.
-          \begin{Note}[Private Repositories]
+          \begin{remark}[Private Repositories]
               Even for private repositories such link is publicly accessible.
-              This is why Github Pages setup is not done automatically for you.
-              If you want to share the work more \enquote{privately}, there are other solutions, for example Github Action which uploads PDF to Google Drive, and sharing via private link.
-          \end{Note}
+              This is why GitHub Pages setup is not done automatically for you.
+              If you want to share the work more \enquote{privately}, there are other solutions, for example GitHub Action which uploads PDF to Google Drive, and sharing via a private link.
+          \end{remark}
 \end{itemize}
 
 
