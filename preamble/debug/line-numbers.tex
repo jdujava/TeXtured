@@ -1,0 +1,13 @@
+\usepackage[pagewise]{lineno} % line numbers for drafts
+
+\newif\ifDebugLineNumbers
+%% NOTE: Uncomment out the following line to show line numbers
+% \DebugLineNumberstrue % show line numbers (by default disabled)
+
+\ifDebugLineNumbers
+    \ifWIP
+        \linenumbers
+        \renewcommand{\linenumberfont}{\normalfont\footnotesize\ttfamily\color{black!15}}
+        \setlength\linenumbersep{1em}
+    \fi
+\fi

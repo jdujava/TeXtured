@@ -3,6 +3,10 @@
 %% Data about the document, like title, author, etc.
 \input{preamble/data}
 
+%% DEBUG: various helper debug goodies
+\input{preamble/debug/commands}
+\input{preamble/debug/line-numbers}
+
 %% Typesetting, figures, tables, etc.
 \input{preamble/general/typesetting}
 
@@ -42,10 +46,6 @@
 %% Hacky stuff, oftentimes overriding commands of other packages
 \input{preamble/hacks/custom-reference-boxes}
 \input{preamble/hacks/fix-qed}
-
-%% DEBUG: various helper debug goodies
-\input{preamble/debug/commands}
-\input{preamble/debug/watermarks}
 
 %% User macros
 \input{preamble/user/macros}

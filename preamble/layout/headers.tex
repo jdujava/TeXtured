@@ -37,7 +37,11 @@
     \fancyhead[RE]{\textcolor{HeaderColor}{\textsf{\nouppercase{\rightmark}}}\hspace{\headerpadding}}
     \fancyhead[RO]{\textbf{\thepage}\hspace{\headerpadding}}
     \fancyhead[LE]{\hspace{\headerpadding}\textbf{\thepage}}
-    \fancyfoot{}
+    \ifWIP % show draft watermark in footer
+        \fancyfoot[C]{\vskip1ex\relax \ttfamily\textcolor{black!15}{Draft - \today}}
+    \else
+        \fancyfoot{}
+    \fi
 }
 %% For chapter pages, the `plain` style is used
 \fancypagestyle{plain}[header]{
