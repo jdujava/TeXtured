@@ -5,7 +5,7 @@
 \DeclareTextFontCommand{\textsb}{\sbseries}
 
 %% set the default bold math sans font to be `serif bold condensed`
-\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{sbc}{\updefault}
+\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{sbc}{n}
 
 %% math serif italic font
 \DeclareMathAlphabet{\mathsfit}{T1}{\sfdefault}{\mddefault}{\sldefault}
@@ -30,3 +30,16 @@
 %% Shorter minus sign - https://tex.stackexchange.com/a/469724
 \DeclareMathSymbol{\shortminus}{\mathbin}{AMSa}{"39}
 \NewDocumentCommand{\shortminusone}{}{\mspace{-1.2mu}\shortminus\mspace{-1.5mu} 1}
+
+
+%% HACK: Reduce verbosity of "No alphabet change ..." messages
+%% https://tex.stackexchange.com/a/663843
+\makeatletter
+\let\old@font@info\@font@info
+\def\@font@info#1{%
+    \expandafter\ifx\csname\detokenize{#1}\endcsname\relax
+        \old@font@info{#1}%
+    \fi
+    \expandafter\xdef\csname\detokenize{#1}\endcsname{}%
+}
+\makeatother
