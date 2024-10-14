@@ -68,7 +68,6 @@
 \NewDocumentCommand{\Rscalar}{}{\mathcal{R}}
 
 %% Covariant derivative (with optional arguments for space tweaking)
-%% BUG: latex-grammar ERROR https://github.com/latex-lsp/tree-sitter-latex/issues/157
 \NewDocumentCommand{\cder}{s O{a} e{_}}{
     \IfBooleanT{#1}{\mspace{-2mu}} % use starred variant when more \cder after each other
     \bm{\nabla}
