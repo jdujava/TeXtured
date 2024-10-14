@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     container: { image: 'aergus/latex' }
     steps:
-      - name: Instal git-lfs
+      - name: Install git-lfs
         run: apt-get update && apt-get install -y git-lfs
       - name: Set up Git repository
         uses: actions/checkout@v4
