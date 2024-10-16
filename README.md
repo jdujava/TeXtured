@@ -37,6 +37,10 @@ latexmk thesis
 ```
 in the root directory of the repository to build the thesis.
 
+> [!TIP]
+> If you prefer to use 🍃`Overleaf`, you can find the `TeXtured`
+> [template](https://www.overleaf.com/latex/templates/textured/zwtzzwgddbsh) there as well.
+
 ## 📦 Software Dependencies
 
 LaTeX build tools:
