@@ -2,6 +2,7 @@
 
 %% if DOI is present, remove URL
 %% ignore certain fields completely
+%% set year to current year if title is TODO
 \DeclareSourcemap{
     \maps[datatype=bibtex]{
         \map[overwrite]{
@@ -16,6 +17,10 @@
             \step[fieldset=series, null]
             \step[fieldset=location, null]
             \step[fieldset=address, null]
+        }
+        \map{
+            \step[fieldsource=title, match={TODO}]       % match TODO in title
+            \step[fieldset=year, fieldvalue={\the\year}] % set year to current year
         }
     }
 }
