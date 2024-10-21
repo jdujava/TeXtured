@@ -1,5 +1,9 @@
 %%% Mandatory information page of the thesis
 
+%% NOTE: MFF guidelines can be found at
+%% https://www.mff.cuni.cz/cs/vnitrni-zalezitosti/predpisy/opatreni-dekana/opatreni-dekana-c-27-2023
+%%     -> no special formatting is required, so it should be fine to customize it
+
 \cleardoublepage
 
 % \chapternotnumbered{Information \& Abstract}
@@ -7,33 +11,20 @@
 \addcontentsline{toc}{chapter}{Information \& Abstract}
 \markboth{Information \& Abstract}{Information \& Abstract}
 
-{ \setlength\parskip{5mm}
-
-    % Title:
-    \textbf{Title:}
-    \ThesisTitle
-
-    % Author:
-    \textbf{Author:}
-    \ThesisAuthor
-
-    % \DeptType:
-    \textbf{\DeptType:}
-    \Department
-
-    % Supervisor:
-    \textbf{Supervisor:}
-    \Supervisor, \SupervisorsDepartment
-
-    % Abstract:
-    \textbf{Abstract:}
-    \Abstract
-
-    % Keywords:
-    \textbf{Keywords:}
-    \Keywords
+\subsection*{Information}
+{
+    \renewcommand{\arraystretch}{1.3}
+    \small
+    \begin{tabular}{>{\bfseries\color{Gray40}}r l}
+        Title       & \ThesisTitle                             \\
+        Author      & \ThesisAuthor                            \\
+        \DeptType{} & \Department                              \\
+        Supervisor  & \Supervisor{} --- \SupervisorsDepartment \\
+        % Abstract    & \Abstract                                \\
+        Keywords    & \Keywords                                \\
+    \end{tabular}
 }
 
-%% TODO: maybe format this page a bit more nicely (check what the guidelines say)
-%% https://www.mff.cuni.cz/cs/vnitrni-zalezitosti/predpisy/opatreni-dekana/opatreni-dekana-c-27-2023
-%%     -> no special formatting is required, so it should be fine to customize it
+\subsection*{Abstract}
+
+\Abstract
