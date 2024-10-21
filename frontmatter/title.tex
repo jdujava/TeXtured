@@ -30,17 +30,19 @@
 
     \vspace{1.1em}
 
-    { \large \renewcommand{\arraystretch}{1.2}
-        \begin{tabular}{r @{:\hspace{0.5em}} l}
-            Supervisor of the {\ThesisType} thesis    & \Supervisor     \\
+    \begin{center}
+        \large
+        \renewcommand{\arraystretch}{1.2}
+        \begin{tabular}{>{\color{Gray30}}r @{\hspace{1.0em}} l}
+            Supervisor of the Thesis    & \Supervisor     \\
             \ifdef{\CoSupervisor}{%
-            Co-supervisor of the {\ThesisType} thesis & \CoSupervisor   \\
+            Co-Supervisor of the Thesis & \CoSupervisor   \\
             }{}
-            \ifdef{\StudyProgramme}{%
-            Study programme                           & \StudyProgramme \\
+            \ifdef{\StudyProgramme}{% TODO: programme vs program?
+            Study Programme             & \StudyProgramme \\
             }{}
         \end{tabular}
-    }
+    \end{center}
 
     \vspace{2em}
 
