@@ -1,6 +1,7 @@
 ## LaTeX auxiliary files:
 .aux
 *.synctex.gz
+*.synctex.gz(busy)
 
 ## Since the main PDF file is automatically generated with GitHub Actions
 ## and pushed to `gh-pages` branch, is is generally advised to ignore it

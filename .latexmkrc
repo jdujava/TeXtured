@@ -6,6 +6,11 @@ $pdf_mode = 1; # use pdfTeX
 # $pdflatex = 'pdflatex --shell-escape %O %S';
 # $lualatex = 'lualatex --shell-escape %O %S';
 
+## Extra extensions of files to remove in a clean-up (`latexmk -c`)
+$clean_ext = 'synctex.gz synctex.gz(busy)';
+## Delete .bbl file in a clean-up if the bibliography file exists
+$bibtex_use = 1.5;
+
 ## Write all auxiliary files in a separate directory
 $aux_dir = '.aux';
 
