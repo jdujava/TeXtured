@@ -62,7 +62,7 @@ Also, there will be sprinkled miscellaneous tips on how to improve the quality o
 \label{sub:Math Typesetting}
 
 Learn stuff in \texttt{amsmath} and \texttt{mathtools} packages.
-Then it is possible to write stuff like this:
+Then it is possible to write stuff like following inclusion map
 \begin{alignat*}{3}
     % NOTE: maybe there is a better way to center parameters (t,r,\overline{x})?
     \iota\colon & (\Sphere^{1}, \R_{\ge 0}, \Sphere^{\spacedim - 1})                                                                           && \longrightarrow \coset{\AdS}{\Z} \\
@@ -76,7 +76,12 @@ Then it is possible to write stuff like this:
             \end{aligned}
         \end{dcases}
     }
+    \eqend
 \end{alignat*}
+\begin{remark}[Math Ending Punctuation]
+    Make sure to use \verb|\eqend| or \verb|\eqcomma| macro (when appropriate) to properly end a math environment with a period or a comma, respectively.
+    They add a small space before the punctuation to make the formula look better.
+\end{remark}
 
 \begin{Todo}
     Maybe show diagrams with \texttt{TikZ} package.
