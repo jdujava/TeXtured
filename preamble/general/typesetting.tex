@@ -21,7 +21,6 @@
 \usepackage{adjustbox}      % center big tables
 \usepackage{array}          % custom column types in tables
 \usepackage{booktabs}       % improved horizontal lines in tables
-% \usepackage{tabularray}     % better LaTeX tables ...
 \usepackage{caption}
 \usepackage{subcaption}
 \captionsetup{
@@ -30,6 +29,12 @@
     format=hang,
     tableposition=bottom,
 }
+
+% HACK: https://tex.stackexchange.com/a/614702
+\selectcolormodel{natural}  % temporarily switch to natural color model
+\usepackage{ninecolors}     % now we can load `ninecolors` package
+\selectcolormodel{rgb}      % switch back to RGB color model
+\usepackage{tabularray}     % advanced LaTeX tables
 
 %% Same numbering for equations, figures, and tables
 \makeatletter

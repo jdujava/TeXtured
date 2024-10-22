@@ -12,18 +12,19 @@
 \markboth{Information \& Abstract}{Information \& Abstract}
 
 \subsection*{Information}
-{
-    \renewcommand{\arraystretch}{1.3}
-    \small
-    \begin{tabular}{>{\bfseries\color{Gray40}}r l}
-        Title       & \ThesisTitle                             \\
-        Author      & \ThesisAuthor                            \\
-        \DeptType{} & \Department                              \\
-        Supervisor  & \Supervisor{} --- \SupervisorsDepartment \\
-        % Abstract    & \Abstract                                \\
-        Keywords    & \Keywords                                \\
-    \end{tabular}
-}
+
+\begin{tblr}{
+        colspec = {r X},
+        column{1} = {font=\small\bfseries\color{Gray40}},
+        column{2} = {font=\small},
+    }
+    Title       & \ThesisTitle                             \\
+    Author      & \ThesisAuthor                            \\
+    \DeptType{} & \Department                              \\
+    Supervisor  & \Supervisor{} --- \SupervisorsDepartment \\
+    % Abstract    & \Abstract                                \\
+    Keywords    & \Keywords                                \\
+\end{tblr}
 
 \subsection*{Abstract}
 
