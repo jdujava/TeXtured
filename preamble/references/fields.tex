@@ -19,8 +19,8 @@
             \step[fieldset=address, null]
         }
         \map{
-            \step[fieldsource=title, match={TODO}]       % match TODO in title
-            \step[fieldset=year, fieldvalue={\the\year}] % set year to current year
+            \step[fieldsource=title, match={TODO}, final] % match TODO in title
+            \step[fieldset=year, fieldvalue={\the\year}]  % set year to current year
         }
     }
 }
