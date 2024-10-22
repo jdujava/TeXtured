@@ -55,8 +55,11 @@ Also, there will be sprinkled miscellaneous tips on how to improve the quality o
 \end{itemize}
 
 
-\section{Mathematics}%
-\label{sec:Mathematics}
+\section{Mathematics \& Physics}%
+\label{sec:MathematicsandPhysics}
+
+\subsection{Math Typesetting}%
+\label{sub:Math Typesetting}
 
 Learn stuff in \texttt{amsmath} and \texttt{mathtools} packages.
 Then it is possible to write stuff like this:
@@ -81,6 +84,36 @@ Then it is possible to write stuff like this:
 \begin{Todo}
     Describe \verb|\DeclareDocumentCommand|, ...
 \end{Todo}
+
+\subsection{Numbers and Units}%
+\label{sub:Numbers and Units}
+
+Use \texttt{siunitx} package for convenient typesetting numbers and units.
+Examples are shown in \Cref{tab:siunitx}.
+
+\begin{Note}
+    The \texttt{siunitx} package is very powerful and flexible.
+    It can be even used to nicely align numbers in tables.
+    As of now, this feature is not customized in any way in \TeXtured{}.
+    Suggestions for improvements are welcome.
+\end{Note}
+\begin{table}[ht!]
+    \centering
+    \begin{booktabs}{l l l}
+        \toprule
+        \textbf{Command}                          & \textbf{Output}                & \textbf{Usage}     \\
+        \midrule
+        \fakeverb{\num{123.45 e-8}}               & \num{123.45 e-8}               & numbers            \\
+        \fakeverb{\si{\meter\per\second\squared}} & \si{\meter\per\second\squared} & units              \\
+        \fakeverb{\SI{123.45}{m/s^2}}             & \SI{123.45}{m/s^2}             & numbers with units \\
+        \fakeverb{\SIrange{1}{10}{\kilo\meter}}   & \SIrange{1}{10}{\kilo\meter}   & ranges             \\
+        \fakeverb{\SIlist{1;3;5}{A}}              & \SIlist{1;3;5}{A}              & lists              \\
+        \fakeverb{\SI{1.23 +- 0.45}{\celsius}}    & \SI{1.23 +- 0.45}{\celsius}    & uncertainties      \\
+        \bottomrule
+    \end{booktabs}
+    \caption{Examples of \texttt{siunitx} package usage.}
+    \label{tab:siunitx}
+\end{table}
 
 
 \section{\texorpdfstring{\LaTeX{}}{LaTeX} Coding}%

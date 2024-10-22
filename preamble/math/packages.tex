@@ -21,12 +21,16 @@
     \IfValueTF{#1}{@[#1]{#2}#3@}{@{#2}#3@}
 }
 
-%% Units
+%% Numbers/Units
 \usepackage{siunitx}
+%% TODO: customize font style propagation
 \sisetup{
-    exponent-product = \ensuremath{\cdot},
-    uncertainty-mode = separate,
+    range-phrase = {--},            % en-dash as number range separator
+    range-units = single,           % print unit only once at the end
+    exponent-product = {\cdot},     % default is `\times`
+    per-mode = symbol,              % use `/` for per
+    uncertainty-mode = separate,    % use `±` for uncertainties
     % table-align-uncertainty = false,
-    table-alignment-mode = format,
+    % table-alignment-mode = format,
     % table-number-alignment = center,
 }
