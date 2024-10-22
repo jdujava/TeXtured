@@ -13,3 +13,11 @@
         \usepackage{lua-visual-debug}
     \fi
 \fi
+
+%% Censoring
+\usepackage{censor}
+\ifCENSOR % censor package censors by default
+    % do nothing if censoring requested
+\else
+    \StopCensoring % disable censoring
+\fi
