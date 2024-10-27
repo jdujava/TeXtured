@@ -14,32 +14,3 @@
 \setdefaultleftmargin{1.87em}{1.7em}{1.5em}{1em}{1em}{1em}
 \setdefaultitem{$\bullet$}{\textbullet}{\textasteriskcentered}{\textperiodcentered}
 \setdefaultenum{\bfseries (1)}{\bfseries (a)}{\bfseries (i)}{A.}
-
-%% Figures, tables, captions, etc.
-\usepackage{graphicx}       % embedding of pictures
-\graphicspath{{./figures/}{./figures/Inkscape/}{./frontmatter/img/}} % paths to figures
-\usepackage{adjustbox}      % center big tables
-\usepackage{array}          % custom column types in tables
-\usepackage{booktabs}       % improved horizontal lines in tables
-\usepackage{caption}
-\usepackage{subcaption}
-\captionsetup{
-    font=footnotesize,
-    labelfont={sf,bf},
-    format=hang,
-    tableposition=bottom,
-}
-
-% HACK: https://tex.stackexchange.com/a/614702
-\selectcolormodel{natural}  % temporarily switch to natural color model
-\usepackage{ninecolors}     % now we can load `ninecolors` package
-\selectcolormodel{rgb}      % switch back to RGB color model
-\usepackage{tabularray}     % advanced LaTeX tables
-\usepackage{codehigh}       % verbatim in tables (with `\fakeverb` macro)
-\UseTblrLibrary{amsmath, booktabs}
-
-%% Same numbering for equations, figures, and tables
-\makeatletter
-\let\c@figure\c@table
-\let\c@equation\c@table
-\makeatother

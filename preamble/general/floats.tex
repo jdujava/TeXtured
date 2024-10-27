@@ -1,0 +1,114 @@
+%% Configuration of figures, tables, captions, ...
+
+%% Use same numbering for figures, tables, and equations
+\makeatletter
+\let\c@figure\c@table
+\let\c@equation\c@table
+\makeatother
+
+%%% Graphics
+\usepackage{graphicx}   % embedding of pictures
+\graphicspath{          % default paths to figures
+    {./figures/}
+    {./figures/Inkscape/}
+    {./frontmatter/img/}
+}
+
+%%% Tables
+\usepackage{adjustbox}      % center big tables
+\usepackage{array}          % custom column types in tables
+\usepackage{booktabs}       % improved horizontal lines in tables
+
+%% Increase default vertical space between rows in tables (default is 1.0)
+\renewcommand*{\arraystretch}{1.1}
+
+% HACK: `ninecolors` is needed for `tabularray`, but fails to load with
+%       rgb color model -> see https://tex.stackexchange.com/a/614702
+\selectcolormodel{natural}  % temporarily switch to natural color model
+\usepackage{ninecolors}     % now we can load `ninecolors` package
+\selectcolormodel{rgb}      % switch back to RGB color model
+
+\usepackage{tabularray}     % advanced LaTeX tables
+\usepackage{codehigh}       % verbatim in tables (with `\fakeverb` macro)
+\UseTblrLibrary{amsmath, booktabs, siunitx} % load libraries for `tabularray`
+
+%% TODO: look at /home/jonas/Documents/customfiles/itt-latex-template/acp.cls
+%%        `floatrow` and on
+
+%% Does \centering automatically, provides side captions (`\fcapside`) and much more
+%% Inspired by https://collaborating.tuhh.de/m21/public/theses/itt-latex-template
+\usepackage{floatrow}
+\floatsetup{ % for all floats
+    footnoterule = none,
+    footposition = bottom,
+}
+\floatsetup[figure]{
+    capbesideposition = right,
+    capbesidesep = quad,
+}
+
+%% If you want to position the caption above the figure, use the following
+% \floatsetup[table]{
+%     style = plaintop, % caption always above, no matter where \caption is called
+% }
+
+%% Set caption width to be the same as the table width
+% \floatsetup[longtable]{LTcapwidth=table} % https://tex.stackexchange.com/a/345772/120853
+
+\usepackage{caption}    % customizing captions in floating environments
+\usepackage{subcaption}
+
+% \DeclareCaptionLabelSeparator{slash}{~/~} % `␣/␣` between label and caption
+\DeclareCaptionLabelSeparator{slash}{\hspace{0.25em}/\hspace{0.25em}} % `␣/␣` between label and caption
+\captionsetup{
+    format        = plain,  % no hanging indent
+    indention     = 0.6em,  % but still slightly indent the caption
+    % format        = hang,   % alternative: hanging indent
+    font          = small,
+    labelfont     = {sf,bf},
+    labelsep      = slash,
+    labelformat   = simple,
+    tableposition = bottom,
+    parskip       = .3\baselineskip plus 1pt,
+}
+
+\makeatletter
+% Make this new length and indent, same length as regular caption indent:
+\newlength{\floatfootruleindent}
+\setlength{\floatfootruleindent}{\caption@indent}% Set the new length
+% A bit hacky; introduce a rule underneath caption if \floatfoot is called:
+\renewcommand*{\floatfootskip}{2pt\color{Gray50}\hspace{\floatfootruleindent}\hrulefill}%
+\makeatother
+
+\DeclareCaptionFont{ftfont}{%
+    \scriptsize%
+    \color{Gray60}%
+    \sffamily\raggedleft%
+}
+\captionsetup[floatfoot]{
+    footfont=ftfont, % https://tex.stackexchange.com/q/9547/120853
+}
+
+%%% You can change the justification of all side-captions here
+% \captionsetup[capbesidefigure]{
+%     % When using sidecaptions, the linewidth can be rather small and awkward breaks and
+%     % many underfull hboxes occur. Therefore, raggedright.
+%     justification=raggedright,
+% }
+%
+% \captionsetup[subfigure]{%
+%     labelformat=simple,% 'parens' uses parantheses, 'brace' just the right one
+%     labelsep=slash,%
+%     labelfont={sf,bf},%
+%     list=off,% list=off removes subfigures from LoF
+% }%
+%
+% \captionsetup[subtable]{%
+%     labelformat=simple,% 'parens' uses parantheses, 'brace' just the right one
+%     labelsep=slash,%
+%     labelfont={sf,bf},%
+%     list=off,% list=off removes subfigures from LoF
+% }%
+
+%% Change counter from Arabic number to letter:
+\renewcommand*{\theContinuedFloat}{\alph{ContinuedFloat}}

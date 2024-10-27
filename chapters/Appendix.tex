@@ -1,20 +1,47 @@
 \chapter{Example of Appendix Chapter} \label{appendix:example}
 
+\begin{example}[Figure Caption Tweaking]
+    Now we will show off some figures with tweaked position/extent of the captions.
+    \Cref{fig:parallel-plate-capacitor} has a side-caption, while \Cref{fig:tighter_caption} has a caption that spans just the width of the figure.
+    This utilizes the \texttt{floatrow} package and is inspired by ITT \LaTeX{} template \autocite{ITTtemplate}.
+\end{example}
+
+\begin{figure}[!ht]
+    \fcapside[\FBwidth]{%
+        %% TODO: should lead automatically to correct space between paragraphs...
+        %%       as of now, it is a bit ugly, since the spacing is done manually
+        \caption[Example of a figure with a side-caption.]{%
+            Example of a figure with a side-caption.
+            \\[\parskip]
+            It displays the two-dimensional electric field near one end of a parallel plate capacitor.\\[-1.5ex]
+
+            \textbf{\textsf{Legend:}}\\[0.4ex]
+            \begin{tblr}{stretch=0.8, column{1} = {rightsep=2pt, cmd=\raisebox{-0.31ex}}}
+                \adjincludegraphics[width=0.6\textwidth, Clip={0.87\width} {0.483\height} {0.0\height} {0.483\height}]{parallel-plate-capacitor} & equipotentials  \\
+                \adjincludegraphics[width=0.6\textwidth, Clip={0.35\width} {0.068\height} {0.52\width} {0.898\height}]{parallel-plate-capacitor} & field lines     \\
+                \adjincludegraphics[width=0.6\textwidth, Clip={0.20\width} {0.313\height} {0.67\width} {0.653\height}]{parallel-plate-capacitor} & capacitor plate \\
+            \end{tblr}%
+        }%
+        \label{fig:parallel-plate-capacitor}%
+        \floatfoot{You can also optionally use a footnote\\ for the figure caption.}%
+    }{\includegraphics[width=0.6\textwidth]{parallel-plate-capacitor}}
+\end{figure}
+\begin{figure}[!ht]
+    \ffigbox[\FBwidth]{%
+        \caption{Example of a figure with a caption spanning just the width of the figure.}%
+        \label{fig:tighter_caption}%
+    }{\includegraphics[width=0.6\textwidth]{example-image-a}}
+\end{figure}
+
+
 \section{Appendix Section}%
 \label{sec:Appendix Section}
+
+Note the numbering of various environments in the appendix.
 
 \begin{definition}[Appendix Definition]
     This is an example definition.
 \end{definition}
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=1.0\linewidth]{parallel-plate-capacitor}
-    \caption{Example of a figure with a corresponding caption: Equipotentials \textcolor{Gray40}{(solid yellow lines)} and field lines \textcolor{Gray40}{(dashed yellow lines)} near a two-dimensional parallel plate capacitor \textcolor{Gray40}{(solid dark brown lines)}.}
-    \label{fig:parallel-plate-capacitor}
-\end{figure}
-
-\clearpage
 
 \begin{remark}
     The header reflects that this is an appendix page.
