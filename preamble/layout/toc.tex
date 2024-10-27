@@ -20,7 +20,7 @@
 %% BUG: pdfLaTeX with changed `\contentsmargin` does not properly align page numbers
 %% HACK: to obatain proper placement of page numbers we need to toggle off
 %%       `\bfseries` with `\normalfont`, and only then apply it inside `\contentspage`
-\titlecontents{chapter}[1.6em]{\vspace{2.4ex}\boldmath\bfseries} % <section> <left> <above-code>
+\titlecontents{chapter}[1.6em]{\vspace{2.4ex}\bfseries} % <section> <left> <above-code>
 {\contentslabel{1.4em}}{\hspace*{-1.4em}} % <numbered-entry-format> <numberless-entry-format>
 {\hfill\normalfont\contentspage[\bfseries\thecontentspage]} % <filler-page-format> <--- HACK
 
@@ -30,6 +30,6 @@
 {\textcolor{gray}{\titlerule*[9pt]{.}}\contentspage} % <filler-page-format>
 
 %% subsection entries in TOC are "inline" separated by a bullet
-\titlecontents*{subsection}[4.7em]{\footnotesize\color{black!70}}  % <section> <left> <above-code>
+\titlecontents*{subsection}[4.7em]{\footnotesize\color{Gray40}}  % <section> <left> <above-code>
 {}{}{ \thecontentspage} % <numbered-entry-format> <numberless-entry-format> <filler-page-format>
 [][\ \textbullet\ ][\hspace*{0.6em}\vspace{0.1em}]  % <begin> <separator> <end>

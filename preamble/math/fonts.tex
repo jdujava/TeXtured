@@ -1,3 +1,7 @@
+%% Automatically use `\boldmath` in `\bfseries` text
+\NewCommandCopy{\bfseriesOrig}{\bfseries}
+\RenewDocumentCommand{\bfseries}{}{\bfseriesOrig\boldmath}
+
 %% serif semi-bold --- but it is just `sbc` (serif bold condensed)
 %% used for serif in chapter/section/... titles
 %% https://tex.stackexchange.com/questions/27843/level-of-boldness-changeable

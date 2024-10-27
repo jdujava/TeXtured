@@ -8,10 +8,9 @@
 %%% Chapter and section formatting
 \usepackage{titlesec}
 
-%% Make math bold in (sub)section titles by default with `\boldmath`
-\titleformat{\section}{\normalfont\Large\boldmath\bfseries}{\thesection}{1em}{}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
 %% NOTE: also include `\phantomsection` so even non-numbered subsections have proper anchors for hyperlinks
-\titleformat{\subsection}{\phantomsection\normalfont\large\boldmath\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsection}{\phantomsection\normalfont\large\bfseries}{\thesubsection}{1em}{}
 
 %%% Chapter title formatting
 %% No extra space above and below chapter headings, big number/letter behind chapter title
@@ -23,7 +22,7 @@
         % \vspace*{15pt}%
         % \Huge\bfseries \thechapter\hspace{0.5em} #1
         \chapterheadingletter{#2}% Chapter number/letter
-        \Huge\boldmath\bfseries #1 % Chapter title (\boldmath to also make math bold by default)
+        \Huge\bfseries #1 % Chapter title
         \par\nobreak
         \vspace{20pt}
     }}

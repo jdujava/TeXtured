@@ -200,19 +200,6 @@ However, PDF/A requires it to be disabled.
 \end{remark}
 
 
-\subsection{Math Macros}%
-\label{sub Macros}
-
-\begin{itemize}
-    \item frequently define macros for notation used more than once
-          --- easier switch to different \ldots, since now we have syntactically differentiated,
-          otherwise there could be conflicts between different brackets and so on
-          --- better automation of fine-tuning (spacing, different versions \ldots)
-    \item \verb|\ensuremath| for easier use outside math mode
-    \item better extendable arrows with \texttt{tikz}
-\end{itemize}
-
-
 \subsection{\texorpdfstring{\texttt{Inkscape}}{Inkscape} Integration}%
 \label{sub:Inkscape Integration}
 
@@ -230,8 +217,33 @@ However, PDF/A requires it to be disabled.
 \end{itemize}
 
 
-\section{GitHub Actions}%
-\label{sec:GitHub Actions}
+\section{Miscellaneous}%
+\label{sec:Miscellaneous}
+
+\subsection{Math-Related Tweaks --- \texorpdfstring{\(\eunit^{\iunit\pi}\)}{exp(iπ)}}%
+\label{sub:Math Macros}
+
+Some of the math-related tweaks:
+\begin{itemize}
+    \item possible to use serif italic font for math via \verb|\mathsfit|
+    \item use \verb|\boldmath| automatically for \verb|\textbf| text (usefull mainly in headings)
+    \item \verb|\ensuremath| for easier use of macros outside math mode
+    \item better extendable arrows with \texttt{tikz}
+\end{itemize}
+
+\vspace{1ex}
+Following practice is highly recommended.
+\begin{tip}[Define Your Own Math Macros]
+    Frequently define macros for notation used more than once. Advantages are for example:
+    \begin{itemize}
+        \item Code is easier to read/write, since it is more \enquote{semantic}.
+        \item To tweak notation, you only need to change it in one place.
+        \item Easier to find all occurrences of a certain notion. \qedhere
+    \end{itemize}
+\end{tip}
+
+\subsection{GitHub Actions}%
+\label{sub:GitHub Actions}
 
 Describe implemented GitHub Actions:
 \begin{itemize}
@@ -243,14 +255,18 @@ Describe implemented GitHub Actions:
           \begin{remark}[Private Repositories]
               Even for private repositories such link is publicly accessible.
               This is why GitHub Pages setup is not done automatically for you.
-              If you want to share the work more \enquote{privately}, there are other solutions, for example GitHub Action which uploads PDF to Google Drive, and sharing via a private link. Also look at \Cref{sec:Censoring}.
+              If you want to share the work more \enquote{privately}, there are other solutions, for example GitHub Action which uploads PDF to Google Drive, and sharing via a private link.
+              Also look at \Cref{sub:Censoring}.
           \end{remark}
 \end{itemize}
 
-\section{Censoring}%
-\label{sec:Censoring}
+\subsection{Censoring}%
+\label{sub:Censoring}
 
-Censoring/redaction using \texttt{censor} package. Use \verb|\censor| or \verb|\censorbox|. For example, censor the following sentence: \censor{\TeXtured{} is an amazing template!}.
+Censoring/redaction using \texttt{censor} package.
+Use \verb|\censor| or \verb|\censorbox|.
+For example, censor the following sentence: \censor{\TeXtured{} is an amazing template!}.
+
 
 \section{Non-Features}%
 \label{sec:Non-Features}
