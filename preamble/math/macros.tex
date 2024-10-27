@@ -168,12 +168,20 @@
 \NewDocumentCommand{\aind}{}{\bullet}
 \NewDocumentCommand{\ind}{}{\mathcolor{lightgray}{\bullet}}
 
-%% square argument placeholder
-\NewDocumentCommand{\argument}{s o}{
-    \def\squaresize{0.4em}                 % default size
-    \IfBooleanT{#1}{\def\squaresize{0.3em}} % if starred, set size corresponding to scriptstyle
-    \IfValueT{#2}{\def\squaresize{#2}}      % if optional argument is passed, set size to custom value
-    \mathcolor{Gray40}{\square[\squaresize][top][*(LightGrayFill)]}
+%% Argument placeholder
+\NewDocumentCommand{\argument}{s o}{%
+    \def\squaresize{1.0}%                   % default size
+    \IfBooleanT{#1}{\def\squaresize{0.7}}%  % if starred, set size corresponding to scriptstyle
+    \IfValueT{#2}{\def\squaresize{#2}}%     % if optional argument is passed, set size to custom value
+    \scalebox{\squaresize}{%
+        \begin{tikzpicture}[baseline=-0.6ex]
+            \node(char)[draw, shape=rectangle, dash=on 1.2pt off 1.05pt phase 0.5pt, dash expand off,
+                inner ysep=2pt, inner xsep=2pt, minimum size=0.6em, rounded corners=2pt] {};
+            %% alternative:
+            % \node(char)[draw, shape=rectangle, dash=on 1.1pt off 0.8pt phase 0.5pt, dash expand off,
+            %     inner ysep=2pt, inner xsep=2pt, minimum size=0.6em, rounded corners=2pt] {};
+        \end{tikzpicture}%
+    }%
 }
 
 %% Curly arrows
