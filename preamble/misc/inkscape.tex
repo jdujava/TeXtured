@@ -6,8 +6,8 @@
 \usepackage{filemod}
 \NewDocumentCommand{\includesvg}{O{0.8\linewidth} O{./figures/Inkscape/} m}{%
     \filemodCmp{#2#3.pdf}{#2#3.svg}{}{% regenerate PDF+LaTeX code if SVG is newer
-        \ShellEscape{#2inkscape-export-to-latex "#2#3"}
-    }
-    \def\svgwidth{#1} % set the width of the figure
-    \input{#2#3.pdf_tex}
+        \ShellEscape{#2inkscape-export-to-latex "#2#3"}%
+    }%
+    \def\svgwidth{#1}% set the width of the figure
+    \input{#2#3.pdf_tex}%
 }
