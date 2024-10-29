@@ -3,7 +3,14 @@
     <img alt="TeXtured Template" src="https://raw.githubusercontent.com/jdujava/TeXtured/refs/heads/master/figures/TeXtured-logo-dark-mode.svg#gh-dark-mode-only">
 </div>
 
-## 🚀 Elevator Pitch
+<div align="center">
+
+[![TeXtured Demo](https://img.shields.io/badge/TeXtured-Demo%E2%80%89%F0%9F%93%93-blue?color=ccfaff&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
+[![GitHub License](https://img.shields.io/github/license/jdujava/TeXtured?color=fbe2ff&style=for-the-badge)](#-license)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jdujava/TeXtured/main.yml?color=aafaba&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
+[![TeXtured Stars](https://img.shields.io/github/stars/jdujava/TeXtured?color=ffeca4&style=for-the-badge)](https://github.com/jdujava/TeXtured/stargazers)
+
+</div>
 
 Do you care in the slightest about what your readers think about your document,
 and by proxy about you and your competence level? If yes, then a classy,
@@ -16,8 +23,8 @@ Here’s what the **TeXtured** Template offers:
 - 🔗 **seamless GitHub integration** (via GitHub Actions) to streamline version control and collaboration
 - 📄 **PDF/A compliance** and *front matter* supporting theses at [MFF](https://www.mff.cuni.cz/en) 🎓
 
-To learn more about the design principles behind `TeXtured` and its capabilities, look
-at the [TeXtured Demo](https://jdujava.github.io/TeXtured/thesis.pdf) 📖.
+To learn more about the design principles behind `TeXtured` and its capabilities, look at the
+[<img align="center" alt="TeXtured Demo" src="https://img.shields.io/badge/TeXtured-Demo%E2%80%89%F0%9F%93%93-blue?color=ccfaff">](https://jdujava.github.io/TeXtured/thesis.pdf).
 It showcases the features of `TeXtured` template and provides a guide on how to use them.
 
 > [!NOTE]
@@ -38,8 +45,10 @@ latexmk thesis
 in the root directory of the repository to build the thesis.
 
 > [!TIP]
-> If you prefer to use 🍃`Overleaf`, you can find the `TeXtured`
-> [template](https://www.overleaf.com/latex/templates/textured/zwtzzwgddbsh) there as well.
+> If you prefer to use 🍃 `Overleaf`, you can find the `TeXtured` template
+> [<img align="center" alt="Overleaf TeXtured Template" src="https://img.shields.io/badge/Overleaf-TeXtured-blue?color=ccffd2&logo=overleaf">](https://www.overleaf.com/latex/templates/textured/zwtzzwgddbsh)
+> there as well.
+
 
 ## 📦 Software Dependencies
 
@@ -51,7 +60,8 @@ LaTeX build tools:
 > [!WARNING]
 > At this point it is unclear what is the minimal required LaTeX installation.
 > Full `TeX Live` distribution is surely enough, since it is used in GitHub Actions
-> to automatically build the latest version of the [TeXtured Demo](https://jdujava.github.io/TeXtured/thesis.pdf) 📖.
+> to automatically build the latest version of the 
+> [<img align="center" alt="TeXtured Demo" src="https://img.shields.io/badge/TeXtured-Demo%E2%80%89%F0%9F%93%93-blue?color=ccfaff">](https://jdujava.github.io/TeXtured/thesis.pdf).
 
 > [!NOTE]
 > Some scripts assume `linux` environment. These include:
@@ -74,7 +84,8 @@ Exceptions:
 - The MFF CUNI logo `MFF-logo.pdf` is property of the corresponding faculty, see [MFF Visual Identity](https://www.mff.cuni.cz/en/faculty/visual-identity).
 - Figure `parallel-plate-capacitor.svg` (with corresponding files) is property of Jonáš Dujava.
 
-[<img align="center" alt="License: CC0-1.0" src="https://licensebuttons.net/p/zero/1.0/88x31.png">](http://creativecommons.org/publicdomain/zero/1.0/)
-All other files are marked with [CC0 1.0](http://creativecommons.org/publicdomain/zero/1.0/).
+[<img align="center" alt="License: CC0-1.0" src="https://licensebuttons.net/p/zero/1.0/88x31.png">](https://creativecommons.org/publicdomain/zero/1.0/)
+ All other files are marked with
+[<img align="center" alt="License: CC0-1.0" src="https://img.shields.io/github/license/jdujava/TeXtured?color=fbe2ff">](https://creativecommons.org/publicdomain/zero/1.0/).
 
 Even though you are free to use the source code of `TeXtured` any way you like, attribution/acknowledgement is welcome.
