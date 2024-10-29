@@ -1,14 +1,13 @@
 <div align="center">
-    <img alt="TeXtured Template" src="https://raw.githubusercontent.com/jdujava/TeXtured/refs/heads/master/figures/TeXtured-logo-light-mode.svg#gh-light-mode-only">
-    <img alt="TeXtured Template" src="https://raw.githubusercontent.com/jdujava/TeXtured/refs/heads/master/figures/TeXtured-logo-dark-mode.svg#gh-dark-mode-only">
+    <img alt="TeXtured Template" height="100px" src="https://raw.githubusercontent.com/jdujava/TeXtured/refs/heads/master/figures/TeXtured-logo-light-mode.svg#gh-light-mode-only">
+    <img alt="TeXtured Template" height="100px" src="https://raw.githubusercontent.com/jdujava/TeXtured/refs/heads/master/figures/TeXtured-logo-dark-mode.svg#gh-dark-mode-only">
 </div>
-
 <div align="center">
 
-[![TeXtured Demo](https://img.shields.io/badge/TeXtured-Demo%E2%80%89%F0%9F%93%93-blue?color=ccfaff&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
-[![GitHub License](https://img.shields.io/github/license/jdujava/TeXtured?color=fbe2ff&style=for-the-badge)](#-license)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jdujava/TeXtured/main.yml?color=aafaba&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
-[![TeXtured Stars](https://img.shields.io/github/stars/jdujava/TeXtured?color=ffeca4&style=for-the-badge)](https://github.com/jdujava/TeXtured/stargazers)
+ [![TeXtured Demo](https://img.shields.io/badge/TeXtured-Demo%E2%80%89%F0%9F%93%93-blue?color=ccfaff&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
+ [![GitHub License](https://img.shields.io/github/license/jdujava/TeXtured?color=fbe2ff&style=for-the-badge)](#-license)
+ [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jdujava/TeXtured/main.yml?color=aafaba&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
+ [![TeXtured Stars](https://img.shields.io/github/stars/jdujava/TeXtured?color=ffeca4&style=for-the-badge)](https://github.com/jdujava/TeXtured/stargazers)
 
 </div>
 
