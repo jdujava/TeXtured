@@ -17,9 +17,8 @@
 
 %% Imaginary unit and Euler's number
 %% inspired by Niklas Beisert
-\NewDocumentCommand{\iunit}{}{\mathring{\imath}}
-\NewDocumentCommand{\eunit}{}{\mathinner{\mathrm{e}}}
-\NewDocumentCommand{\eunits}{}{\mathrm{e}}
+\NewDocumentCommand{\I}{}{\mathring{\imath}}
+\NewDocumentCommand{\E}{s}{\IfBooleanTF{#1}{\mathrm{e}}{\mathinner{\mathrm{e}}}}
 
 %%% Various fields and number sets
 \NewDocumentCommand{\R}{}{\mathbb{R}}
