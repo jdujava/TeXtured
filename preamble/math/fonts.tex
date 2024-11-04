@@ -1,6 +1,9 @@
 %% Automatically use `\boldmath` in `\bfseries` text
+%% Automatically use `\unboldmath` in `\mdseries` text
 \NewCommandCopy{\bfseriesOrig}{\bfseries}
+\NewCommandCopy{\mdseriesOrig}{\mdseries}
 \RenewDocumentCommand{\bfseries}{}{\bfseriesOrig\boldmath}
+\RenewDocumentCommand{\mdseries}{}{\mdseriesOrig\unboldmath}
 
 %% serif semi-bold --- but it is just `sbc` (serif bold condensed)
 %% used for serif in chapter/section/... titles
