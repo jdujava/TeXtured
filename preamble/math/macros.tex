@@ -35,8 +35,6 @@
 }
 
 %% Group/Representation Theory
-\NewDocumentCommand{\Sym}{}{S}
-\NewDocumentCommand{\Symtrless}{}{\Sym_{\odot}}
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\End}{End}
@@ -92,11 +90,15 @@
 %% TODO: see if \cramped{...} could be used sometimes to make
 %%       (inline) math prettier (to avoid weird line spacing weird)
 
-%% Modify position of superscript for \bigwedge
+%% Modify size of `\bigwedge`/`\bigodot` and the position of their superscripts
 \NewDocumentCommand{\Ext}{e{^}}{
-    \mathop{\bigwedge\nolimits\IfValueT{#1}{^{\mspace{-5mu}\raisebox{-0.13em}{\scriptsize\(#1\)}}}}
+    \scalerel*{\bigwedge}{\xmathstrut[-0.1]{0.1}} % scale down the \bigwedge a bit
+    \IfValueT{#1}{^{\mspace{-2mu}#1}} % shift possible superscript little bit to the left
 }
-\NewDocumentCommand{\textExt}{m}{\text{\scalebox{.9}{\(\displaystyle\Ext#1\)}}}
+\NewDocumentCommand{\Odot}{e{^}}{
+    \scalerel*{\bigodot}{\xmathstrut[-0.1]{0.1}} % scale down the \bigodot a bit
+    \IfValueT{#1}{^{\mspace{-0mu}#1}} % (do not) shift possible superscript little bit to the left
+}
 
 %% Exchange \epsilon and \varepsilon
 \NewCommandCopy{\oldepsilon}{\epsilon}
