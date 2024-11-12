@@ -4,6 +4,17 @@
 \NewDocumentCommand{\eqend}{}{\,.}
 \NewDocumentCommand{\eqcomma}{}{\,,}
 
+%% (Optional) Automatically use \mathcolor in math mode
+% \NewCommandCopy{\textcolorOrig}{\textcolor}
+% \RenewDocumentCommand{\textcolor}{O{} m m}{%
+%     \ifmmode%
+%         \let\colorcmd\mathcolor%
+%     \else%
+%         \let\colorcmd\textcolorOrig%
+%     \fi%
+%     \IfBlankTF{#1}{\colorcmd{#2}{#3}}{\colorcmd[#1]{#2}{#3}}%
+% }
+
 %% Misc math macros
 \NewCommandCopy{\sq}{\sqrt}
 \DeclareMathOperator{\sgn}{sgn}

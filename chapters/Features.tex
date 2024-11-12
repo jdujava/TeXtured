@@ -225,10 +225,12 @@ However, PDF/A requires it to be disabled.
 
 Some of the math-related tweaks:
 \begin{itemize}
-    \item possible to use serif italic font for math via \verb|\mathsfit|
-    \item use \verb|\boldmath| automatically for \verb|\textbf| text (usefull mainly in headings)
-    \item \verb|\ensuremath| for easier use of macros outside math mode
-    \item better extendable arrows with \texttt{tikz}
+    \item Use \verb|\boldmath| automatically for \verb|\textbf| text (useful mainly in headings).
+    \item Possible to use serif italic font for math via \verb|\mathsfit|.
+    \item Better extendable arrows with \texttt{tikz}.
+    \item \emph{(Optional, disabled by default)} Automatically change usage of \verb|\textcolor| to \verb|\mathcolor| in math mode, so that we get proper math spacing, for example
+          \[ a \mathcolor{gray}{\times} b \text{ (right spacing)} \qquad\text{versus}\qquad a \textcolor{gray}{\times} b \text{ (wrong spacing)}\eqend \]
+          However, it is recommended to explicitely use \verb|\mathcolor| when appropriate, since it leads to easier maintenance of the code (copy-pasting to other projects will work without problems).
 \end{itemize}
 
 \vspace{1ex}

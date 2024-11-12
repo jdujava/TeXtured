@@ -1,14 +1,14 @@
 %% Enclose with gray delimiters (by default parantheses)
 \NewDocumentCommand{\grayenclose}{s O{(} m O{)}}{%
     \ifmmode
-        \let\colorcmd\mathcolor% TODO: maybe do this everywhere for math mode
+        \let\colorcmd\mathcolor%
         \DeclareCommandCopy{\Left}{\left}%
         \DeclareCommandCopy{\Right}{\right}%
     \else%
         \let\colorcmd\textcolor%
         \DeclareCommandCopy{\Left}{\big}%
         \DeclareCommandCopy{\Right}{\big}%
-    \fi%       (just use one command everywhere)
+    \fi% (just use one command for both cases)
     \IfBooleanTF{#1}{%
         \colorcmd{gray}{\Left#2}#3\colorcmd{gray}{\Right#4}%
     }{%
