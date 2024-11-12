@@ -1,11 +1,10 @@
 %%% Helper TODO/WIP environments
 
 %% Quick inline todo command
-\NewDocumentCommand{\todo}{m}{%
-    \IfBlankTF{#1}{%
-        \textcolor{red}{\textsf{TODO.}}%
-    }{%
-        \textcolor{red}{\textsf{TODO:} #1}%
+\NewDocumentCommand{\todo}{O{} >{\TrimSpaces} m}{%
+    \textcolor{red}{%
+        \textsf{TODO\IfBlankF{#1}{(#1)}}%
+        \IfBlankTF{#2}{.}{: #2}%
     }%
 }
 
