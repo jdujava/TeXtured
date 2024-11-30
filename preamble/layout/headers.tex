@@ -25,11 +25,12 @@
     \RenewDocumentCommand{\headrule}{}{
         % \RenewDocumentCommand{\headrulewidth}{}{0.9pt}
         % \textcolor{HeaderRuleColor}{\rule[1em]{\headwidth}{\headrulewidth}}%
-        % TODO: save and reuse this drawing...
         \tikz[baseline=-1em]{
             \fill[header rule] (0, 0) rectangle (\headwidth, 0.9pt);
-            \draw[header decor right] (\headwidth,0.45pt) -- ++(7pt,0);
-            \draw[header decor left] (-7pt,0.45pt) -- (0,0.45pt);
+            \ifFANCY % add fancy decorations
+                \draw[header decor right] (\headwidth,0.45pt) -- ++(7pt,0);
+                \draw[header decor left] (-7pt,0.45pt) -- (0,0.45pt);
+            \fi
         }
     }
     \fancyhead[LO]{\hspace{\headerpadding}\textcolor{HeaderColor}{\textsf{\nouppercase{\leftmark}}}}
@@ -46,10 +47,11 @@
 %% For chapter pages, the `plain` style is used
 \fancypagestyle{plain}[header]{
     \RenewDocumentCommand{\headrule}{}{
-        % TODO: save and reuse this drawing...
         \hfill\tikz[baseline=-1em]{
             \fill[header rule, path fading=west] (0, 0) rectangle (0.45\headwidth, 0.9pt);
-            \draw[header decor right] (0.45\headwidth,0.4pt) -- ++(7pt,0);
+            \ifFANCY % add fancy decorations
+                \draw[header decor right] (0.45\headwidth,0.4pt) -- ++(7pt,0);
+            \fi
         }
     }
     \fancyhead[LO,RE]{}

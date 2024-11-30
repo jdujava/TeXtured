@@ -10,19 +10,21 @@
     \vspace{-2em}
     \vfill
 
-    % {\bfseries\Large \MakeUppercase{\ThesisType} THESIS}
-    {\sffamily\Huge \MakeUppercase{\ThesisType} THESIS}
+    {\ifFANCY\sffamily\Huge\else\bfseries\LARGE\fi
+        \MakeUppercase{\ThesisType} THESIS}
 
     \vfill
 
-    {\Huge\ThesisAuthor}
+    {\Huge
+        \ThesisAuthor}
 
     \vspace{1em}
 
     %% if `\ThesisTitleFront` is not defined, use `\ThesisTitle`
     \ProvideExpandableDocumentCommand{\ThesisTitleFront}{}{\ThesisTitle}
     % {\Huge \bfseries \ThesisTitleFront \par}
-    {\fontsize{30pt}{36pt}\selectfont \bfseries \ThesisTitleFront \par}
+    {\fontsize{30pt}{36pt}\selectfont \bfseries
+        \ThesisTitleFront \par}
 
     \vfill
 
@@ -46,7 +48,7 @@
 
     \vspace{2em}
 
-    \sffamily
+    \ifFANCY\sffamily\fi
     Prague \YearSubmitted \\
     \ifdef{\YearRevision}{%
         \emph{Revised version \YearRevision} \par
