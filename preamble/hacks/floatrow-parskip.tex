@@ -1,0 +1,38 @@
+%%  BUG: `floatrow` captions (that is ones set with `\fcapside` or `\ffigbox`)
+%%       do not respect the `parskip` option of the `caption` package.
+%%       More generally, the usual paragraph spacing is not applied in such captions.
+
+%%  HACK: By commenting out the `\everypar{}` in the `\@arrayparboxrestore` macro,
+%%        the ordinary paragraph spacing is restored in the `floatrow` captions.
+%%        However, I am not entirely sure why this works..
+
+\makeatletter
+\NewDocumentCommand{\redefineparboxrestore}{}{%
+    \def\@arrayparboxrestore{%
+        \let\if@nobreak\iffalse
+        \let\if@noskipsec\iffalse
+        \let\par\@@par
+        \let\-\@dischyph
+        \let\'\@acci\let\`\@accii\let\=\@acciii
+        \parindent\z@ \parskip\z@skip
+        % \everypar{} % <--- commented out, so that paragraphs work properly in the caption
+        \linewidth\hsize
+        \@totalleftmargin\z@
+        \leftskip\z@skip \rightskip\z@skip \@rightskip\z@skip
+        \parfillskip\@flushglue
+        \lineskip\normallineskip
+        \lineskiplimit\normallineskiplimit
+        \baselineskip\normalbaselineskip
+        \sloppy}%
+}
+\NewCommandCopy{\fcapsideOrig}{\fcapside}
+\RenewDocumentCommand{\fcapside}{O{\FBwidth} >{\TrimSpaces}+m >{\TrimSpaces}+m}{%
+    \redefineparboxrestore%
+    \fcapsideOrig[#1]{#2}{#3}%
+}
+\NewCommandCopy{\ffigboxOrig}{\ffigbox}
+\RenewDocumentCommand{\ffigbox}{O{\FBwidth} >{\TrimSpaces}+m >{\TrimSpaces}+m}{%
+    \redefineparboxrestore%
+    \ffigboxOrig[#1]{#2}{#3}%
+}
+\makeatother

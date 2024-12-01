@@ -8,12 +8,11 @@
 
 \begin{figure}[!ht]
     \fcapside[\FBwidth]{%
-        %% TODO: should lead automatically to correct space between paragraphs...
-        %%       as of now, it is a bit ugly, since the spacing is done manually
         \caption[Example of a figure with a side-caption.]{%
             Example of a figure with a side-caption.
-            \\[\parskip]
-            It displays the two-dimensional electric field near one end of a parallel plate capacitor.\\[-1.5ex]
+
+            It displays the two-dimensional electric field near one end of a parallel plate capacitor.
+            \vspace{1ex}
 
             \textbf{\textsf{Legend:}}\\[0.4ex]
             \begin{tblr}{stretch=0.8, column{1} = {rightsep=2pt, cmd=\raisebox{-0.31ex}}}
@@ -33,6 +32,25 @@
     }{\includegraphics[width=0.6\textwidth]{example-image-a}}
 \end{figure}
 
+\clearpage
+\begin{example}[Multi-Paragraph Figure Caption with Verbatim Text]
+    It is possible to have multi-paragraph captions for figures.
+    One must remember to provide a short description as \verb|\caption[Short Description]{...}|, otherwise \LaTeX{} will complain.
+
+    See \Cref{fig:multi-paragraph_verbatim_figure} for an example, demonstrating also a workaround for typesetting verbatim text in contexts where \enquote{fragile} commands are not allowed.
+\end{example}
+\begin{figure}[!ht]
+    \includegraphics[width=0.6\textwidth]{example-image-b}
+    \caption[Necessary to provide short description.]{%
+        Example of a figure with a multi-paragraph caption.
+
+        This is the second paragraph.
+        Notice the spacing between the paragraphs, which was customized with the \fakeverb{\captionsetup} by specifying the \texttt{parskip} option.
+
+        To typeset verbatim text in the caption, use the \fakeverb{\fakeverb{...}} command instead of the usual \fakeverb{\verb|...|}, which is not allowed in captions.
+    }%
+    \label{fig:multi-paragraph_verbatim_figure}%
+\end{figure}
 
 \section{Appendix Section}%
 \label{sec:Appendix Section}
