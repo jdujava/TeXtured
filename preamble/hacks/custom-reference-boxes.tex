@@ -41,7 +41,7 @@
 %% TODO: maybe (optionally) append name of theorem/remark/...?
 \RenewDocumentCommand{\Cref}{s m}{%
     \hyperref[#2]{%                         link around the whole frame
-        \refbox[right=0.1em]{%              frame around the reference (tweak right padding)
+        \refbox[right={\IfBooleanTF{#1}{0.15em}{0.1em}}]{% frame around the reference (tweak right padding)
             \nameCref{#2}~\labelcref*{#2}%  reference name and number
             \IfBooleanF{#1}{%               if not starred, add page number to the superscript
                 \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\labelcpageref*{#2}}%
@@ -54,7 +54,7 @@
 %% TODO: maybe overwrite \nameref?
 \NewDocumentCommand{\Nref}{s m}{%
     \hyperref[#2]{%                         link around the whole frame
-        \refbox[right=0.1em]{%              frame around the reference (tweak right padding)
+        \refbox[right={\IfBooleanTF{#1}{0.15em}{0.1em}}]{% frame around the reference (tweak right padding)
             \nameref*{#2}%                  reference title
             \IfBooleanF{#1}{%               if not starred, add page number to the superscript
                 \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\labelcpageref*{#2}}%
