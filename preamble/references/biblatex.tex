@@ -14,6 +14,12 @@
 \addbibresource{preamble/bibliography.bib}
 
 \newcommand{\references}{
+    \defbibheading{bibintoclabel}[\bibname]{%
+        \chapter*{##1}%
+        \label{ch:References}%
+        \addcontentsline{toc}{chapter}{##1}%
+        \markboth{##1}{##1}%
+    }
     \defbibnote{note}{%
         % \vspace{-3em}
         \begin{flushright}
@@ -27,7 +33,7 @@
     % \emergencystretch=1em % prevent some of the overfull hboxes
     % \hyphenpenalty 100 % try to prevent (some) hyphenation
     % \printbibliography[heading=bibintoc, title=References]
-    \printbibliography[heading=bibintoc, title=References, prenote=note]
+    \printbibliography[heading=bibintoclabel, title=References, prenote=note]
 }
 
 
