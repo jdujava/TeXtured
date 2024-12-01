@@ -17,25 +17,25 @@ Also, there will be sprinkled miscellaneous tips on how to improve the quality o
 \begin{itemize}
     \item numbered and \enquote{lettered} chapters
           \begin{Todo}
-              Describe \verb|\chapternotnumbered|, and \enquote{lettered} chapters in front matter.
+              Describe \custommacro{\chapternotnumbered}, and \enquote{lettered} chapters in front matter.
           \end{Todo}
     \item Use nicely named \textcolor{gray}{sub}sections --- easier to navigate (also better ToC and Index)
           \begin{Todo}
-              Describe \verb|\texorpdfstring|.
+              Describe \macro{\texorpdfstring}.
               If you want, you can even use UTF-8 math characters (superscripts/subscripts, emulate math fonts).
           \end{Todo}
     \item Utilize remark/definition environments to make the document more structured and easier to read.
           Important concepts will stick out more and will be remembered better.
           \begin{Todo}
-              Describe creating of new environments, \verb|\qedhere|, ...
+              Describe creating of new environments, \custommacro{\qedhere}, ...
           \end{Todo}
     \item Try to motivate every definition/theorem with \enquote{normal} text, do not let the document degenerate just into a listing of definitions/theorems/proofs/...
     \item Use references to other remarks/definitions/sections to make the document more interconnected, which can help the reader to look at a bigger picture, recollect necessary information to proceed further, or to understand the context better.
           \begin{Todo}
-              Describe \verb|\Cref|, \verb|\Nref|.
+              Describe \custommacro{\Cref}, \custommacro{\Nref}.
           \end{Todo}
           \begin{Todo}
-              Show using \verb|\autocite{TODO}| in the text \autocite{TODO}.
+              Show using \macro{\autocite{TODO}} in the text \autocite{TODO}.
               Helps to not forget to add the citation later.
           \end{Todo}
 \end{itemize}
@@ -45,11 +45,11 @@ Also, there will be sprinkled miscellaneous tips on how to improve the quality o
 \label{sec:Typography}
 
 \begin{itemize}
-    \item use \verb|~| to enter non-breakable space, or also after dot in initials/after titles
-          (otherwise one gets bigger space than is proper), for example \verb|M.Sc.~Name Surname|
-    \item proper usage of hyphens/dashes --- learn when to use hyphen - (\verb|-|), when en-dash -- (\verb|--|), and when em-dash --- (\verb|---|)
+    \item use \macro{~} to enter non-breakable space, or also after dot in initials/after titles
+          (otherwise one gets bigger space than is proper), for example \macro{M.Sc.~Name Surname}
+    \item proper usage of hyphens/dashes --- learn when to use hyphen - (\macro{-}), when en-dash -- (\macro{--}), and when em-dash --- (\macro{---})
     \item use \emph{emphasis} for the names of new and important concepts
-    \item for quotation marks use \verb|\enquote| from \texttt{csquotes} package
+    \item for quotation marks use \macro{\enquote} from \package{csquotes} package
     \item sometimes using gray text instead of parentheses may result in a cleaner look, for example instead of \enquote{(pseudo-)Riemannian} just gray out \enquote{pseudo-} like \enquote{\textcolor{gray}{pseudo-}Riemannian}
     \item choose capitalization style of titles, and stick with it --- I choose \enquote{titlecase}
 \end{itemize}
@@ -61,7 +61,7 @@ Also, there will be sprinkled miscellaneous tips on how to improve the quality o
 \subsection{Math Typesetting}%
 \label{sub:Math Typesetting}
 
-Learn stuff in \texttt{amsmath} and \texttt{mathtools} packages.
+Learn stuff in \package{amsmath} and \package{mathtools} packages.
 Then it is possible to write stuff like following inclusion map
 \begin{alignat*}{3}
     % NOTE: maybe there is a better way to center parameters (t,r,\overline{x})?
@@ -79,25 +79,25 @@ Then it is possible to write stuff like following inclusion map
     \eqend
 \end{alignat*}
 \begin{remark}[Math Ending Punctuation]
-    Make sure to use \verb|\eqend| or \verb|\eqcomma| macro (when appropriate) to properly end a math environment with a period or a comma, respectively.
+    Make sure to use \custommacro{\eqend} or \custommacro{\eqcomma} macro (when appropriate) to properly end a math environment with a period or a comma, respectively.
     They add a small space before the punctuation to make the formula look better.
 \end{remark}
 
 \begin{Todo}
-    Maybe show diagrams with \texttt{TikZ} package.
+    Maybe show diagrams with \package{TikZ} package.
 \end{Todo}
 \begin{Todo}
-    Describe \verb|\DeclareDocumentCommand|, ...
+    Describe \macro{\DeclareDocumentCommand}, ...
 \end{Todo}
 
 \subsection{Numbers and Units}%
 \label{sub:Numbers and Units}
 
-Use \texttt{siunitx} package for convenient typesetting numbers and units.
+Use \package{siunitx} package for convenient typesetting numbers and units.
 Examples are shown in \Cref{tab:siunitx}.
 
 \begin{Note}
-    The \texttt{siunitx} package is very powerful and flexible.
+    The \package{siunitx} package is very powerful and flexible.
     It can be even used to nicely align numbers in tables.
     As of now, this feature is not customized in any way in \TeXtured{}.
     Suggestions for improvements are welcome.
@@ -105,17 +105,17 @@ Examples are shown in \Cref{tab:siunitx}.
 \begin{table}[ht!]
     \begin{booktabs}{stretch=1.1}
         \toprule
-        \textbf{Command}                          & \textbf{Output}                & \textbf{Usage}     \\
+        \textbf{Command}                           & \textbf{Output}                & \textbf{Usage}     \\
         \midrule
-        \fakeverb{\num{123.45 e-8}}               & \num{123.45 e-8}               & numbers            \\
-        \fakeverb{\si{\meter\per\second\squared}} & \si{\meter\per\second\squared} & units              \\
-        \fakeverb{\SI{123.45}{m/s^2}}             & \SI{123.45}{m/s^2}             & numbers with units \\
-        \fakeverb{\SIrange{1}{10}{\kilo\meter}}   & \SIrange{1}{10}{\kilo\meter}   & ranges             \\
-        \fakeverb{\SIlist{1;3;5}{A}}              & \SIlist{1;3;5}{A}              & lists              \\
-        \fakeverb{\SI{1.23 +- 0.45}{\celsius}}    & \SI{1.23 +- 0.45}{\celsius}    & uncertainties      \\
+        \fakemacro{\num{123.45 e-8}}               & \num{123.45 e-8}               & numbers            \\
+        \fakemacro{\si{\meter\per\second\squared}} & \si{\meter\per\second\squared} & units              \\
+        \fakemacro{\SI{123.45}{m/s^2}}             & \SI{123.45}{m/s^2}             & numbers with units \\
+        \fakemacro{\SIrange{1}{10}{\kilo\meter}}   & \SIrange{1}{10}{\kilo\meter}   & ranges             \\
+        \fakemacro{\SIlist{1;3;5}{A}}              & \SIlist{1;3;5}{A}              & lists              \\
+        \fakemacro{\SI{1.23 +- 0.45}{\celsius}}    & \SI{1.23 +- 0.45}{\celsius}    & uncertainties      \\
         \bottomrule
     \end{booktabs}
-    \caption{Examples of \texttt{siunitx} package usage.}
+    \caption{Examples of \package{siunitx} package usage.}
     \label{tab:siunitx}
 \end{table}
 
@@ -124,29 +124,29 @@ Examples are shown in \Cref{tab:siunitx}.
 \label{sec:LaTeX Coding}
 
 \begin{Todo}
-    Describe how to create custom macros with \verb|\NewDocumentCommand|, \verb|\RenewDocumentCommand|, \verb|\NewCommandCopy|, ...
+    Describe how to create custom macros with \macro{\NewDocumentCommand}, \macro{\RenewDocumentCommand}, \macro{\NewCommandCopy}, ...
 \end{Todo}
 \begin{Question}
     Difference between \enquote{macro} and \enquote{function} in \LaTeX{}?
     Which nomenclature is appropriate?
 \end{Question}
 \begin{remark}[Macro Space Handling]
-    Using macro inside text in the form \verb|\foo| can swallow the following whitespace.
-    When this is not the desired behavior, call the macro like \verb|\foo{}|.
+    Using macro inside text in the form \macro{\foo} can swallow the following whitespace.
+    When this is not the desired behavior, call the macro like \macro{\foo{}}.
     In this way an empty argument is passed to the macro, leaving the following whitespace intact.
 \end{remark}
 \begin{Todo}
-    Describe \verb|\makeatletter| and \verb|\makeatother|.
+    Describe \macro{\makeatletter} and \macro{\makeatother}.
 \end{Todo}
 \begin{Todo}
-    Describe \verb|\ensuremath|.
-    When math macro is used often outside math mode (alone as ``\verb|... \(\foo\) ...|''), defining it wrapped in \verb|\ensuremath| can lead to perhaps easier use (as just ``\verb|... \foo{} ...|'').
+    Describe \macro{\ensuremath}.
+    When math macro is used often outside math mode (alone as \macro{...\(\foo\)...}), defining it wrapped in \macro{\ensuremath} can lead to perhaps easier use (as just \macro{...\foo{}...}).
 \end{Todo}
 \begin{Todo}
-    Describe \verb|\includeonlysmart|.
+    Describe \custommacro{\includeonlysmart}.
 \end{Todo}
 \begin{Note}
-    Be careful about implicit end of line spaces in function definitions, sometimes necessary to use \texttt{\%} after last command on the line.
+    Be careful about implicit end of line spaces in function definitions, sometimes necessary to use \macrobox{\texttt{\%}} after last command on the line.
     \todo{Describe this in more detail.}
 \end{Note}
 \begin{Todo}

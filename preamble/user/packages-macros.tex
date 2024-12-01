@@ -1,0 +1,25 @@
+%% Macros for - links to packages, and verbatim macros for LaTeX commands
+%%            - verbatim macros for commands defined specifically by TeXtured
+
+%% will also utilize styles defined in `/preamble/hacks/custom-reference-boxes.tex`
+\tcbset{
+    packagebox/.style ={bottom=0.20ex, fontupper=\ttfamily},
+    macrobox/.style ={colframe=black!15, colback=black!3, bottom=0.20ex, fontupper=\ttfamily},
+    custommacrobox/.style ={colframe=black!25!green!25, colback=black!5!green!5, bottom=0.20ex, fontupper=\ttfamily},
+}
+
+\NewTCBox{\packagebox}{!O{}}{link,hrefbox,packagebox,#1}
+\NewTCBox{\macrobox}{!O{}}{link,macrobox,#1}
+\NewTCBox{\custommacrobox}{!O{}}{link,custommacrobox,#1}
+
+\NewDocumentCommand{\package}{m}{%
+    % \href{https://texdoc.org/pkg/#1}
+    \hrefold{https://ctan.org/pkg/#1}{%
+        \packagebox[right=0.1em]{#1\textsuperscript{\tiny\(\,\to\,\)CTAN}}%
+    }%
+}
+
+\NewDocumentCommand{\macro}{v}{\macrobox{#1}}
+\NewDocumentCommand{\fakemacro}{m}{\macrobox{\fakeverb{#1}}}
+\NewDocumentCommand{\custommacro}{v}{\custommacrobox{#1}}
+\NewDocumentCommand{\fakecustommacro}{m}{\custommacrobox{\fakeverb{#1}}}

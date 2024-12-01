@@ -3,7 +3,7 @@
 \begin{example}[Figure Caption Tweaking]
     Now we will show off some figures with tweaked position/extent of the captions.
     \Cref{fig:parallel-plate-capacitor} has a side-caption, while \Cref{fig:tighter_caption} has a caption that spans just the width of the figure.
-    This utilizes the \texttt{floatrow} package and is inspired by ITT \LaTeX{} template \autocite{ITTtemplate}.
+    This utilizes the \package{floatrow} package and is inspired by ITT \LaTeX{} template \autocite{ITTtemplate}.
 \end{example}
 
 \begin{figure}[!ht]
@@ -35,7 +35,7 @@
 \clearpage
 \begin{example}[Multi-Paragraph Figure Caption with Verbatim Text]
     It is possible to have multi-paragraph captions for figures.
-    One must remember to provide a short description as \verb|\caption[Short Description]{...}|, otherwise \LaTeX{} will complain.
+    One must remember to provide a short description as \macro{\caption[Short Description]{...}}, otherwise \LaTeX{} will complain.
 
     See \Cref{fig:multi-paragraph_verbatim_figure} for an example, demonstrating also a workaround for typesetting verbatim text in contexts where \enquote{fragile} commands are not allowed.
 \end{example}
@@ -44,10 +44,10 @@
     \caption[Necessary to provide short description.]{%
         Example of a figure with a multi-paragraph caption.
 
-        This is the second paragraph.
-        Notice the spacing between the paragraphs, which was customized with the \fakeverb{\captionsetup} by specifying the \texttt{parskip} option.
+        Notice the spacing between the paragraphs.
+        It was customized using the \fakemacro{parskip} key in \fakemacro{\captionsetup} provided by the \package{caption} package.
 
-        To typeset verbatim text in the caption, use the \fakeverb{\fakeverb{...}} command instead of the usual \fakeverb{\verb|...|}, which is not allowed in captions.
+        To typeset verbatim text in the caption, use the \fakemacro{\fakeverb{...}} command instead of the usual \fakemacro{\verb|...|}, which is not allowed in captions.
     }%
     \label{fig:multi-paragraph_verbatim_figure}%
 \end{figure}

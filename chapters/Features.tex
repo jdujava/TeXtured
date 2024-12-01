@@ -15,13 +15,13 @@ First two sections are about typography of the document, next are more about its
 \subsection{Page Dimensions, Printing Layout}%
 \label{sub:Page Dimensions}
 
-\texttt{geometry} package --- set up the page layout (supported single/double-sided printing).
-Apply \verb|\flushbottom| --- try to make text body on all pages have the same height.
+\package{geometry} package --- set up the page layout (supported single/double-sided printing).
+Apply \macro{\flushbottom} --- try to make text body on all pages have the same height.
 
 \subsection{Headers, Footers}%
 \label{sub:Headers Footers}
 
-\texttt{fancyhdr} package --- headers and footers --- consistent style also for initial page of a chapter (not totally different style with numbering in the bottom center \ldots).
+\package{fancyhdr} package --- headers and footers --- consistent style also for initial page of a chapter (not totally different style with numbering in the bottom center \ldots).
 
 \subsection{Heading Style}%
 \label{sub:Heading Style}
@@ -37,22 +37,22 @@ Now we will concern ourselves with more intricate and detailed typography (more 
 \subsection{Paragraphs, Captions}%
 \label{sub:Paragraphs}
 
-No paragraph indentation, proper space between paragraphs --- \texttt{parskip}.
-Caption styling --- hang, \verb|\footnotesize| font, bold serif label (like other environments).
+No paragraph indentation, proper space between paragraphs --- \package{parskip}.
+Caption styling --- hang, \macro{\footnotesize} font, bold serif label (like other environments).
 
 \subsection{Font and Related Stuff}%
 \label{sub:Font}
 
 Nothing special here.
 The default choice are Latin Modern fonts --- classic really.
-Quotation --- \texttt{csquotes}.
+Quotation --- \package{csquotes}.
 
 \subsection{Micro-Typography}%
 \label{sub:Micro-Typography}
 
-Enable micro-typographic extensions with package \texttt{microtype}, most prominently character protrusion and font expansion.
+Enable micro-typographic extensions with package \package{microtype}, most prominently character protrusion and font expansion.
 
-Following quote from \texttt{microtype} documentation nicely explains what it is about:
+Following quote from \package{microtype} documentation nicely explains what it is about:
 \begin{displayquote}
     Micro-typography is the art of enhancing the appearance and readability of a
     document while exhibiting a minimum degree of visual obtrusion.
@@ -65,7 +65,7 @@ Following quote from \texttt{microtype} documentation nicely explains what it is
 \section{Document Structure}%
 \label{sec:Document Structure}
 
-Implemented mostly via \texttt{tcolorbox} package (and \texttt{thmtools}).
+Implemented mostly via \package{tcolorbox} package (and \package{thmtools}).
 
 \subsection{Theorem/Remark--like Environments}%
 \label{sub:Theorem/Remark--like Environments}
@@ -82,7 +82,7 @@ Implemented mostly via \texttt{tcolorbox} package (and \texttt{thmtools}).
 \end{itemize}
 
 \begin{remark}
-    There are also helper environments for \textsf{TODO}-like notes.
+    There are also helper environments for \textsf{Todo}-like notes.
     By default, there are \textsf{Todo}, \textsf{Note}, \textsf{Suggestion}, and \textsf{Question} environments, but you can easily create your own.
 \end{remark}
 
@@ -97,7 +97,7 @@ Implemented mostly via \texttt{tcolorbox} package (and \texttt{thmtools}).
 Custom reference/link/citation styles.
 \begin{itemize}
     \item I like distinguished references/links/citations
-    \item always use \verb|\Cref| from \texttt{cleveref} package
+    \item always use \macro{\Cref} from \package{cleveref} package
     \item frames are useful, but not that pretty (they can obscure punctuation \ldots),
           and the PDF viewer must support them
     \item just color is sometimes alright, but less ideal when printing
@@ -119,49 +119,49 @@ Proper Index (ToC in PDF viewer).
 \begin{itemize}
     \item very handy for navigating longer documents
     \item include also other important pages other than just initial pages of main chapters: Contents, Introduction, References, \ldots
-    \item I use \texttt{Zathura} as my PDF viewer, where Index is just one \texttt{Tab} away \ldots
+    \item I use \texttt{Zathura} as my PDF viewer, where Index is just one \macro{Tab} away \ldots
 \end{itemize}
 
 
 \section{Bibliography/References}%
 \label{sec:Bibliography/References}
 
-Clear Bibliography/References, via \texttt{biblatex} package.
+Clear Bibliography/References, via \package{biblatex} package.
 
 \subsection{Bibliography Style}%
 \label{sub:Bibliography Style}
 
 Entries in \Nref{ch:References}:
 \begin{itemize}
-    \item have clean consistent style based on \texttt{ext-numeric-verb}
-    \item support (new) \texttt{github} field
+    \item have a clean consistent style based on the \macro{ext-numeric-verb} style from \package{biblatex-ext} package
+    \item support (new) \custommacro{github} field
     \item have DOI/arXiv/URL/GitHub links on the new line
     \item include \enquote{backlinks}
 \end{itemize}
 
 \begin{remark}[Bibliography Data]
     Make sure to gather all the relevant data you need for every reference.
-    If you later decide you want to reduce the amount of presented information, \texttt{biblatex} can help you with that.
+    If you later decide you want to reduce the amount of presented information, \package{biblatex} can help you with that.
     For example, it is possible to automatically
     \begin{itemize}
-        \item remove \texttt{url} field if \texttt{doi} field is present,
-        \item ignore unwanted fields (\texttt{pages}, \texttt{number}, \texttt{volume}, \texttt{series}, \texttt{location}, \ldots). \qedhere*
+        \item remove \macro{url} field if \macro{doi} field is present,
+        \item ignore unwanted fields (\macro{pages}, \macro{number}, \macro{volume}, \macro{series}, \macro{location}, \ldots). \qedhere*
     \end{itemize}
 \end{remark}
 
 \subsection{Citation Style}%
 \label{sub:Citation Style}
 
-Include \texttt{[} and \texttt{]} characters around citation number inside the link (and wrap in \texttt{tcolorbox} \ldots), for example \autocite{TeXtured}.
+Include \texttt{[} and \texttt{]} characters around citation number inside the link (and wrap in \package{tcolorbox} \ldots), for example \autocite{TeXtured}.
 
 
 \section{PDF/A Compliance}%
 \label{sec:PDF/A Compliance}
 
-Proper metadata setup (via \texttt{hyperref} and \verb|\DocumentMetadata|).
+Proper metadata setup (via \package{hyperref} and \macro{\DocumentMetadata}).
 \begin{remark}[Document Data]
-    Various data about the work should be entered in \texttt{preamble/data.tex} file.
-    When the relevant entries contain \LaTeX{} commands (for example to obtain specific formatting of the title), it is necessary to provide \enquote{plaintext} variations, so that \texttt{hyperref} can properly set up PDF metadata.
+    Various data about the work should be entered in \file{preamble/data.tex} file.
+    When the relevant entries contain \LaTeX{} commands (for example to obtain specific formatting of the title), it is necessary to provide \enquote{plaintext} variations, so that \package{hyperref} can properly set up PDF metadata.
 \end{remark}
 
 Next we will describe various common violations of PDF/A standard, and how to fix them.
@@ -173,10 +173,13 @@ Next we will describe various common violations of PDF/A standard, and how to fi
     Link to guide on how to find the name of a glyph, and how to provide \emph{glyph to Unicode} mapping.
 \end{Todo}
 
-\subsection{PDF \texorpdfstring{\texttt{/Interpolation}}{/Interpolation} Key}%
+\subsection{PDF \texorpdfstring{\fakemacro{/Interpolation}}{/Interpolation} Key}%
 \label{sub:PDF Interpolation Key}
 
-Some PDFs can have enabled the \texttt{/Interpolation} key, for example \texttt{Inkscape} generated PDFs with blur parts.
+\begin{Todo}
+    \macro{\fakemacro{/Interpolation}} is not grayed out in ToC.
+\end{Todo}
+Some PDFs can have enabled the \macro{/Interpolation} key, for example \texttt{Inkscape} generated PDFs with blur parts.
 However, PDF/A requires it to be disabled.
 
 
@@ -185,7 +188,7 @@ However, PDF/A requires it to be disabled.
 
 \begin{itemize}
     \item code broken into multiple files by its function, see \Cref{fig:preamble-file-structure}
-    \item use \verb|aux_dir| to minimize clutter
+    \item use \macro{aux_dir} to minimize clutter
     \item avoid large, hard to navigate, preamble files
     \item try to follow \enquote{one sentence per line} rule --- improves diffs for versioning systems like \texttt{git} --- tools like \texttt{latexindent} can help
           \begin{Note}
@@ -208,7 +211,7 @@ However, PDF/A requires it to be disabled.
             Make sure to fill all (meta)data --- like title, author, etc.~--- in the \path{preamble/data.tex} file.
             The bibliography/reference data is stored in the \path{preamble/bibliography.bib} file.
 
-            Apart from the \path{preamble/pdfA-compliance/glyphtounicode.tex} file, which needs to be sourced before calling \fakeverb{\documentclass}, all other files are loaded in the \path{preamble/main.tex} file.
+            Apart from the \path{preamble/pdfA-compliance/glyphtounicode.tex} file, which needs to be sourced before calling \fakemacro{\documentclass}, all other files are loaded in the \path{preamble/main.tex} file.
 
             When possible, add your own tweaks and macros to the \path{preamble/user/} directory reserved for this purpose.
             This way, you can easily update to newer versions of \TeXtured{} (hopefully) without conflicts.
@@ -311,12 +314,12 @@ However, PDF/A requires it to be disabled.
 
 Some of the math-related tweaks:
 \begin{itemize}
-    \item Use \verb|\boldmath| automatically for \verb|\textbf| text (useful mainly in headings).
-    \item Possible to use serif italic font for math via \verb|\mathsfit|.
-    \item Better extendable arrows with \texttt{tikz}.
-    \item \emph{(Optional, disabled by default)} Automatically change usage of \verb|\textcolor| to \verb|\mathcolor| in math mode, so that we get proper math spacing, for example
+    \item Use \macro{\boldmath} automatically for \macro{\textbf} text (useful mainly in headings).
+    \item Possible to use serif italic font for math via \custommacro{\mathsfit}.
+    \item Better extendable arrows with \package{TikZ}.
+    \item \emph{(Optional, disabled by default)} Automatically change usage of \macro{\textcolor} to \macro{\mathcolor} in math mode, so that we get proper math spacing, for example
           \[ a \mathcolor{gray}{\times} b \text{ (right spacing)} \qquad\text{versus}\qquad a \textcolor{gray}{\times} b \text{ (wrong spacing)}\eqend \]
-          However, it is recommended to explicitely use \verb|\mathcolor| when appropriate, since it leads to easier maintenance of the code (copy-pasting to other projects will work without problems).
+          However, it is recommended to explicitly use \macro{\mathcolor} when appropriate, since it leads to easier maintenance of the code (copy-pasting to other projects will work without problems).
 \end{itemize}
 
 \vspace{1ex}
@@ -351,24 +354,24 @@ Describe implemented GitHub Actions:
 \subsection{Censoring}%
 \label{sub:Censoring}
 
-Censoring/redaction using \texttt{censor} package.
-Use \verb|\censor| or \verb|\censorbox|.
+Censoring/redaction using \package{censor} package.
+Use \macro{\censor} or \macro{\censorbox}.
 For example, censor the following sentence: \censor{\TeXtured{} is an amazing template!}.
 
 \subsection{\texorpdfstring{\texttt{Inkscape}}{Inkscape} Integration}%
 \label{sub:Inkscape Integration}
 
 \begin{itemize}
-    \item automatic export after changing the \texttt{svg} (need to enable \verb|--shell-escape| for \hologo{pdfTeX} or \hologo{LuaTeX}, done via \texttt{.latexmkrc})
+    \item automatic export after changing the \texttt{svg} (need to enable \macro{--shell-escape} for \hologo{pdfTeX} or \hologo{LuaTeX}, done via \file{.latexmkrc})
     \item watermark via \texttt{ps} injection
           \begin{remark}[Watermark String]
-              Edit the watermark text in the shell script \verb|figures/Inkscape/inkscape-export-to-latex| to your liking.
+              Edit the watermark text in the shell script \file{figures/Inkscape/inkscape-export-to-latex} to your liking.
           \end{remark}
           \begin{Todo}
               Make it easier to change the watermark text.
               Or extract it somehow automatically from the PDF document?
           \end{Todo}
-    \item automatic fix of \texttt{/Interpolation} key problem
+    \item automatic fix of \macro{/Interpolation} key problem
 \end{itemize}
 
 
