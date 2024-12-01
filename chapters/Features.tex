@@ -184,9 +184,9 @@ However, PDF/A requires it to be disabled.
 \label{sec:Code Organization}
 
 \begin{itemize}
-    \item broke the code into multiple files by its function
+    \item code broken into multiple files by its function, see \Cref{fig:preamble-file-structure}
     \item use \verb|aux_dir| to minimize clutter
-    \item no big, hard to navigate, preamble files
+    \item avoid large, hard to navigate, preamble files
     \item try to follow \enquote{one sentence per line} rule --- improves diffs for versioning systems like \texttt{git} --- tools like \texttt{latexindent} can help
           \begin{Note}
               My config for \texttt{latexindent} mostly works, but some corner cases can surface.
@@ -195,26 +195,112 @@ However, PDF/A requires it to be disabled.
 \end{itemize}
 
 \begin{remark}[Custom User Macros]
-    Enter your own macros in the \texttt{preamble/user/} directory, which is reserved precisely for this purpose.
+    Enter your own macros in the \path{preamble/user/} directory, which is reserved precisely for this purpose.
     Then, if you would like to update to a newer version of \TeXtured{}, you will be having easier time --- less mixing of your code with the template code will result in fewer conflicts you must resolve manually.
 \end{remark}
 
+\begin{figure}[!ht]
+    \fcapside[\FBwidth]{%
+        \captionsetup{parskip = .5\baselineskip plus 1pt}%
+        \caption[File structure of preamble folder]{
+            File structure of the \path{preamble/} folder.
 
-\subsection{\texorpdfstring{\texttt{Inkscape}}{Inkscape} Integration}%
-\label{sub:Inkscape Integration}
+            Make sure to fill all (meta)data --- like title, author, etc.~--- in the \path{preamble/data.tex} file.
+            The bibliography/reference data is stored in the \path{preamble/bibliography.bib} file.
 
-\begin{itemize}
-    \item automatic export after changing the \texttt{svg} (need to enable \verb|--shell-escape| for \hologo{pdfTeX} or \hologo{LuaTeX}, done via \texttt{.latexmkrc})
-    \item watermark via \texttt{ps} injection
-          \begin{remark}[Watermark String]
-              Edit the watermark text in the shell script \verb|figures/Inkscape/inkscape-export-to-latex| to your liking.
-          \end{remark}
-          \begin{Todo}
-              Make it easier to change the watermark text.
-              Or extract it somehow automatically from the PDF document?
-          \end{Todo}
-    \item automatic fix of \texttt{/Interpolation} key problem
-\end{itemize}
+            Apart from the \path{preamble/pdfA-compliance/glyphtounicode.tex} file, which needs to be sourced before calling \fakeverb{\documentclass}, all other files are loaded in the \path{preamble/main.tex} file.
+
+            When possible, add your own tweaks and macros to the \path{preamble/user/} directory reserved for this purpose.
+            This way, you can easily update to newer versions of \TeXtured{} (hopefully) without conflicts.
+        }%
+        \label{fig:preamble-file-structure}%
+    }{%
+        \begin{tikzpicture}[
+                % http://www.texample.net/tikz/examples/filesystem-tree/
+                growth parent anchor=west,
+                grow via three points={one child at (1.0,-0.78) and
+                    two children at (1.0,-0.78) and (1.0,-1.56)},
+                edge from parent path={([xshift=1.2em]\tikzparentnode.south west) |- (\tikzchildnode.west)},
+                every node/.style={draw=black, thick, anchor=west, fill=black!5, text depth=.25ex},
+                directory/.style={fill=black!13},
+                font=\ttfamily,
+            ]%
+            \node[directory] {preamble/}
+            child { node {bibliography.bib}}
+            child { node {data.tex}}
+            child { node {main.tex}}
+            child { node[directory] {debug/...}
+                % child { node {commands.tex}}
+                % child { node {line-numbers.tex}}
+            }
+            % child [missing] {} child [missing] {}
+            child { node[directory] {environments/...}
+                % child { node {init.tex}}
+                % child { node {remark-like.tex}}
+                % child { node {theorem-like.tex}}
+                % child { node {todo-like.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {general/...}
+                % child { node {colors.tex}}
+                % child { node {floats.tex}}
+                % child { node {hyperref.tex}}
+                % child { node {typesetting.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {hacks/...}
+                % child { node {custom-reference-boxes.tex}}
+                % child { node {fix-qed.tex}}
+                % child { node {floatrow-parskip.tex}}
+            }
+            % child [missing] {} child [missing] {}
+            child { node[directory] {layout/...}
+                % child { node {geometry.tex}}
+                % child { node {headers.tex}}
+                % child { node {numbering.tex}}
+                % child { node {titles.tex}}
+                % child { node {toc.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {math/...}
+                % child { node {fonts.tex}}
+                % child { node {macros.tex}}
+                % child { node {packages.tex}}
+                % child { node {spacing.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {misc/...}
+                % child { node {inkscape.tex}}
+                % child { node {macros.tex}}
+                % child { node {tikz.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {pdfA-compliance/...}
+                % child { node {glyphtounicode.tex}}
+                % child { node[directory] {LaTeX-find-glyph-name/}
+                %     child { node {LaTeX-find-glyph-name.tex}}
+                % }
+            }
+            % child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {references/...}
+                % child { node {backref.tex}}
+                % child { node {biblatex-extra-fields.dbx}}
+                % child { node {biblatex.tex}}
+                % child { node {cite.tex}}
+                % child { node {doi-eprint-url.tex}}
+                % child { node {fields.tex}}
+                % child { node {style.tex}}
+            }
+            % child [missing] {} child [missing] {} child [missing] {} child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node[directory] {user/...}
+                % child { node {macros.tex}}
+                % child { node {math.tex}}
+            }
+            % child [missing] {} child [missing] {}
+            ;
+        \end{tikzpicture}%
+    }
+\end{figure}
 
 
 \section{Miscellaneous}%
@@ -268,6 +354,22 @@ Describe implemented GitHub Actions:
 Censoring/redaction using \texttt{censor} package.
 Use \verb|\censor| or \verb|\censorbox|.
 For example, censor the following sentence: \censor{\TeXtured{} is an amazing template!}.
+
+\subsection{\texorpdfstring{\texttt{Inkscape}}{Inkscape} Integration}%
+\label{sub:Inkscape Integration}
+
+\begin{itemize}
+    \item automatic export after changing the \texttt{svg} (need to enable \verb|--shell-escape| for \hologo{pdfTeX} or \hologo{LuaTeX}, done via \texttt{.latexmkrc})
+    \item watermark via \texttt{ps} injection
+          \begin{remark}[Watermark String]
+              Edit the watermark text in the shell script \verb|figures/Inkscape/inkscape-export-to-latex| to your liking.
+          \end{remark}
+          \begin{Todo}
+              Make it easier to change the watermark text.
+              Or extract it somehow automatically from the PDF document?
+          \end{Todo}
+    \item automatic fix of \texttt{/Interpolation} key problem
+\end{itemize}
 
 
 \section{Non-Features}%
