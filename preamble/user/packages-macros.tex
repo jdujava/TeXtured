@@ -15,11 +15,20 @@
 \NewDocumentCommand{\package}{m}{%
     % \href{https://texdoc.org/pkg/#1}
     \hrefold{https://ctan.org/pkg/#1}{%
-        \packagebox[right=0.1em]{#1\textsuperscript{\tiny\(\,\to\,\)CTAN}}%
+        \packagebox[right=0.1em]{#1\textsuperscript{\tiny\(\,\to\,\)\textsf{CTAN}}}%
     }%
 }
 
-\NewDocumentCommand{\macro}{v}{\macrobox{#1}}
-\NewDocumentCommand{\fakemacro}{m}{\macrobox{\fakeverb{#1}}}
-\NewDocumentCommand{\custommacro}{v}{\custommacrobox{#1}}
-\NewDocumentCommand{\fakecustommacro}{m}{\custommacrobox{\fakeverb{#1}}}
+%% TODO: issue about persisting the outside font color inside the box
+%         -> https://github.com/T-F-S/tcolorbox/issues/305
+\NewDocumentCommand{\macro}{O{}v}{\macrobox[#1]{#2}}
+\NewDocumentCommand{\fakemacro}{s O{} m}{% starred version uses current text color also inside the box
+    \IfBooleanTF{#1}{%
+        \colorlet{currentcolor}{.}% save current color
+        \macrobox[coltext=currentcolor,#2]{\fakeverb{#3}}%
+    }{%
+        \macrobox[#2]{\fakeverb{#3}}%
+    }%
+}
+\NewDocumentCommand{\custommacro}{O{}v}{\custommacrobox[#1]{#2}}
+\NewDocumentCommand{\fakecustommacro}{O{}m}{\custommacrobox[#1]{\fakeverb{#2}}}
