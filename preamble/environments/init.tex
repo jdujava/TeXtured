@@ -17,6 +17,9 @@
     % pad at break*=3ex,
     beforeafter skip=0.5\baselineskip plus 2pt,
 }
+\tcbset{ % persist font color from the text before the box, see https://github.com/T-F-S/tcolorbox/issues/305
+    every box/.style={coltext=.}, % dot `.` refers to the current text color (just before the box)
+}                                 % set inside `every box`, thus using color at the place of box creation
 
 %%% Definitions of theorem/remark-like environments
 \declaretheoremstyle[

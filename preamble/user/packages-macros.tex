@@ -19,16 +19,7 @@
     }%
 }
 
-%% TODO: issue about persisting the outside font color inside the box
-%         -> https://github.com/T-F-S/tcolorbox/issues/305
 \NewDocumentCommand{\macro}{O{}v}{\macrobox[#1]{#2}}
-\NewDocumentCommand{\fakemacro}{s O{} m}{% starred version uses current text color also inside the box
-    \IfBooleanTF{#1}{%
-        \colorlet{currentcolor}{.}% save current color
-        \macrobox[coltext=currentcolor,#2]{\fakeverb{#3}}%
-    }{%
-        \macrobox[#2]{\fakeverb{#3}}%
-    }%
-}
+\NewDocumentCommand{\fakemacro}{O{}m}{\macrobox[#1]{\fakeverb{#2}}}
 \NewDocumentCommand{\custommacro}{O{}v}{\custommacrobox[#1]{#2}}
 \NewDocumentCommand{\fakecustommacro}{O{}m}{\custommacrobox[#1]{\fakeverb{#2}}}
