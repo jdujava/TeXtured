@@ -40,11 +40,16 @@ Caption styling --- hang, \macro{\footnotesize} font, bold serif label (like oth
 \subsection{Font and Related Stuff}%
 \label{sub:Font}
 
-Nothing special here.
-The default choice are Latin Modern fonts --- classic really.
-Quotation --- \package{csquotes}.
+The default choice are \emph{Latin Modern} fonts --- a classic really.
+\begin{itemize}
+    \item \emph{Serif} family for the main text
+    \item \emph{Slanted} shape for emphasis (instead of the default \emph{Italic} shape, which is reserved mainly for math formulas)
+    \item \emph{(Bold) Sans} family for headings and other structural elements
+    \item \emph{Typewriter} family for computer code and similar stuff
+\end{itemize}
+For consistent quotation use \macro{\enquote} macro provided by \package{csquotes}.
 
-\subsection{Micro-Typography}%
+\subsection{\texorpdfstring{Micro-\!Typography}{Micro-Typography}}%
 \label{sub:Micro-Typography}
 
 Enable micro-typographic extensions with package \package{microtype}, most prominently character protrusion and font expansion.
