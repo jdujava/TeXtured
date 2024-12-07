@@ -5,16 +5,13 @@
 \RenewDocumentCommand{\bfseries}{}{\bfseriesOrig\boldmath}
 \RenewDocumentCommand{\mdseries}{}{\mdseriesOrig\unboldmath}
 
-%% serif semi-bold --- but it is just `sbc` (serif bold condensed)
-%% used for serif in chapter/section/... titles
+%% TODO: think about what style is appropriate
+%% Set the default bold math sans font to be `sbc` (sans bold condensed)
 %% https://tex.stackexchange.com/questions/27843/level-of-boldness-changeable
-\NewDocumentCommand{\sbseries}{}{\sffamily\fontseries{sbc}\selectfont}
-\DeclareTextFontCommand{\textsb}{\sbseries}
+\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{sbc}{\updefault}
+% \SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
 
-%% set the default bold math sans font to be `serif bold condensed`
-\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{sbc}{n}
-
-%% math serif italic font
+%% math sans slanted font
 \DeclareMathAlphabet{\mathsfit}{T1}{\sfdefault}{\mddefault}{\sldefault}
 \SetMathAlphabet{\mathsfit}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
 

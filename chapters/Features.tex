@@ -35,7 +35,7 @@ Now we will concern ourselves with more intricate and detailed typography (more 
 \label{sub:Paragraphs}
 
 No paragraph indentation, proper space between paragraphs --- \package{parskip}.
-Caption styling --- hang, \macro{\footnotesize} font, bold serif label (like other environments).
+Caption styling --- hang, \macro{\footnotesize} font, bold sans label (like other environments).
 
 \subsection{Font and Related Stuff}%
 \label{sub:Font}
@@ -314,7 +314,7 @@ However, PDF/A requires it to be disabled.
 Some of the math-related tweaks:
 \begin{itemize}
     \item Use \macro{\boldmath} automatically for \macro{\textbf} text (useful mainly in headings).
-    \item Possible to use serif italic font for math via \custommacro{\mathsfit}.
+    \item Possible to use sans italic font for math via \custommacro{\mathsfit}.
     \item Better extendable arrows with \package{TikZ}.
     \item \emph{(Optional, disabled by default)} Automatically change usage of \macro{\textcolor} to \macro{\mathcolor} in math mode, so that we get proper math spacing, for example
           \[ a \mathcolor{gray}{\times} b \text{ (right spacing)} \qquad\text{versus}\qquad a \textcolor{gray}{\times} b \text{ (wrong spacing)}\eqend \]

@@ -23,7 +23,7 @@
     %% if `\ThesisTitleFront` is not defined, use `\ThesisTitle`
     \ProvideExpandableDocumentCommand{\ThesisTitleFront}{}{\ThesisTitle}
     % {\Huge \bfseries \ThesisTitleFront \par}
-    {\fontsize{30pt}{36pt}\selectfont \bfseries
+    {\fontsize{30pt}{36pt}\selectfont \sffamily\bfseries
         \ThesisTitleFront \par}
 
     \vfill
@@ -35,7 +35,7 @@
     \begin{center}
         \large
         \renewcommand{\arraystretch}{1.2}
-        \begin{tabular}{>{\color{Gray30}}r @{\hspace{1.0em}} l}
+        \begin{tabular}{>{\sffamily\color{Gray40}}r @{\hspace{1.0em}} l}
             Supervisor of the Thesis    & \Supervisor     \\
             \ifdef{\CoSupervisor}{%
             Co-Supervisor of the Thesis & \CoSupervisor   \\
