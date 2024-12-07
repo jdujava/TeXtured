@@ -1,7 +1,8 @@
 %% TODO: think about what style is appropriate
 %% Set the default bold math sans font to be `sbc` (sans bold condensed)
 %% https://tex.stackexchange.com/questions/27843/level-of-boldness-changeable
-\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{sbc}{\updefault}
+\NewDocumentCommand{\mathsfbfdefault}{}{sbc}
+\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\mathsfbfdefault}{\updefault}
 % \SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
 
 %% Math sans slanted font
@@ -16,19 +17,22 @@
 \SetSymbolFont{operators}{sans}{OT1}{cmbr}{m}{n}
 \SetSymbolFont{letters}{sans}{OML}{cmbrm}{m}{it}
 \SetSymbolFont{symbols}{sans}{OMS}{cmbrs}{m}{n}
+\SetSymbolFont{largesymbols}{sans}{OMX}{iwona}{m}{n}
 \SetMathAlphabet{\mathit}{sans}{OT1}{cmbr}{m}{sl}
+\SetMathAlphabet{\mathsf}{sans}{OT1}{lmss}{m}{n} % still use `lmodern` for `\mathsf`
 \SetMathAlphabet{\mathbf}{sans}{OT1}{cmbr}{bx}{n}
 \SetMathAlphabet{\mathtt}{sans}{OT1}{cmtl}{m}{n}
-\SetSymbolFont{largesymbols}{sans}{OMX}{iwona}{m}{n}
 
+%% TODO: bold sans math is not optimal...
 \DeclareMathVersion{boldsans}
 \SetSymbolFont{operators}{boldsans}{OT1}{cmbr}{b}{n}
 \SetSymbolFont{letters}{boldsans}{OML}{cmbrm}{b}{it}
 \SetSymbolFont{symbols}{boldsans}{OMS}{cmbrs}{b}{n}
+\SetSymbolFont{largesymbols}{boldsans}{OMX}{iwona}{bx}{n}
 \SetMathAlphabet{\mathit}{boldsans}{OT1}{cmbr}{b}{sl}
+\SetMathAlphabet{\mathsf}{boldsans}{OT1}{lmss}{\mathsfbfdefault}{n} % still use `lmodern` for `\mathsf`
 \SetMathAlphabet{\mathbf}{boldsans}{OT1}{cmbr}{bx}{n}
 \SetMathAlphabet{\mathtt}{boldsans}{OT1}{cmtl}{b}{n}
-\SetSymbolFont{largesymbols}{boldsans}{OMX}{iwona}{bx}{n}
 
 %%% Automatic switching between math versions
 \newif\ifInSansMode % keep track of whether we are in sans mode
