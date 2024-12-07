@@ -4,7 +4,7 @@
 </div>
 <div align="center">
 
- [![TeXtured Demo](https://img.shields.io/badge/TeXtured-Demo%E2%80%89%F0%9F%93%93-blue?color=ccfaff&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
+ [![TeXtured Manual](https://img.shields.io/badge/TeXtured-Manual%E2%80%89%F0%9F%93%93-blue?color=ccfaff&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
  [![GitHub License](https://img.shields.io/github/license/jdujava/TeXtured?color=fbe2ff&style=for-the-badge)](#-license)
  [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jdujava/TeXtured/main.yml?color=aafaba&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
  [![TeXtured Stars](https://img.shields.io/github/stars/jdujava/TeXtured?color=ffeca4&style=for-the-badge)](https://github.com/jdujava/TeXtured/stargazers)
@@ -23,7 +23,7 @@ Here’s what the **TeXtured** Template offers:
 - 📄 **PDF/A compliance** and *front matter* supporting theses at [MFF](https://www.mff.cuni.cz/en) 🎓
 
 To learn more about the design principles behind `TeXtured` and its capabilities, look at the
-[<img align="center" alt="TeXtured Demo" src="https://img.shields.io/badge/TeXtured-Demo%E2%80%89%F0%9F%93%93-blue?color=ccfaff">](https://jdujava.github.io/TeXtured/thesis.pdf).
+[<img align="center" alt="TeXtured Manual" src="https://img.shields.io/badge/TeXtured-Manual%E2%80%89%F0%9F%93%93-blue?color=ccfaff">](https://jdujava.github.io/TeXtured/thesis.pdf).
 It showcases the features of `TeXtured` template and provides a guide on how to use them.
 
 > [!NOTE]
@@ -33,7 +33,6 @@ It showcases the features of `TeXtured` template and provides a guide on how to 
 > [!TIP]
 > If you find something interesting or useful, but adopting the whole template
 > is simply too much, feel free to just copy and use relevant parts of the code.
-> (🚧 TODO: link relevant files for corresponding features in DEMO file)
 
 ## 🏗️ Building
 
@@ -60,7 +59,7 @@ LaTeX build tools:
 > At this point it is unclear what is the minimal required LaTeX installation.
 > Full `TeX Live` distribution is surely enough, since it is used in GitHub Actions
 > to automatically build the latest version of the 
-> [<img align="center" alt="TeXtured Demo" src="https://img.shields.io/badge/TeXtured-Demo%E2%80%89%F0%9F%93%93-blue?color=ccfaff">](https://jdujava.github.io/TeXtured/thesis.pdf).
+> [<img align="center" alt="TeXtured Manual" src="https://img.shields.io/badge/TeXtured-Manual%E2%80%89%F0%9F%93%93-blue?color=ccfaff">](https://jdujava.github.io/TeXtured/thesis.pdf).
 
 > [!NOTE]
 > Some scripts assume `linux` environment. These include:
