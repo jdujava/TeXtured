@@ -32,10 +32,14 @@
     url = {\textsc{url}},
     arxiv = {\textsc{arXiv}},
     github = {\textsc{GitHub}},
-    in = {\textsc{in}},
+    in = {\footnotesize\textsc{In}},
     % in = {},
     editor = {editor},
     editors = {editors},
 }
+
+%% smaller space after "in:"
+\renewcommand*{\intitlepunct}{{\footnotesize\addcolon\,}}
+% \renewcommand*{\intitlepunct}{\addcolon\space}
 
 %% TODO: PhD or Ph.D.?
