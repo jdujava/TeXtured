@@ -1,29 +1,66 @@
-%% Automatically use `\boldmath` in `\bfseries` text
-%% Automatically use `\unboldmath` in `\mdseries` text
-\NewCommandCopy{\bfseriesOrig}{\bfseries}
-\NewCommandCopy{\mdseriesOrig}{\mdseries}
-\RenewDocumentCommand{\bfseries}{}{\bfseriesOrig\boldmath}
-\RenewDocumentCommand{\mdseries}{}{\mdseriesOrig\unboldmath}
-
 %% TODO: think about what style is appropriate
 %% Set the default bold math sans font to be `sbc` (sans bold condensed)
 %% https://tex.stackexchange.com/questions/27843/level-of-boldness-changeable
 \SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{sbc}{\updefault}
 % \SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
 
-%% math sans slanted font
+%% Math sans slanted font
 \DeclareMathAlphabet{\mathsfit}{T1}{\sfdefault}{\mddefault}{\sldefault}
 \SetMathAlphabet{\mathsfit}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
 
-%% Serif Greek Letters
-%% see https://mirrors.nic.cz/tex-archive/fonts/cmbright/cmbright.pdf
+%% When using sans font for surrounding text, also adapt the math font
+%%  -> use Computer Modern Bright when `\mathversion{sans}` is active
+%% see https://tex.stackexchange.com/q/33165
+%%     https://mirrors.nic.cz/tex-archive/fonts/cmbright/cmbright.pdf
+\DeclareMathVersion{sans}
+\SetSymbolFont{operators}{sans}{OT1}{cmbr}{m}{n}
+\SetSymbolFont{letters}{sans}{OML}{cmbrm}{m}{it}
+\SetSymbolFont{symbols}{sans}{OMS}{cmbrs}{m}{n}
+\SetMathAlphabet{\mathit}{sans}{OT1}{cmbr}{m}{sl}
+\SetMathAlphabet{\mathbf}{sans}{OT1}{cmbr}{bx}{n}
+\SetMathAlphabet{\mathtt}{sans}{OT1}{cmtl}{m}{n}
+\SetSymbolFont{largesymbols}{sans}{OMX}{iwona}{m}{n}
+
+\DeclareMathVersion{boldsans}
+\SetSymbolFont{operators}{boldsans}{OT1}{cmbr}{b}{n}
+\SetSymbolFont{letters}{boldsans}{OML}{cmbrm}{b}{it}
+\SetSymbolFont{symbols}{boldsans}{OMS}{cmbrs}{b}{n}
+\SetMathAlphabet{\mathit}{boldsans}{OT1}{cmbr}{b}{sl}
+\SetMathAlphabet{\mathbf}{boldsans}{OT1}{cmbr}{bx}{n}
+\SetMathAlphabet{\mathtt}{boldsans}{OT1}{cmtl}{b}{n}
+\SetSymbolFont{largesymbols}{boldsans}{OMX}{iwona}{bx}{n}
+
+%%% Automatic switching between math versions
+\newif\ifInSansMode % keep track of whether we are in sans mode
+\newif\ifInBoldMode % keep track of whether we are in sans mode
+%% automatically switch to sans math version in `\sffamily` text
+%% automatically switch to normal math version in `\rmfamily` text
+\NewCommandCopy{\sffamilyOrig}{\sffamily}
+\NewCommandCopy{\rmfamilyOrig}{\rmfamily}
+\RenewDocumentCommand{\sffamily}{}{\sffamilyOrig\InSansModetrue%
+    \ifInBoldMode\mathversion{boldsans}\else\mathversion{sans}\fi
+}
+\RenewDocumentCommand{\rmfamily}{}{\rmfamilyOrig\InSansModefalse%
+    \ifInBoldMode\mathversion{bold}\else\mathversion{normal}\fi
+}
+%% automatically switch to bold math version in `\bfseries` text
+%% automatically switch to normal math version in `\bfseries` text
+\NewCommandCopy{\bfseriesOrig}{\bfseries}
+\NewCommandCopy{\mdseriesOrig}{\mdseries}
+\RenewDocumentCommand{\bfseries}{}{\bfseriesOrig\InBoldModetrue%
+    \ifInSansMode\mathversion{boldsans}\else\mathversion{bold}\fi%
+}
+\RenewDocumentCommand{\mdseries}{}{\mdseriesOrig\InBoldModefalse%
+    \ifInSansMode\mathversion{sans}\else\mathversion{normal}\fi%
+}
+
+%% Sans Greek Letters
 \DeclareSymbolFont{sfletters}{OML}{cmbrm}{m}{it}
 \DeclareSymbolFont{sflettersbold}{OML}{cmbrm}{b}{it}
-\DeclareMathSymbol{\sGamma}{\mathalpha}{sflettersbold}{0}
-\DeclareMathSymbol{\salpha}{\mathalpha}{sfletters}{11}
-\DeclareMathSymbol{\sbeta}{\mathalpha}{sfletters}{12}
-\DeclareMathSymbol{\sgamma}{\mathalpha}{sfletters}{13}
-\DeclareMathSymbol{\sepsilon}{\mathalpha}{sfletters}{34}
+\DeclareMathSymbol{\sbGamma}{\mathalpha}{sflettersbold}{0}
+
+%% Alternative caligraphic math font `mathpazo`
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
 
 %% Load doublebrackets symbols
 %% (need to declare `pdfglyphtounicode` translations to satisfy PDF/A -> done in `pdfA-compliance.tex`)

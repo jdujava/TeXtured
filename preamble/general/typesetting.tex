@@ -5,6 +5,15 @@
 \fi
 \usepackage{lmodern} % Latin Modern fonts
 
+%% Commands for accessing extra Latin Modern fonts
+%%     - `sbc` - sans bold condensed
+%%     - `sfq` - sans extended
+%% https://www.tug.org/pracjourn/2006-1/robertson/robertson.pdf
+\NewDocumentCommand{\sbcseries}{}{\sffamily\fontseries{sbc}\selectfont}
+\NewDocumentCommand{\sfefamily}{}{\fontfamily{lmssq}\selectfont}
+\DeclareTextFontCommand{\textsbc}{\sbcseries}
+\DeclareTextFontCommand{\textsfe}{\sfefamily}
+
 %% use slanted shape for emphasis `\emph{...}`, and for nested emphasis use italics
 \DeclareEmphSequence{\slshape,\itshape}
 
