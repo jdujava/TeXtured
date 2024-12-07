@@ -41,9 +41,14 @@ Caption styling --- hang, \macro{\footnotesize} font, bold sans label (like othe
 \label{sub:Font}
 
 The default choice are \emph{Latin Modern} fonts --- a classic really.
+Various families and shapes are typically used for different purposes:
 \begin{itemize}
     \item \emph{Serif} family for the main text
-    \item \emph{Slanted} shape for emphasis (instead of the default \emph{Italic} shape, which is reserved mainly for math formulas)
+    \item \emph{Slanted} shape for emphasis using \macro{\emph} macro (instead of the default \emph{Italic} shape, which is reserved mainly for math formulas)
+          \begin{remark}[Nested Emphasis]
+              Nested emphasis is displayed in \emph{Italic} shape.
+              It is rather rare to nest an \emph{additional \emph{emphasis} inside an emphasis}.
+          \end{remark}
     \item \emph{(Bold) Sans} family for headings and other structural elements
     \item \emph{Typewriter} family for computer code and similar stuff
 \end{itemize}

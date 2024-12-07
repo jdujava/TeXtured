@@ -19,12 +19,9 @@ Numerous comments and explanations are provided throughout the code to further a
 \begin{remark}[How to Setup]
     To set up \TeXtured{} template for your document, you can use the \texttt{Overleaf} template or clone the repository on GitHub \autocite{TeXtured}.
     Then, you can start modifying the files to suit your needs.
-    \begin{Note}
-        In reality, it is slightly more involved, see \href{https://github.com/jdujava/TeXtured/issues/5}{\texttt{jdujava/TeXtured \#5}}.
-        %% HINT: maybe keep Demo/Manual in specific directory, which we can then quickly delete
-        %%       (only keep very minimal template, so that user doesn't have to manually delete a lot of stuff)
-    \end{Note}
+
     Also make sure to check the \texttt{README.md} file for more detailed instructions, particularly on various software dependencies.
+    See \href{https://github.com/jdujava/TeXtured/issues/5}{\texttt{jdujava/TeXtured \#5}} if you encounter any issues.
     \todo{Good to quickly describe main points also here.}
 \end{remark}
 
@@ -35,8 +32,10 @@ Numerous comments and explanations are provided throughout the code to further a
         \item \textsf{Title Page} with the faculty logo (among other things),
         \item \textsf{Declaration},
         \item \textsf{Dedication} (optional),
-        \item \textsf{Information Page} including the abstract.
+        \item \textsf{Information Page} including the \textsf{Abstract}.
     \end{itemize}
+    This is done by uncommenting the relevant lines in the main file \path{thesis.tex}.
+
     Layout of these front matter pages is adapted and modified from the original MFF CUNI template \autocite{MaresTemplate}.
     However, always make sure it is compliant with the faculty guidelines, otherwise please raise an issue on GitHub \autocite{TeXtured}.
 \end{remark}
