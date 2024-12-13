@@ -18,10 +18,5 @@
     % showframe,          % for DEBUG: helper lines for adjusting layout
 }
 
-%% try to make all pages have the same height (default for `twoside`)
+%% try to make text on all pages have the same height (default for `twoside`)
 \flushbottom
-
-%% following text appears on a next page (right-hand page for two-sided printing)
-%% (empty page is inserted if necessary for two-sided printing)
-\NewCommandCopy{\oldcleardoublepage}{\cleardoublepage}
-\RenewDocumentCommand{\cleardoublepage}{}{\begingroup\pagestyle{empty}\oldcleardoublepage\endgroup}

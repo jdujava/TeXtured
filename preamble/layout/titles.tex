@@ -6,7 +6,8 @@
 }
 
 %%% Chapter and section formatting
-\usepackage{titlesec}
+%% `clearempty` option removes page numbers from empty pages when using `\cleardoublepage`
+\usepackage[clearempty]{titlesec}
 
 \titleformat{\section}{\Large\sffamily\bfseries}{\thesection}{0.8em}{}
 %% NOTE: also include `\phantomsection` so even non-numbered subsections have proper anchors for hyperlinks
