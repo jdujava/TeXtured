@@ -1,9 +1,5 @@
 \chapter{Features of \TeXtured{}} \label{ch:Features}
 
-\begin{Note}[WIP Disclaimer]
-    This chapter is Work-in-Progress.
-\end{Note}
-
 First two sections are about typography of the document, next are more about its contents and structure.
 
 \section{Page Layout and Style}%
@@ -15,10 +11,10 @@ First two sections are about typography of the document, next are more about its
 \package{geometry} package --- set up the page layout (supported single/double-sided printing).
 Apply \macro{\flushbottom} --- try to make text body on all pages have the same height.
 
-\subsection{Headers, Footers}%
+\subsection{Page Headers and Footers}%
 \label{sub:Headers Footers}
 
-\package{fancyhdr} package --- headers and footers --- consistent style also for initial page of a chapter (not totally different style with numbering in the bottom center \ldots).
+\package{fancyhdr} package --- page headers and footers --- consistent style also for initial page of a chapter (not totally different style with numbering in the bottom center \ldots).
 
 \subsection{Heading Style}%
 \label{sub:Heading Style}
@@ -35,7 +31,12 @@ Now we will concern ourselves with more intricate and detailed typography (more 
 \label{sub:Paragraphs}
 
 No paragraph indentation, proper space between paragraphs --- \package{parskip}.
-Caption styling --- hang, \macro{\footnotesize} font, bold sans label (like other environments).
+
+\subsection{Floats, Captions}%
+\label{sub:Floats_Captions}
+
+Caption styling --- slight hang, \macro{\footnotesize} font, bold sans label (like other environments).
+
 
 \subsection{Font and Related Stuff}%
 \label{sub:Font}
@@ -181,7 +182,7 @@ Include \texttt{[} and \texttt{]} characters around citation number inside the l
 
 Proper metadata setup (via \package{hyperref} and \macro{\DocumentMetadata}).
 \begin{remark}[Document Data]
-    Various data about the work should be entered in \file{preamble/data.tex} file.
+    Various data about the work should be entered in \path{preamble/data.tex} file.
     When the relevant entries contain \LaTeX{} commands (for example to obtain specific formatting of the title), it is necessary to provide \enquote{plaintext} variations, so that \package{hyperref} can properly set up PDF metadata.
 \end{remark}
 
@@ -190,15 +191,20 @@ Next we will describe various common violations of PDF/A standard, and how to fi
 \subsection{Glyph to Unicode Map}%
 \label{sub:Glyph to Unicode Map}
 
-\begin{Todo}
-    Link to guide on how to find the name of a glyph, and how to provide \emph{glyph to Unicode} mapping.
-\end{Todo}
+To obtain PDF/A compliant PDF, we need to have Unicode mapping for all glyphs used in the document.
+It can happen --- mainly when using fonts providing extra mathematical symbols --- that certain glyphs are not covered by mappings loaded in \path{preamble/pdfA-compliance/glyphtounicode.tex}.
+
+In the \path{preamble/pdfA-compliance/glyphtounicode.tex} file you can also find an example \textsf{veraPDF} output for a PDF with a problematic glyph.
+It also points to a guide located in \path{preamble/pdfA-compliance/LaTeX-find-glyph-name/} directory, which explains how to find out the glyph name, and how to provide the \emph{glyph to Unicode} mapping with \macro{\pdfglyphtounicode} command.
+
 
 \subsection{PDF \texorpdfstring{\fakemacro{/Interpolation}}{/Interpolation} Key}%
 \label{sub:PDF Interpolation Key}
 
 Some PDFs can have enabled the \macro{/Interpolation} key, for example \texttt{Inkscape} generated PDFs with blur parts.
 However, PDF/A requires it to be disabled.
+
+This is automatically fixed by \path{figures/Inkscape/inkscape-export-to-latex} shell script.
 
 
 \section{Code Organization}%
@@ -327,7 +333,7 @@ However, PDF/A requires it to be disabled.
 \section{Miscellaneous}%
 \label{sec:Miscellaneous}
 
-\subsection{Math-Related Tweaks --- \texorpdfstring{\mathversion{bold}\(\E^{\I\pi}\)}{exp(iπ)}}%
+\subsection{Math-Related Tweaks --- \texorpdfstring{\rmfamily\(\E^{\I\pi}\)}{exp(iπ)}}%
 \label{sub:Math Macros}
 
 Some of the math-related tweaks:
@@ -354,17 +360,17 @@ Following practice is highly recommended.
 \subsection{GitHub Actions}%
 \label{sub:GitHub Actions}
 
-Describe implemented GitHub Actions:
+Describe implemented \textsf{GitHub Actions}:
 \begin{itemize}
     \item Automatic \texttt{latexmk} build of the latest PDF version.
-    \item PDF/A verification via veraPDF.
+    \item PDF/A verification via \textsf{veraPDF}.
     \item Deploy to \texttt{gh-pages} branch.
-          One can furthermore enable (in repo settings) GitHub Pages for \texttt{gh-pages} branch, which will automatically upload latest PDF to \texttt{https://username.github.io/reponame/thesis.pdf}.
+          One can furthermore enable (in repo settings) \textsf{GitHub Pages} for \texttt{gh-pages} branch, which will automatically upload latest PDF to \texttt{https://username.github.io/reponame/thesis.pdf}.
           This enables convenient sharing of your (even continuously evolving) work without needing to commit the PDF (resulting in large repository size) or compiling the PDF on the receiving side.
           \begin{remark}[Private Repositories]
               Even for private repositories such link is publicly accessible.
-              This is why GitHub Pages setup is not done automatically for you.
-              If you want to share the work more \enquote{privately}, there are other solutions, for example GitHub Action which uploads PDF to Google Drive, and sharing via a private link.
+              This is why \textsf{GitHub Pages} setup is not done automatically for you.
+              If you want to share the work more \enquote{privately}, there are other solutions, for example \textsf{GitHub Action} which uploads PDF to \textsf{Google Drive}, and sharing via a private link.
               Also look at \Cref{sub:Censoring}.
           \end{remark}
 \end{itemize}
@@ -380,10 +386,10 @@ For example, censor the following sentence: \censor{\TeXtured{} is an amazing te
 \label{sub:Inkscape Integration}
 
 \begin{itemize}
-    \item automatic export after changing the \texttt{svg} (need to enable \macro{--shell-escape} for \hologo{pdfTeX} or \hologo{LuaTeX}, done via \file{.latexmkrc})
+    \item automatic export after changing the \texttt{svg} (need to enable \macro{--shell-escape} for \hologo{pdfTeX} or \hologo{LuaTeX}, done via \path{.latexmkrc})
     \item watermark via \texttt{ps} injection
           \begin{remark}[Watermark String]
-              Edit the watermark text in the shell script \file{figures/Inkscape/inkscape-export-to-latex} to your liking.
+              Edit the watermark text in the shell script \path{figures/Inkscape/inkscape-export-to-latex} to your liking.
           \end{remark}
           \begin{Todo}
               Make it easier to change the watermark text.

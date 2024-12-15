@@ -8,7 +8,7 @@
 
 \begin{figure}[!ht]
     \fcapside[\FBwidth]{%
-        \caption[Example of a figure with a side-caption.]{%
+        \caption[Example of a figure with a side-caption.]{
             Example of a figure with a side-caption.
 
             It displays the two-dimensional electric field near one end of a parallel plate capacitor.
@@ -35,13 +35,13 @@
 \clearpage
 \begin{example}[Multi-Paragraph Figure Caption with Verbatim Text]
     It is possible to have multi-paragraph captions for figures.
-    One must remember to provide a short description as \macro{\caption[Short Description]{...}}, otherwise \LaTeX{} will complain.
+    One must remember to provide a short description as \macro{\caption[This is a Short Description]{...}}, or else \LaTeX{} will complain.
 
     See \Cref{fig:multi-paragraph_verbatim_figure} for an example, demonstrating also a workaround for typesetting verbatim text in contexts where \enquote{fragile} commands are not allowed.
 \end{example}
 \begin{figure}[!ht]
     \includegraphics[width=0.6\textwidth]{example-image-b}
-    \caption[Necessary to provide short description.]{%
+    \caption[Necessary to provide short description.]{
         Example of a figure with a multi-paragraph caption.
 
         Notice the spacing between the paragraphs.
@@ -63,5 +63,5 @@ Note the numbering of various environments in the appendix.
 \end{definition}
 
 \begin{remark}
-    The header reflects that this is an appendix page.
+    The page header reflects that this is an appendix page.
 \end{remark}
