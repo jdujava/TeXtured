@@ -4,11 +4,15 @@
 %% will also utilize styles defined in `/preamble/hacks/custom-reference-boxes.tex`
 \tcbset{
     packagebox/.style ={bottom=0.20ex, fontupper=\ttfamily},
+    filebox/.style ={colframe=black!70!cyan!35, colback=black!10!cyan!3, bottom=0.20ex, fontupper=\ttfamily},
+    dirbox/.style ={colframe=black!80!cyan!40, colback=black!60!cyan!8, bottom=0.20ex, fontupper=\ttfamily},
     macrobox/.style ={colframe=black!15, colback=black!3, bottom=0.20ex, fontupper=\ttfamily},
     custommacrobox/.style ={colframe=black!25!green!25, colback=black!5!green!5, bottom=0.20ex, fontupper=\ttfamily},
 }
 
 \NewTCBox{\packagebox}{!O{}}{link,hrefbox,packagebox,#1}
+\NewTCBox{\filebox}{!O{}}{link,filebox,#1}
+\NewTCBox{\dirbox}{!O{}}{link,dirbox,#1}
 \NewTCBox{\macrobox}{!O{}}{link,macrobox,#1}
 \NewTCBox{\custommacrobox}{!O{}}{link,custommacrobox,#1}
 
@@ -17,6 +21,24 @@
     \hrefold{https://ctan.org/pkg/#1}{%
         \packagebox[right=0.1em]{#1\textsuperscript{\tiny\(\,\to\,\)\textsf{CTAN}}}%
     }%
+}
+\NewDocumentCommand{\fileTeXtured}{O{-\baselineskip} m}{
+    \marginpar{
+        \vspace{#1}
+        \hspace{-\marginparsep}%
+        \llap{%
+            \filebox{#2}%
+        }%
+    }
+}
+\NewDocumentCommand{\dirTeXtured}{O{-1.5\baselineskip} m}{
+    \marginpar{
+        \vspace{#1}
+        \hspace{-\marginparsep}%
+        \llap{%
+            \dirbox{#2}%
+        }%
+    }
 }
 
 \NewDocumentCommand{\macro}{O{}v}{\macrobox[#1]{#2}}

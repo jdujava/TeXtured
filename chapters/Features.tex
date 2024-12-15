@@ -4,42 +4,50 @@ First two sections are about typography of the document, next are more about its
 
 \section{Page Layout and Style}%
 \label{sec:Page Layout}
+\dirTeXtured{preamble/layout/}
 
 \subsection{Page Dimensions, Printing Layout}%
 \label{sub:Page Dimensions}
+\fileTeXtured{preamble/layout/geometry.tex}
 
 \package{geometry} package --- set up the page layout (supported single/double-sided printing).
 Apply \macro{\flushbottom} --- try to make text body on all pages have the same height.
 
 \subsection{Page Headers and Footers}%
 \label{sub:Headers Footers}
+\fileTeXtured{preamble/layout/headers.tex}
 
 \package{fancyhdr} package --- page headers and footers --- consistent style also for initial page of a chapter (not totally different style with numbering in the bottom center \ldots).
 
 \subsection{Heading Style}%
 \label{sub:Heading Style}
+\fileTeXtured{preamble/layout/titles.tex}
 
 Pretty chapter heading style --- big calligraphic number/letter behind the title.
 
 
 \section{Sane Typographical Defaults}%
 \label{sec:Sane Typographical Defaults}
+\dirTeXtured{preamble/general/}
 
 Now we will concern ourselves with more intricate and detailed typography (more at level of sentences, words, and even letters).
 
 \subsection{Paragraphs, Captions}%
 \label{sub:Paragraphs}
+\fileTeXtured{preamble/general/typesetting.tex}
 
 No paragraph indentation, proper space between paragraphs --- \package{parskip}.
 
 \subsection{Floats, Captions}%
 \label{sub:Floats_Captions}
+\fileTeXtured{preamble/general/floats.tex}
 
 Caption styling --- slight hang, \macro{\footnotesize} font, bold sans label (like other environments).
 
 
 \subsection{Font and Related Stuff}%
 \label{sub:Font}
+\fileTeXtured{preamble/general/typesetting.tex}
 
 The default choice are \emph{Latin Modern} fonts --- a classic really.
 Various families and shapes are typically used for different purposes:
@@ -71,6 +79,7 @@ For consistent quotation use \macro{\enquote} macro provided by \package{csquote
 
 \subsection{\texorpdfstring{Micro-\!Typography}{Micro-Typography}}%
 \label{sub:Micro-Typography}
+\fileTeXtured{preamble/general/typesetting.tex}
 
 Enable micro-typographic extensions with package \package{microtype}, most prominently character protrusion and font expansion.
 
@@ -89,8 +98,13 @@ Following quote from \package{microtype} documentation nicely explains what it i
 
 Implemented mostly via \package{tcolorbox} package (and \package{thmtools}).
 
-\subsection{Theorem/Remark--like Environments}%
+\subsection{Custom Structure Environments}%
 \label{sub:Theorem/Remark--like Environments}
+\fileTeXtured{preamble/environments/*.tex}
+% \fileTeXtured{preamble/environments/init.tex}
+% \fileTeXtured{preamble/environments/theorem-like.tex}
+% \fileTeXtured{preamble/environments/remark-like.tex}
+% \fileTeXtured{preamble/environments/todo-like.tex}
 
 \begin{itemize}
     \item clear structure, enables high level of interlinking
@@ -115,6 +129,7 @@ Implemented mostly via \package{tcolorbox} package (and \package{thmtools}).
 
 \subsection{References, Links}%
 \label{sub:References Links}
+\fileTeXtured{preamble/hacks/custom-reference-boxes.tex}
 
 Custom reference/link/citation styles.
 \begin{itemize}
@@ -129,6 +144,7 @@ Custom reference/link/citation styles.
 
 \subsection{Table of Contents, Index}%
 \label{sub:Table of Contents and Index}
+\fileTeXtured{preamble/layout/toc.tex}
 
 Clear Table of Contents.
 \begin{itemize}
@@ -147,18 +163,23 @@ Proper Index (ToC in PDF viewer).
 
 \section{Bibliography/References}%
 \label{sec:Bibliography/References}
+\dirTeXtured{preamble/references/}
 
-Clear Bibliography/References, via \package{biblatex} package.
+Pretty and functional Bibliography/References, via \package{biblatex} package.
 
 \subsection{Bibliography Style}%
 \label{sub:Bibliography Style}
+\fileTeXtured{preamble/references/*.tex}
+% \fileTeXtured{preamble/references/biblatex.tex}
+% \fileTeXtured{preamble/references/style.tex}
+% \fileTeXtured{preamble/references/fields.tex}
 
 Entries in \Nref{ch:References}:
 \begin{itemize}
     \item have a clean consistent style based on the \macro{ext-numeric-verb} style from \package{biblatex-ext} package
     \item support (new) \custommacro{github} field
-    \item have DOI/arXiv/URL/GitHub links on the new line
-    \item include \enquote{backlinks}
+    \item have DOI/arXiv/URL/GitHub links on the new line \fileTeXtured{preamble/references/doi-eprint-url.tex}
+    \item include \enquote{backlinks} \fileTeXtured{preamble/references/backref.tex}
 \end{itemize}
 
 \begin{remark}[Bibliography Data]
@@ -173,12 +194,14 @@ Entries in \Nref{ch:References}:
 
 \subsection{Citation Style}%
 \label{sub:Citation Style}
+\fileTeXtured{preamble/references/cite.tex}
 
 Include \texttt{[} and \texttt{]} characters around citation number inside the link (and wrap in \package{tcolorbox} \ldots), for example \autocite{TeXtured}.
 
 
 \section{PDF/A Compliance}%
 \label{sec:PDF/A Compliance}
+\dirTeXtured{preamble/pdfA-compliance/}
 
 Proper metadata setup (via \package{hyperref} and \macro{\DocumentMetadata}).
 \begin{remark}[Document Data]
@@ -190,6 +213,8 @@ Next we will describe various common violations of PDF/A standard, and how to fi
 
 \subsection{Glyph to Unicode Map}%
 \label{sub:Glyph to Unicode Map}
+\fileTeXtured{.../pdfA-compliance/glyphtounicode.tex}
+% \fileTeXtured[0ex]{preamble/pdfA-compliance/glyphtounicode.tex}
 
 To obtain PDF/A compliant PDF, we need to have Unicode mapping for all glyphs used in the document.
 It can happen --- mainly when using fonts providing extra mathematical symbols --- that certain glyphs are not covered by mappings loaded in \path{preamble/pdfA-compliance/glyphtounicode.tex}.
@@ -244,12 +269,13 @@ This is automatically fixed by \path{figures/Inkscape/inkscape-export-to-latex} 
     }{%
         \begin{tikzpicture}[
                 % http://www.texample.net/tikz/examples/filesystem-tree/
+                draw=black!80!cyan!40, thick, rounded corners=0.2em,
                 growth parent anchor=west,
                 grow via three points={one child at (1.0,-0.78) and
                     two children at (1.0,-0.78) and (1.0,-1.56)},
                 edge from parent path={([xshift=1.2em]\tikzparentnode.south west) |- (\tikzchildnode.west)},
-                every node/.style={draw=black, thick, anchor=west, fill=black!5, text depth=.25ex},
-                directory/.style={fill=black!13},
+                every node/.style={text=black, anchor=west, inner sep=0.7ex, draw=black!70!cyan!35, fill=black!10!cyan!3, text depth=.25ex},
+                directory/.style={draw=black!80!cyan!40, fill=black!60!cyan!8},
                 font=\ttfamily,
             ]%
             \node[directory] {preamble/}
@@ -335,6 +361,7 @@ This is automatically fixed by \path{figures/Inkscape/inkscape-export-to-latex} 
 
 \subsection{Math-Related Tweaks --- \texorpdfstring{\rmfamily\(\E^{\I\pi}\)}{exp(iπ)}}%
 \label{sub:Math Macros}
+\fileTeXtured{preamble/math/}
 
 Some of the math-related tweaks:
 \begin{itemize}
@@ -359,6 +386,7 @@ Following practice is highly recommended.
 
 \subsection{GitHub Actions}%
 \label{sub:GitHub Actions}
+\fileTeXtured{.github/workflows/}
 
 Describe implemented \textsf{GitHub Actions}:
 \begin{itemize}
@@ -377,6 +405,7 @@ Describe implemented \textsf{GitHub Actions}:
 
 \subsection{Censoring}%
 \label{sub:Censoring}
+\fileTeXtured{preamble/debug/censor.tex}
 
 Censoring/redaction using \package{censor} package.
 Use \macro{\censor} or \macro{\censorbox}.
@@ -384,6 +413,7 @@ For example, censor the following sentence: \censor{\TeXtured{} is an amazing te
 
 \subsection{\texorpdfstring{\texttt{Inkscape}}{Inkscape} Integration}%
 \label{sub:Inkscape Integration}
+\fileTeXtured{preamble/misc/inkscape.tex}
 
 \begin{itemize}
     \item automatic export after changing the \texttt{svg} (need to enable \macro{--shell-escape} for \hologo{pdfTeX} or \hologo{LuaTeX}, done via \path{.latexmkrc})
