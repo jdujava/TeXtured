@@ -9,3 +9,17 @@
     decorations.pathmorphing,
     trees,
 }
+
+%% Directory Tree Structure
+\tikzset{
+    dirtree/.style={ % http://www.texample.net/tikz/examples/filesystem-tree/
+        draw=black!80!cyan!40, thick, rounded corners=0.2em,
+        growth parent anchor=west,
+        grow via three points={one child at (1.0,-0.78) and
+            two children at (1.0,-0.78) and (1.0,-1.56)},
+        edge from parent path={([xshift=1.2em]\tikzparentnode.south west) |- (\tikzchildnode.west)},
+        every node/.style={text=black, anchor=west, inner sep=0.7ex, draw=black!70!cyan!35, fill=black!10!cyan!3, text depth=.25ex, execute at begin node=\vphantom{Aj}},
+        directory/.style={draw=black!80!cyan!40, fill=black!60!cyan!8},
+        font=\ttfamily,
+    },
+}

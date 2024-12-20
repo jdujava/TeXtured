@@ -1,0 +1,67 @@
+\chapter{Usage of \TeXtured{}} \label{ch:Usage}
+
+To quickly familiarize yourself with the \TeXtured{} template, we will go through the basic structure of the template files and explain how to use them.
+First, have a look at \Cref{fig:file-structure} for a visual representation of the file structure.
+\begin{figure}[!ht]
+    \fcapside[\FBwidth]{%
+        \captionsetup{parskip = .5\baselineskip plus 1pt}%
+        \caption[\TeXtured{} Template File Structure]{%
+            \TeXtured{} template file structure.
+
+            The main file is \path{thesis.tex}.
+            It does not contain the actual content of the document, but instead \fakemacro{\include}s the chapters and \emph{front matter} pages from the corresponding directories.
+
+            Make sure to fill all PDF \grayenclose{meta}data --- like title, author, etc.~--- in the \path{preamble/data.tex} file.
+            The bibliography/reference data is stored in the \path{preamble/bibliography.bib} file.
+
+            All of the \TeXtured{} tweaks and settings located in files under \path{preamble/...} directories are loaded by the \path{preamble/main.tex} file, which is itself \fakemacro{\input}ed in the \path{thesis.tex} file.
+
+            The \path{.latexmkrc} file contains a configuration for the \textsf{latexmk} tool, which provides a convenient way to compile the document.
+        }%
+        \label{fig:file-structure}%
+    }{%
+        \begin{tikzpicture}[dirtree]
+            \node[directory] {\TeXtured{} Root Directory/}
+            child { node {thesis.tex}}
+            child { node {LICENSE}}
+            child { node {README.md}}
+            child { node[directory] {chapters/...}}
+            child { node[directory] {figures/...}}
+            child { node[directory] {frontmatter/...}}
+            child { node[directory] {preamble/}
+                child { node {bibliography.bib}}
+                child { node {data.tex}}
+                child { node {main.tex}}
+                child { node[directory] {...} }
+            }
+            child [missing] {} child [missing] {} child [missing] {} child [missing] {}
+            child { node {.latexmkrc}}
+            child { node {.gitignore}}
+            child { node {.gitattributes}}
+            child { node[directory] {.github/...}}
+            ;
+        \end{tikzpicture}%
+    }
+\end{figure}
+
+\begin{remark}[License]
+    If you want to make your document publicly available (together with the source code), you should not forget to include an appropriate license of your choice --- change the \path{LICENSE} file, specifying the \href{https://creativecommons.org/publicdomain/zero/1.0/}{\texttt{CC0 1.0 Universal}} license of \TeXtured{}.
+\end{remark}
+\begin{remark}[MFF CUNI Template Compatibility]
+    \TeXtured{} can be used out of the box for theses at the Faculty of Mathematics and Physics, Charles University in Prague.
+    Just be sure to include all \emph{front matter} pages and fill out necessary data:
+    \begin{itemize}
+        \item \textsf{Title Page} with the faculty logo (among other things),
+        \item \textsf{Declaration},
+        \item \textsf{Dedication} (optional),
+        \item \textsf{Information Page} including the \textsf{Abstract}.
+    \end{itemize}
+    This is done by uncommenting the relevant lines in the main file \path{thesis.tex}.
+
+    Layout of these front matter pages is adapted and modified from the original MFF CUNI template \autocite{MaresTemplate}.
+    However, always make sure it is compliant with the faculty guidelines, otherwise please raise an issue on \textsf{GitHub} \autocite{TeXtured}.
+\end{remark}
+
+\begin{remark}[Customizability Toggles]
+    There are a couple of toggles in the \path{thesis.tex} file that can be used to customize style/layout/creation of the document.
+\end{remark}
