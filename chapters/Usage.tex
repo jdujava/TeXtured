@@ -44,9 +44,27 @@ First, have a look at \Cref{fig:file-structure} for a visual representation of t
     }
 \end{figure}
 
-\begin{remark}[License]
-    If you want to make your document publicly available (together with the source code), you should not forget to include an appropriate license of your choice --- change the \path{LICENSE} file, specifying the \href{https://creativecommons.org/publicdomain/zero/1.0/}{\texttt{CC0 1.0 Universal}} license of \TeXtured{}.
+The usual workflow looks something like this:
+\begin{itemize}
+    \item \textsf{Metadata.} Fill in the \path{preamble/data.tex} file with the necessary information about the document --- title, author, and other \emph{metadata}.
+    \item \textsf{Content.} Write the content of the document in the \path{chapters/} directory.
+          If you need more chapters, just create a new file, and \macro{\include} it in the \path{thesis.tex} file at appropriate place.
+    \item \textsf{Figures.} To include figures, you can put them in the \path{figures/} directory.
+          Since this directory is by default included in \macro{\graphicspath}, there is no need to specify full/relative path, and it is enough to use just the filename in the \macro{\includegraphics} command.
+    \item \textsf{Citations.} Using \grayenclose{for example} \macro{\autocite} macro, you can cite in the text any entry added to the \path{preamble/bibliography.bib} file.
+\end{itemize}
+
+\begin{remark}[Toggles]
+    There are a couple of \emph{toggles} in the \path{thesis.tex} file that can be used to customize style/layout/creation of the document:
+    \begin{itemize}
+        \item \textsf{Page Layout} --- you can choose between \emph{Single-Side} or \emph{Two-Sided} printing by uncommenting the appropriate \macro{\documentclass} line.
+        \item \textsf{Work-In-Progress Version} --- if you want to mark the document as a \emph{Draft}, leave the \macro{\WIPtrue} line uncommented (comment out for the final version).
+        \item \textsf{Censored Version} --- if you want to censor chosen parts of the document, include the \macro{\CENSORtrue} line.
+        \item \textsf{Fancy Style} --- if the default style is not to your liking, you can disable some of the more \enquote{fancy} stylistic elements by uncommenting the \macro{\FANCYtrue} line.
+        \item \textsf{Include Only \ldots{}} --- if you want to compile only a subset of chapters, you can utilize the \custommacro{\includeonlysmart} command. \qedhere*
+    \end{itemize}
 \end{remark}
+
 \begin{remark}[MFF CUNI Template Compatibility]
     \TeXtured{} can be used out of the box for theses at the Faculty of Mathematics and Physics, Charles University in Prague.
     Just be sure to include all \emph{front matter} pages and fill out necessary data:
@@ -56,12 +74,12 @@ First, have a look at \Cref{fig:file-structure} for a visual representation of t
         \item \textsf{Dedication} (optional),
         \item \textsf{Information Page} including the \textsf{Abstract}.
     \end{itemize}
-    This is done by uncommenting the relevant lines in the main file \path{thesis.tex}.
+    This is done by uncommenting the relevant lines in the main \path{thesis.tex} file.
 
     Layout of these front matter pages is adapted and modified from the original MFF CUNI template \autocite{MaresTemplate}.
     However, always make sure it is compliant with the faculty guidelines, otherwise please raise an issue on \textsf{GitHub} \autocite{TeXtured}.
 \end{remark}
 
-\begin{remark}[Customizability Toggles]
-    There are a couple of toggles in the \path{thesis.tex} file that can be used to customize style/layout/creation of the document.
+\begin{remark}[License]
+    If you want to make your document publicly available (together with the source code), you should not forget to include an appropriate license of your choice --- change the \path{LICENSE} file, specifying the \href{https://creativecommons.org/publicdomain/zero/1.0/}{\texttt{CC0 1.0 Universal}} license of \TeXtured{}.
 \end{remark}
