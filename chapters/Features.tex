@@ -136,6 +136,8 @@ To avoid large and hard to navigate preamble files, the code is organized into m
 \label{sec:Page Layout}
 \dirTeXtured{preamble/layout/}
 
+We will first describe the page layout and style, which includes page dimensions, headers and footers, page numbering, and heading style.
+
 \subsection{Page Dimensions, Printing Layout}%
 \label{sub:Page Dimensions}
 \fileTeXtured{preamble/layout/geometry.tex}
@@ -167,7 +169,7 @@ Pretty chapter heading style --- big calligraphic number/letter behind the title
 \label{sec:Sane Typographical Defaults}
 \dirTeXtured{preamble/general/}
 
-Now we will concern ourselves with more intricate and detailed typography (more at level of sentences, words, and even letters).
+Now we will concern ourselves with more intricate and detailed typography, more at level of paragraphs, sentences, words, and even letters.
 
 \subsection{Paragraphs, Captions}%
 \label{sub:Paragraphs}
@@ -233,26 +235,40 @@ Following quote from \package{microtype} documentation nicely explains what it i
 \section{Document Structure}%
 \label{sec:Document Structure}
 
-Implemented mostly via \package{tcolorbox} package (and \package{thmtools}).
+It is important to have a clear and consistent structure of the document.
+This can be achieved by using various environments for different types of content, and by providing clear and informative titles for each part of the document, thus making it easier to navigate and understand.
 
-\subsection{Custom Structure Environments}%
-\label{sub:Theorem/Remark--like Environments}
+\subsection{Structure Environments}%
+\label{sub:Structure Environments}
 \fileTeXtured{preamble/environments/*.tex}
 % \fileTeXtured{preamble/environments/init.tex}
 % \fileTeXtured{preamble/environments/theorem-like.tex}
 % \fileTeXtured{preamble/environments/remark-like.tex}
 % \fileTeXtured{preamble/environments/todo-like.tex}
 
+Inspired by the structured mathematical texts, enclosing various parts of the document in corresponding environments can help making the document more structured and easier to read.
+Implemented mostly via \package{tcolorbox} package (and \package{thmtools}).
+
+\begin{remark}[Default Environments]
+    There are predefined boxed \enquote{theorem-like} environments for \textsf{Definition}, \textsf{Theorem}, \textsf{Lemma}, \textsf{Corollary}, \textsf{Proposition},
+    and non-boxed \enquote{remark-like} environments for \textsf{Remark}, \textsf{Proof}, \textsf{Example}, \textsf{Derivation}, \textsf{Calculation}, and \textsf{Tip} (these have at least a mark indicating the end of the environment).
+
+    Name of the corresponding environment is lowercase, for example \textsf{definition}, \textsf{remark}, and so on.
+    They also accept an optional argument for a short description.
+\end{remark}
+
+Some additional points about the \emph{structure environments}:
 \begin{itemize}
-    \item clear structure, enables high level of interlinking
-    \item include title if possible --- rough idea after first look, quicker navigation/finding
-    \item non-intrusive indicators for the end of non-boxed environments
-    \item shared numbering, together with tables, figures, equations, \ldots
-          --- linear increase of reference number, easier to find
-    \item easy to skim through, get quickly an idea, and know what to expect
-    \item not only for physics/math texts, can be used to highlight key ideas
-    \item no emphasis for the whole body of definitions \ldots we have box for that \ldots
+    \item provide clear structure, enables high level of interlinking
+    \item they make the text easy to skim through, quickly get an idea, and know roughly what to expect
+    \item have shared numbering, together with tables, figures, equations --- leads to a linear increase of the reference number, making them easier to locate
+    \item not only for physics/math texts, can be generally used to highlight key ideas
+          \begin{tip}[Custom Structure Environments]
+              You can easily create additional \enquote{structure} environments, see \Cref{sec:Structure}.
+          \end{tip}
+    \item avoid using emphasis for the whole body of \enquote{theorem-like} environments, since we already have a whole box around it to make them stand out
 \end{itemize}
+\vspace{1ex}
 
 \begin{remark}
     There are also helper environments for \textsf{Todo}-like notes.
@@ -268,34 +284,36 @@ Implemented mostly via \package{tcolorbox} package (and \package{thmtools}).
 \label{sub:References Links}
 \fileTeXtured{preamble/hacks/custom-reference-boxes.tex}
 
-Custom reference/link/citation styles.
-\begin{itemize}
-    \item I like distinguished references/links/citations
-    \item always use \macro{\Cref} from \package{cleveref} package
-    \item frames are useful, but not that pretty (they can obscure punctuation \ldots),
-          and the PDF viewer must support them
-    \item just color is sometimes alright, but less ideal when printing
-    \item sometimes good to have an idea where they point (mainly when printed, no ability to click) --- include page number
-    \item there is slight inconvenience due to small flexibility around line breaks (would be nice to have proper workaround, like link breaking or something like that)
-\end{itemize}
+Custom reference/link/citation styles using \package{tcolorbox} package.
+\begin{Note}[Slight Inconvenience --- Line Breaks]
+    There is a slight inconvenience due to small flexibility around line breaks.
+    It would be nice to have a proper workaround.
+\end{Note}
+\begin{remark}[Rationale]
+    I like to have clearly distinguished references, links, and citations.
+    By default, \package{hyperref} provides frames around links, but they are not that pretty, and the PDF viewer must support them.
+    Using just colors can sometimes look better, but I still wasn't satisfied.
+
+    Sometimes it is nice to know the precise location of the reference, especially when printed, where you can't click on them.
+    % Additionally, it is sometimes good to have an idea where the links point, especially when printed, where you can't click on them.
+    Therefore, the page number is (by default) included with \custommacro{\Cref} --- use starred variant \custommacro{\Cref*} to omit it.
+\end{remark}
+\begin{remark}[Automatic Reference Type Detection]
+    Package \package{cleveref} provides \macro{\Cref} command, which automatically detects the type of reference, and formats it accordingly.
+    This behavior is adapted in \TeXtured{} with the macro of the same name \custommacro{\Cref}.
+\end{remark}
 
 \subsection{Table of Contents, Index}%
 \label{sub:Table of Contents and Index}
 \fileTeXtured{preamble/layout/toc.tex}
 
-Clear Table of Contents.
-\begin{itemize}
-    \item subsections included (in a compact style), but not numbered...
-    \item don't frame references in the Contents, just keep it clean and simple
-    \item include everything important
-\end{itemize}
+Clear and elegant Table of Contents, which includes all of the important parts --- also (unnumbered) subsections, but in a more compact style.
 
-Proper Index (ToC in PDF viewer).
-\begin{itemize}
-    \item very handy for navigating longer documents
-    \item include also other important pages other than just initial pages of main chapters: Contents, Introduction, References, \ldots
-    \item I use \texttt{Zathura} as my PDF viewer, where Index is just one \macro{Tab} away \ldots
-\end{itemize}
+Similarly, automatically populate the Index (digital Table of Contents in PDF viewer).
+It is very handy for navigating longer documents, and includes also other important pages other than just initial pages of main chapters: Title Page, Contents, Introduction, References, and so on.
+\begin{remark}
+    I use \texttt{Zathura} as my PDF viewer, with the Index just one \macro{Tab} away, allowing me to quickly jump to the desired part of the document.
+\end{remark}
 
 
 \section{Bibliography/References}%
@@ -311,15 +329,9 @@ Pretty and functional Bibliography/References, via \package{biblatex} package.
 % \fileTeXtured{preamble/references/style.tex}
 % \fileTeXtured{preamble/references/fields.tex}
 
-Entries in \Nref{ch:References}:
-\begin{itemize}
-    \item have a clean consistent style based on the \macro{ext-numeric-verb} style from \package{biblatex-ext} package
-    \item support (new) \custommacro{github} field
-    \item have DOI/arXiv/URL/GitHub links on the new line \fileTeXtured{preamble/references/doi-eprint-url.tex}
-    \item include \enquote{backlinks} \fileTeXtured{preamble/references/backref.tex}
-\end{itemize}
+Entries in \Nref{ch:References} have a clean consistent style, which builds on the \macro{ext-numeric-verb} style from \package{biblatex-ext} package.
 
-\begin{remark}[Bibliography Data]
+\begin{tip}[Bibliography Data]
     Make sure to gather all the relevant data you need for every reference.
     If you later decide you want to reduce the amount of presented information, \package{biblatex} can help you with that.
     For example, it is possible to automatically
@@ -327,7 +339,25 @@ Entries in \Nref{ch:References}:
         \item remove \macro{url} field if \macro{doi} field is present,
         \item ignore unwanted fields (\macro{pages}, \macro{number}, \macro{volume}, \macro{series}, \macro{location}, \ldots). \qedhere*
     \end{itemize}
-\end{remark}
+\end{tip}
+
+\subsection{Extra Fields}%
+\label{sub:Extra Fields}
+\fileTeXtured{preamble/references/biblatex-extra-fields.dbx}
+
+Support extra \custommacro{github} field.
+
+\subsection{Custom External Links}%
+\label{sub:Custom External Links}
+\fileTeXtured{preamble/references/doi-eprint-url.tex}
+
+Have the external \textsf{DOI/arXiv/URL/GitHub} links displayed in custom boxes, and place them on the new line.
+
+\subsection{Backreferences}%
+\label{sub:Backreferences}
+\fileTeXtured{preamble/references/backref.tex}
+
+Include \emph{backreferences}, which point from the bibliography to the pages where the reference was cited.
 
 \subsection{Citation Style}%
 \label{sub:Citation Style}

@@ -1,25 +1,40 @@
 \chapter{Tips \& Tricks} \label{ch:Tips}
 
-In this chapter we will see how to utilize and extend capabilities of \TeXtured{}.
-Also, there will be sprinkled miscellaneous tips on how to improve the quality of your document.
+In this chapter we will see how to utilize and even extend capabilities of \TeXtured{}.
+Additionally, there will be sprinkled miscellaneous tips on how to improve the quality of your document.
 
 \section{Structure}%
 \label{sec:Structure}
+
+\subsection{Headings}%
+\label{sub:Headings}
 
 \begin{itemize}
     \item numbered and \enquote{lettered} chapters
           \begin{Todo}
               Describe \custommacro{\chapternotnumbered}, and \enquote{lettered} chapters in front matter.
           \end{Todo}
-    \item Use nicely named \textcolor{gray}{sub}sections --- easier to navigate (also better ToC and Index)
+    \item Use nicely named \textcolor{gray}{sub}sections --- much easier to navigate, since it leads to better ToC and Index
           \begin{Todo}
               Describe \macro{\texorpdfstring}.
-              If you want, you can even use UTF-8 math characters (superscripts/subscripts, emulate math fonts).
           \end{Todo}
-    \item Utilize remark/definition environments to make the document more structured and easier to read.
-          Important concepts will stick out more and will be remembered better.
+\end{itemize}
+
+\subsection{Structure Environments}%
+\label{sub:Structure Environments tips}
+
+\begin{itemize}
+    \item Utilize structure (remark, definition, ...) environments to make the document more structured and easier to read.
+          Including a brief description as an optional argument can help to foreshadow the content of the environment.
+          Important concepts will then stick out more and will be remembered better.
+          \begin{remark}[Spacing at the End of Structure Environments]
+              Structure environments ending with displayed math or a list may need a bit of tweaking to ensure proper spacing at their end.
+
+              This is most easily achieved using the \custommacro{\qedhere} macro on the line, which should be the last one in the environment.
+              This uses the mechanism of the \macro{\qedhere} macro from \package{amsthm} package, but now has also a starred variant for extra vertical space (for equations containing big operators), or even an optional argument for a completely custom vertical shift.
+          \end{remark}
           \begin{Todo}
-              Describe creating of new environments, \custommacro{\qedhere}, ...
+              Describe creation of new \enquote{structure} environments.
           \end{Todo}
     \item Try to motivate every definition/theorem with \enquote{normal} text, do not let the document degenerate just into a listing of definitions/theorems/proofs/...
     \item Use references to other remarks/definitions/sections to make the document more interconnected, which can help the reader to look at a bigger picture, recollect necessary information to proceed further, or to understand the context better.
@@ -43,7 +58,7 @@ Also, there will be sprinkled miscellaneous tips on how to improve the quality o
     \item use \emph{emphasis} with \macro{\emph} for the names of new and important concepts
     \item for quotation marks use \macro{\enquote} from \package{csquotes} package
     \item sometimes using gray text instead of parentheses may result in a cleaner look, for example instead of \enquote{(pseudo-)Riemannian} just gray out \enquote{pseudo-} like \enquote{\textcolor{gray}{pseudo-}Riemannian}
-    \item choose capitalization style of titles, and stick with it --- I choose \enquote{titlecase}
+    \item choose capitalization style of titles, and stick with it --- I chose \enquote{titlecase}
 \end{itemize}
 
 
@@ -54,7 +69,7 @@ Also, there will be sprinkled miscellaneous tips on how to improve the quality o
 \label{sub:Math Typesetting}
 
 Learn stuff in \package{amsmath} and \package{mathtools} packages.
-Then it is possible to write stuff like following inclusion map
+Then it is possible to write stuff like the following inclusion map
 \begin{alignat*}{3}
     % NOTE: maybe there is a better way to center parameters (t,r,\overline{x})?
     \iota\colon & (\Sphere^{1}, \R_{\ge 0}, \Sphere^{\spacedim - 1})                                                                           && \longrightarrow \coset{\AdS}{\Z} \\
