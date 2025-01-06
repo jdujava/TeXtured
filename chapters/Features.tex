@@ -171,7 +171,7 @@ Pretty chapter heading style --- big calligraphic number/letter behind the title
 
 Now we will concern ourselves with more intricate and detailed typography, more at level of paragraphs, sentences, words, and even letters.
 
-\subsection{Paragraphs, Captions}%
+\subsection{Paragraphs}%
 \label{sub:Paragraphs}
 \fileTeXtured{preamble/general/typesetting.tex}
 
@@ -181,7 +181,8 @@ No paragraph indentation, proper space between paragraphs --- \package{parskip}.
 \label{sub:Floats_Captions}
 \fileTeXtured{preamble/general/floats.tex}
 
-Caption styling --- slight hang, \macro{\footnotesize} font, bold sans label (like other environments).
+Caption styling includes a slight hang, \macro{\footnotesize} font, and a bold sans label.
+See \Cref{appendix:example} for a showcase of the different caption types.
 
 
 \subsection{Font and Related Stuff}%
@@ -200,16 +201,21 @@ Various families and shapes are typically used for different purposes:
     \item \emph{(Bold) Sans} family for headings and other structural elements
     \item \emph{Typewriter} family for computer code and similar stuff
 \end{itemize}
+\vspace{1ex}
 
-{                  This is Latin Modern Sans \(\alpha = 2^{2}\)}\\
-{\slshape          This is Latin Modern Sans Oblique \(\alpha = 2^{2}\)}\\
-{\bfseries         This is Latin Modern Sans Bold \(\alpha = 2^{\bm{{2}}}\)}\\
-{\bfseries\slshape This is Latin Modern Sans Bold Oblique \(\alpha = 2^{2}\)}
+\begin{example}
+    Quick showcase of some font families and shapes:\par \leftskip=1em
 
-{\sffamily                  This is Latin Modern Sans \(\alpha = 2^{2}\)}\\
-{\sffamily\slshape          This is Latin Modern Sans Oblique \(\alpha = 2^{2}\)}\\
-{\sffamily\bfseries         This is Latin Modern Sans Bold \(\alpha = 2^{2}\)}\\
-{\sffamily\bfseries\slshape This is Latin Modern Sans Bold Oblique \(\alpha = 2^{2}\)}
+    {                  This is Latin Modern Serif \(\alpha = 2^{2}\)}\\
+    {\slshape          This is Latin Modern Serif Oblique \(\alpha = 2^{2}\)}\\
+    {\bfseries         This is Latin Modern Serif Bold \(\alpha = 2^{\bm{{2}}}\)}\\
+    {\bfseries\slshape This is Latin Modern Serif Bold Oblique \(\alpha = 2^{2}\)}
+
+    {\sffamily                  This is Latin Modern Sans \(\alpha = 2^{2}\)}\\
+    {\sffamily\slshape          This is Latin Modern Sans Oblique \(\alpha = 2^{2}\)}\\
+    {\sffamily\bfseries         This is Latin Modern Sans Bold \(\alpha = 2^{2}\)}\\
+    {\sffamily\bfseries\slshape This is Latin Modern Sans Bold Oblique \(\alpha = 2^{2}\)}
+\end{example}
 \begin{Note}
     Sans math font has problems with showing properly all bold symbols (sub/superscripts don't work automatically).
 \end{Note}
