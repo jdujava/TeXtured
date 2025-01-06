@@ -65,3 +65,15 @@ Note the numbering of various environments in the appendix.
 \begin{remark}
     The page header reflects that this is an appendix page.
 \end{remark}
+
+\begin{example}[Equation Numbering and Referencing]
+    As was mentioned already in \Cref{sec:Document Structure}, equations share numbering with \emph{structure environments}. For example, the equation
+    \begin{equation} \label{eq:appendix_equation}
+        \phi^{*}\bm{g}' \overset{!}{=} \Omega^{2}\bm{g} \equiv \E*^{2\omega}\bm{g}
+    \end{equation}
+    is numbered as \eqref{eq:appendix_equation} in the appendix.
+
+    We can reference this equation using \custommacro{\Cref} as \Cref{eq:appendix_equation}.
+    Starred variant \custommacro{\Cref*} results in \Cref*{eq:appendix_equation}.
+    If you desire less verbose output, you can use \macro{\eqref}, which gives \eqref{eq:appendix_equation}.
+\end{example}
