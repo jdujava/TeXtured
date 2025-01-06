@@ -286,7 +286,7 @@ Some additional points about the \emph{structure environments}:
     PRs welcome.
 \end{Note}
 
-\subsection{References, Links}%
+\subsection{References and Links}%
 \label{sub:References Links}
 \fileTeXtured{preamble/hacks/custom-reference-boxes.tex}
 
@@ -309,16 +309,20 @@ Custom reference/link/citation styles using \package{tcolorbox} package.
     This behavior is adapted in \TeXtured{} with the macro of the same name \custommacro{\Cref}.
 \end{remark}
 
-\subsection{Table of Contents, Index}%
+\subsection{Table of Contents and Outline/Index}%
 \label{sub:Table of Contents and Index}
 \fileTeXtured{preamble/layout/toc.tex}
 
 Clear and elegant Table of Contents, which includes all of the important parts --- also (unnumbered) subsections, but in a more compact style.
 
-Similarly, automatically populate the Index (digital Table of Contents in PDF viewer).
+Similarly, automatically populate the PDF Outline/Index (digital Table of Contents in PDF viewer).
 It is very handy for navigating longer documents, and includes also other important pages other than just initial pages of main chapters: Title Page, Contents, Introduction, References, and so on.
 \begin{remark}
-    I use \texttt{Zathura} as my PDF viewer, with the Index just one \macro{Tab} away, allowing me to quickly jump to the desired part of the document.
+    I use \texttt{Zathura} as my PDF viewer, with the Outline/Index just one \macro{Tab} away, allowing me to quickly jump to the desired part of the document.
+\end{remark}
+
+\begin{remark}[List of Figures, Tables, \ldots{}]
+    If you want/need to include a List of Figures, List of Tables, and so on, you can easily do so by uncommenting the relevant lines in the \custommacro{\contentsandlists} macro.
 \end{remark}
 
 
@@ -497,11 +501,6 @@ This does not mean that it is hard or not compatible to use them with \TeXtured{
               \item it is not bad to remind reader of something in the main text\ldots
           \end{itemize}
 \end{itemize}
-
-\subsection{List of Figures, List of ...}%
-\label{sub:List of Figures List of ...}
-
-Don't really see the point, but one is free to include it.
 
 \subsection{Index, Glossary}%
 \label{sub:Index Glossary}

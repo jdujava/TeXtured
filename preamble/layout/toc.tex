@@ -1,10 +1,20 @@
 %% Table of Contents
 % \addtocontents{toc}{\vspace{-0.9em}}  % change space after "Contents" title in TOC
-\NewDocumentCommand{\contents}{}{
+\NewDocumentCommand{\contentsandlists}{}{
     {\hypersetup{hidelinks}
         \tableofcontents
-        % \listoftheorems[title=List of Definitions and Theorems, onlynamed, swapnumber]
+
+        %% Add list of structure environments
+        %%  -> see `thmtools` package for more customization
+        % \DeclareExpandableDocumentCommand{\listtheoremname}{}{List of Definitions, Remarks, \ldots}
+        % \cleardoublepage\phantomsection
+        % \currentpdfbookmark{\listtheoremname}{loe} % add PDF Index/Outline entry
+        % \listoftheorems[onlynamed, swapnumber]
+
+        %% Add list of figures and tables
+        %%  -> see `tocbibind` package (or maybe also `titletoc`)
         % \listoffigures
+        % \listoftables
     }
 }
 
