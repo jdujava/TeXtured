@@ -5,6 +5,7 @@
 <div align="center">
 
  [![TeXtured Manual](https://img.shields.io/badge/TeXtured-Manual%E2%80%89%F0%9F%93%93-blue?color=ccfaff&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
+ [![GitHub Release](https://img.shields.io/github/v/release/jdujava/textured?color=ade1ff&style=for-the-badge)](https://github.com/jdujava/TeXtured/releases)
  [![GitHub License](https://img.shields.io/github/license/jdujava/TeXtured?color=fbe2ff&style=for-the-badge)](#-license)
  [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jdujava/TeXtured/main.yml?color=aafaba&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
  [![TeXtured Stars](https://img.shields.io/github/stars/jdujava/TeXtured?color=ffeca4&style=for-the-badge)](https://github.com/jdujava/TeXtured/stargazers)
