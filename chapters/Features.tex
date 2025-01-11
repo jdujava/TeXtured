@@ -259,7 +259,7 @@ Implemented mostly via \package{tcolorbox} package (and \package{thmtools}).
     There are predefined boxed \enquote{theorem-like} environments for \textsf{Definition}, \textsf{Theorem}, \textsf{Lemma}, \textsf{Corollary}, \textsf{Proposition},
     and non-boxed \enquote{remark-like} environments for \textsf{Remark}, \textsf{Proof}, \textsf{Example}, \textsf{Derivation}, \textsf{Calculation}, and \textsf{Tip} (these have at least a mark indicating the end of the environment).
 
-    Name of the corresponding environment is lowercase, for example \textsf{definition}, \textsf{remark}, and so on.
+    Names of the corresponding environments are lowercase, for example \texttt{definition}, \texttt{remark}, and so on.
     They also accept an optional argument for a short description.
 \end{remark}
 
@@ -279,6 +279,8 @@ Some additional points about the \emph{structure environments}:
 \begin{remark}
     There are also helper environments for \textsf{Todo}-like notes.
     By default, there are \textsf{Todo}, \textsf{Note}, \textsf{Suggestion}, and \textsf{Question} environments, but you can easily create your own.
+
+    To avoid conflicts with possible existing macros/environments, names of these environments are capitalized, for example \texttt{Todo}, \texttt{Note}, and so on.
 \end{remark}
 
 \begin{Note}
