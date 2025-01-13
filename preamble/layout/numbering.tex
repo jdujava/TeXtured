@@ -11,5 +11,9 @@
     \setcounter{section}{0}              %   reset section counter
     \gdef\thechapter{\@arabic\c@chapter} %   arabic chapter numbering
 }
-\NewDocumentCommand{\backmatter}{}{}     % the back matter (continue with arabic page numbering)
+\NewDocumentCommand{\backmatter}{}{      % the back matter (continue with arabic page numbering)
+    \bookmarksetup{startatroot}          %   reset bookmarks level (in case parts are used)
+    %% BUG: following line does not work as expected (adds space too late)
+    % \addtocontents{toc}{\vspace{2ex}}    %   add some space after last part in TOC
+}
 \makeatother

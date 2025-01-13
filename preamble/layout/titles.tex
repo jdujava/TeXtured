@@ -7,11 +7,17 @@
 
 %%% Chapter and section formatting
 %% `clearempty` option removes page numbers from empty pages when using `\cleardoublepage`
-\usepackage[clearempty]{titlesec}
+\usepackage[newparttoc, clearempty]{titlesec}
 
 \titleformat{\section}{\Large\sffamily\bfseries}{\thesection}{0.8em}{}
 %% NOTE: also include `\phantomsection` so even non-numbered subsections have proper anchors for hyperlinks
 \titleformat{\subsection}{\phantomsection\large\sffamily\bfseries}{\thesubsection}{0.8em}{}
+
+%% Part title (page) formatting
+\titleformat{\part}[display]
+{\thispagestyle{empty}\sffamily}
+{\LARGE Part \Romanbar{\thepart}}
+{0.2em}{\fontsize{30pt}{36pt}\selectfont\bfseries}
 
 %%% Chapter title formatting
 %% No extra space above and below chapter headings, big number/letter behind chapter title
