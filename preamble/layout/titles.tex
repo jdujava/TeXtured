@@ -22,21 +22,20 @@
 %%% Chapter title formatting
 %% No extra space above and below chapter headings, big number/letter behind chapter title
 %% inspired by https://tex.stackexchange.com/a/690632
-%% TODO: try to shift chapter anchors a little bit up, so reference links give a nice view
 \NewDocumentCommand{\chaphead}{m O{}}{
-    {\setlength{\parindent}{0pt} \raggedright
-        % \vspace*{15pt}%
-        \Huge\sffamily\bfseries%
+    \vspace*{-25pt}% reduce vertical space before the title
+    {\setlength{\parindent}{0pt}\raggedright
+        \Huge\sffamily\bfseries
         \ifFANCY%
             \chapterheadingletter{#2}% fancy Chapter number/letter
         \else%
             \IfBlankF{#2}{\thechapter\hspace{0.7em}}% just basic Chapter number
         \fi%
-        #1% Chapter title
-        \par\nobreak
-        \vspace{20pt}
+        #1\par\nobreak% Chapter title
+        \vspace{20pt}% extra vertical space after the title
     }
 }
+%% -> modifying /usr/share/texmf-dist/tex/latex/base/report.cls
 \makeatletter
 \def\@makechapterhead#1{\chaphead{#1}[\thechapter]} % For numbered Chapters use their number
 \def\@makeschapterhead#1{
