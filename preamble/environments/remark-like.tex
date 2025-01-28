@@ -23,7 +23,7 @@
 \NewDocumentCommand{\NewRemarkLikes}{>{\SplitList{,}}m}{\ProcessList{#1}{\NewRemarkLike}}
 
 %% Define remark-like environments
-\NewRemarkLikes{remark, example, derivation, calculation, tip}
+\NewRemarkLikes{remark, example, derivation, calculation, idea, tip}
 
 
 %%% Proof environment
@@ -40,6 +40,7 @@
 %% Make proof environment remark-like without numbering
 \let\proof\relax
 \NewRemarkLike[numbered=no, qed=\proofqed]{proof}
+\NewRemarkLike[numbered=no, name={Idea of the Proof}, qed=\proofqed]{proofidea}
 
 %% NOTE: Suggestion on how to pass arguments to `tcolorbox` when calling proof
 %% https://tex.stackexchange.com/questions/565220/is-it-possibe-to-pass-options-to-a-tcolorboxenvironment
