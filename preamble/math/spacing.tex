@@ -20,27 +20,27 @@
     \hspace{\halfhphantomlength}%
 }
 
-%% \lefthphantom{abc}{defghij} positions the text "abc" as follows:
+%% \lhphantom{abc}{defghij} positions the text "abc" as follows:
 %% |abc    |
 %%  defghij
-\NewDocumentCommand{\lefthphantom}{mm}{%
+\NewDocumentCommand{\lhphantom}{mm}{%
     \ifmmode\mathrlap{#1}\else\rlap{#1}\fi%
     \hphantom{#2}%
 }
 
-%% \centerhphantom{abc}{defghij} positions the text "abc" as follows:
+%% \chphantom{abc}{defghij} positions the text "abc" as follows:
 %% |  abc  |
 %%  defghij
-\NewDocumentCommand{\centerhphantom}{mm}{%
+\NewDocumentCommand{\chphantom}{mm}{%
     \halfhphantom{#2}%
     \ifmmode\mathclap{#1}\else\clap{#1}\fi%
     \halfhphantom{#2}%
 }
 
-%% \righthphantom{abc}{defghij} positions the text "abc" as follows:
+%% \rhphantom{abc}{defghij} positions the text "abc" as follows:
 %% |    abc|
 %%  defghij
-\NewDocumentCommand{\righthphantom}{mm}{%
+\NewDocumentCommand{\rhphantom}{mm}{%
     \hphantom{#2}%
     \ifmmode\mathllap{#1}\else\llap{#1}\fi%
 }

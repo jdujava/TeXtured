@@ -4,7 +4,11 @@
 \NewDocumentCommand{\eqend}{}{\,.}
 \NewDocumentCommand{\eqcomma}{}{\,,}
 
-%% (Optional) Automatically use \mathcolor in math mode
+%% Tiny space in math mode
+\NewCommandCopy{\dotaccent}{\.}
+\RenewDocumentCommand{\.}{}{\TextOrMath{\dotaccent}{\mspace{1mu}}}
+
+% %% (Optional) Automatically use \mathcolor in math mode
 % \NewCommandCopy{\textcolorOrig}{\textcolor}
 % \RenewDocumentCommand{\textcolor}{O{} m m}{%
 %     \ifmmode%
@@ -17,11 +21,12 @@
 
 %% Misc math macros
 \NewCommandCopy{\sq}{\sqrt}
+\NewCommandCopy{\transpose}{\intercal}
 \DeclareMathOperator{\sgn}{sgn}
 \NewDocumentCommand{\Id}{}{\bm{1}}
 \DeclareMathOperator{\Span}{Span}
 \DeclareMathOperator{\diag}{diag}
-\NewDocumentCommand{\bdry}{m}{\partial #1}
+\NewDocumentCommand{\bdry}{}{\partial}
 \NewDocumentCommand{\disjunion}{}{\sqcup} % TODO: spacing too small sometimes (in subscripts)
 \NewDocumentCommand{\inclusion}{}{\hookrightarrow}
 \NewDocumentCommand{\surjection}{}{\twoheadrightarrow}
@@ -38,13 +43,6 @@
 \NewDocumentCommand{\F}{}{\mathbb{F}}
 \NewDocumentCommand{\N}{}{\mathbb{N}}
 
-%% Override `physics` package command `\dd` to optionally use bold `d`
-\RenewDocumentCommand{\dd}{s O{ } m}{
-    \mathinner{
-        \IfBooleanTF{#1}{\mathrm{d}}{\mathbf{d}}^{\mspace{-1mu}#2}#3
-    }
-}
-
 %% Group/Representation Theory
 \DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Ker}{Ker}
@@ -58,7 +56,7 @@
 \DeclareMathOperator{\oo}{\mathfrak{o}}
 \DeclareMathOperator{\OO}{\mathsf{O}}
 \DeclareMathOperator{\so}{\mathfrak{so}}
-\DeclareMathOperator{\SO}{\mathsf{SO}}
+\NewDocumentCommand{\SO}{s}{\operatorname{\IfBooleanTF{#1}{\widetilde{\mathsf{SO}}}{\mathsf{SO}}}}
 \DeclareMathOperator{\spin}{\mathfrak{spin}}
 \DeclareMathOperator{\Spin}{\mathsf{Spin}}
 \DeclareMathOperator{\U}{\mathsf{U}}
@@ -68,7 +66,8 @@
 \NewDocumentCommand{\g}{}{\mathfrak{g}}
 \NewDocumentCommand{\rankgroup}{}{\mathsf{r}}
 
-%% Differential Geometry
+%%% Differential Geometry
+
 \DeclareMathOperator{\Sect}{Sect}
 \NewDocumentCommand{\Lie}{}{\mathcal{L}}
 \DeclarePairedDelimiterX{\Liebracket}[2]{\dblbracketleft}{\dblbracketright}{#1,#2}
@@ -79,19 +78,39 @@
 \NewDocumentCommand{\Ric}{}{\mathbf{Ric}}
 \NewDocumentCommand{\Rscalar}{}{\mathcal{R}}
 
+%% Override `physics` package command `\dd` to optionally use bold `d`
+\RenewDocumentCommand{\dd}{s O{} m}{
+    \mathinner{
+        \IfBooleanTF{#1}{\mathbf{d}}{\mathrm{d}}^{\mspace{-1mu}#2}#3
+    }
+}
+%% Bold differential
+\NewCommandCopy{\dotunderaccent}{\d}
+\RenewDocumentCommand{\d}{O{} m}{\TextOrMath{\dotunderaccent{#2}}{\dd*[#1]{#2}}}
+
+
 %% Covariant derivative (with optional arguments for space tweaking)
 \NewDocumentCommand{\cder}{s O{a} e{_}}{
     \IfBooleanT{#1}{\mspace{-2mu}} % use starred variant when more \cder after each other
     \bm{\nabla}
-    \IfValueT{#3}{                  % when subscript index is given
-        _{                          % start subscript
-            \mspace{-7mu}           % remove extra space after nabla
-            \centerhphantom{#3}{#2} % print #3 with the width of #2
+    \IfValueT{#3}{             % when subscript index is given
+        _{                     % start subscript
+            \mspace{-7mu}      % remove extra space after nabla
+            \chphantom{#3}{#2} % print #3 with the width of #2
         }
     }
 }
 %% Coordinate derivative
-\NewDocumentCommand{\cpartial}{}{\bm{\partial}}
+\NewDocumentCommand{\del}{s}{\IfBooleanTF{#1}{\partial}{\bm{\partial}}}
+\NewDocumentCommand{\fdel}{O{} m}{\frac{\del #1}{\del #2}}
+\NewDocumentCommand{\Dv}{O{} m}{\frac{\bm{D} #1}{d #2}}
+\NewDocumentCommand{\dAlambertian}{s}{
+    \mathord{
+        \.
+        \IfBooleanTF{#1}{\square[0.35em][boxframe=0.05em]}{\square[][boxframe=0.06em]}
+        \.\.
+    }
+}
 
 
 
@@ -153,9 +172,9 @@
 \ytableausetup{centertableaux}
 \NewCommandCopy{\oldsquare}{\square}
 \NewCommandCopy{\oldotimes}{\otimes}
-\RenewDocumentCommand{\square}{O{0.55em} O{top} O{}}{%
+\RenewDocumentCommand{\square}{O{0.55em} O{} O{}}{%
     \IfBlankTF{#1}{\ytableausetup{boxsize=0.55em}}{\ytableausetup{boxsize=#1}}%
-    \ytableausetup{aligntableaux=#2}%
+    \ytableausetup{aligntableaux=top, boxframe = normal, #2}%
     \operatorname{\ydiagram[#3]{1}}%
 }
 \NewDocumentCommand{\smallsquare}{O{0.35em}}{\square[#1]}
@@ -171,22 +190,23 @@
 
 
 %% Sizeable bullet
-\NewCommandCopy{\oldbullet}{\bullet}
 \NewDocumentCommand{\sbullet}{O{0.5}}{%
     \mathbin{\ThisStyle{\vcenter{\hbox{\scalebox{#1}{\(\SavedStyle\bullet\)}}}}}
 }
+\NewDocumentCommand{\adot}{}{\sbullet[0.52]}
+\NewDocumentCommand{\idot}{}{\sbullet[0.4]}
 
 %% (abstract) index placeholders
 \NewDocumentCommand{\aind}{}{\bullet}
 \NewDocumentCommand{\ind}{}{\mathcolor{lightgray}{\bullet}}
 
 %% Argument placeholder
-\NewDocumentCommand{\argument}{s o}{%
+\NewDocumentCommand{\argument}{s O{} O{1}}{%
     \def\squaresize{1.0}%                   % default size
     \IfBooleanT{#1}{\def\squaresize{0.7}}%  % if starred, set size corresponding to scriptstyle
-    \IfValueT{#2}{\def\squaresize{#2}}%     % if optional argument is passed, set size to custom value
+    \IfBlankF{#2}{\def\squaresize{#2}}%     % if optional argument is passed, set size to custom value
     \scalebox{\squaresize}{%
-        \begin{tikzpicture}[baseline=-0.6ex]
+        \begin{tikzpicture}[baseline=-#3*0.6ex]
             \node(char)[draw, shape=rectangle, dash=on 1.2pt off 1.05pt phase 0.5pt, dash expand off,
                 inner ysep=2pt, inner xsep=2pt, minimum size=0.6em, rounded corners=2pt] {};
             %% alternative:
@@ -198,16 +218,23 @@
 
 %% Curly arrows
 \tikzset{
-    leadsto/.style={-{Stealth[length=0.6em,open,round]},decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.1em,post length=0.6em}},
+    leadsto/.style={-{Stealth[length=0.6em,open,round]},decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.2em,post length=0.6em}},
     correspondsto/.style={{Stealth[length=0.6em,open,round]}-{Stealth[length=0.6em,open,round]},decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.7em,post length=0.7em}},
 }
-\NewDocumentCommand{\longleadsto}{O{2.8em}}{
-    \tikz[baseline=-0.5ex]{ \draw[line width=0.7pt, leadsto] (0,0) -- (#1,0); }
+\NewDocumentCommand{\longleadsto}{O{}O{}}{%
+    \ensuremath{\mathrel{
+            \tikz[baseline=-0.5ex, inner sep=0ex, font=\scriptsize]{
+                \node[minimum width=2.15em, inner xsep=0.6em, align=center] (a){\hphantom{#1}\\[0ex]\hphantom{#2}};
+                \IfBlankF{#1}{\node[inner sep=0.3ex, above=0.3ex, xshift=-0.1em] at (a){#1};}
+                \IfBlankF{#2}{\node[inner sep=0.3ex, below=0.3ex, xshift=-0.1em] at (a){#2};}
+                \draw[line width=0.6pt, leadsto] (a.west) -- (a.east);
+            }
+        }}%
 }
 %% https://tex.stackexchange.com/questions/170092/xleftrightarrows-command-in-tikz-with-arrows-matching-the-latex-font?rq=1
 \NewDocumentCommand{\correspondsto}{O{}O{}}{%
     \ensuremath{\mathrel{
-            \tikz[baseline=-0.5ex, font=\scriptsize]{
+            \tikz[baseline=-0.5ex, inner sep=0ex, font=\scriptsize]{
                 \node[minimum width=3.48em, inner xsep=0.8em, align=center] (a){\hphantom{#1}\\[0ex]\hphantom{#2}};
                 \IfBlankF{#1}{\node[inner sep=0.3ex, above=0.3ex] at (a){#1};}
                 \IfBlankF{#2}{\node[inner sep=0.3ex, below=0.3ex] at (a){#2};}

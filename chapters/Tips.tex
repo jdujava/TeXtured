@@ -71,15 +71,15 @@ Additionally, there will be sprinkled miscellaneous tips on how to improve the q
 Learn stuff in \package{amsmath} and \package{mathtools} packages.
 Then it is possible to write stuff like the following inclusion map
 \begin{alignat*}{3}
-    % NOTE: maybe there is a better way to center parameters (t,r,\overline{x})?
-    \iota\colon & (\Sphere^{1}, \R_{\ge 0}, \Sphere^{\spacedim - 1})                                                                           && \longrightarrow \coset{\AdS}{\Z} \\
-                & (\centerhphantom{t}{\Sphere^{1}},\centerhphantom{r}{\R_{\ge 0}},\centerhphantom{\overline{\bm{x}}}{\Sphere^{\spacedim - 1}}) && \longmapsto \bm{x} =
-    \iota(t,r,\overline{\bm{x}}) \equiv \smash[t]{
+    % NOTE: maybe there is a better way to center parameters (t,r,\mathsf{\hat{x}})?
+    \iota\colon & (\Sphere^{1}, \R_{\ge 0}, \Sphere^{\spacedim - 1})                                                            && \longrightarrow \coset{\AdS}{\Z} \\
+                & (\chphantom{t}{\Sphere^{1}},\chphantom{r}{\R_{\ge 0}},\chphantom{\mathsf{\hat{x}}}{\Sphere^{\spacedim - 1}}) && \longmapsto \bm{x} =
+    \iota(t,r,\mathsf{\hat{x}}) \equiv \smash[t]{
         \begin{dcases}
             \begin{aligned}
                 \bm{x}^{\shortminusone} & = \sq{\ell^{2} + r^{2}} \cos(t/\ell), \\
                 \bm{x}^{0}              & = \sq{\ell^{2} + r^{2}} \sin(t/\ell), \\
-                \bm{x}^{i}              & = r \overline{\bm{x}}^{i} \qq{for} i=1,\ldots,\spacedim
+                \bm{x}^{i}              & = r \mathsf{\hat{x}}^{i} \qq{for} i=1,\ldots,\spacedim
             \end{aligned}
         \end{dcases}
     }
