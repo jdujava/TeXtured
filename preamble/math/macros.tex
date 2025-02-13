@@ -172,12 +172,12 @@
 \DeclareMathOperator{\Det}{Det}
 
 %% Fix spacing of \left( .. \middle| .. \right)
-\NewCommandCopy{\originalleft}{\left}
-\NewCommandCopy{\originalright}{\right}
-\NewCommandCopy{\originalmiddle}{\middle}
-\RenewDocumentCommand{\left}{}{\mathopen{}\mathclose\bgroup\originalleft}
-\RenewDocumentCommand{\right}{}{\aftergroup\egroup\originalright}
-\RenewDocumentCommand{\middle}{m}{\mathrel{}\originalmiddle#1\mathrel{}}
+\NewCommandCopy{\leftOrig}{\left}
+\NewCommandCopy{\rightOrig}{\right}
+\NewCommandCopy{\middleOrig}{\middle}
+\RenewDocumentCommand{\left}{}{\mathopen{}\mathclose\bgroup\leftOrig}
+\RenewDocumentCommand{\right}{}{\aftergroup\egroup\rightOrig}
+\RenewDocumentCommand{\middle}{sm}{\IfBooleanTF{#1}{\.\middleOrig#2\.}{\mathrel{}\middleOrig#2\mathrel{}}}
 
 %% Less space around \setminus (\mathord instead of \mathinner)
 \DeclareMathSymbol{\setminus}{\mathord}{symbols}{"6E}
@@ -199,7 +199,7 @@
     \mathbin{\ThisStyle{\vcenter{\hbox{\scalebox{#1}{\(\SavedStyle\bullet\)}}}}}
 }
 \NewDocumentCommand{\adot}{}{\sbullet[0.52]}
-\NewDocumentCommand{\idot}{}{\sbullet[0.4]}
+\NewDocumentCommand{\idot}{s}{\mathcolor{darkgray}{\IfBooleanTF{#1}{\.\sbullet[0.4]\.}{\sbullet[0.4]}}}
 
 %% (abstract) index placeholders
 \NewDocumentCommand{\aind}{}{\bullet}
@@ -251,7 +251,7 @@
 %% Quotient macro
 \NewDocumentCommand{\bigslant}{O{0.2}O{1.7}mm}{
     \left.\mspace{-1mu}\raisemath{#1em}{#3}
-    \mspace{-#2mu} \originalmiddle/ \mspace{-\fpeval{#2+1}mu}
+    \mspace{-#2mu} \middleOrig/ \mspace{-\fpeval{#2+1}mu}
     \raisemath{-#1em}{#4} \mspace{-\fpeval{5*#1}mu} \right.
 }
 % \NewDocumentCommand{\coset}{O{0.05} O{0.1} m m}{\bigslant[#1][#2]{#3}{#4}}
