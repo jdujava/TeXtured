@@ -135,10 +135,16 @@
 \RenewCommandCopy{\epsilon}{\varepsilon}
 \RenewCommandCopy{\varepsilon}{\oldepsilon}
 
+%% Math version of `\raisebox` and `\scalebox`
+\NewDocumentCommand{\raisemath}{m}{\mathpalette{\raisemathAux{#1}}}% \raisemath{<len>}{...}
+\NewDocumentCommand{\raisemathAux}{mmm}{\raisebox{#1}{\(#2#3\)}}
+\NewDocumentCommand{\scalemath}{m}{\mathpalette{\scalemathAux{#1}}}% \scalemath{<factor>}{...}
+\NewDocumentCommand{\scalemathAux}{mmm}{\scalebox{#1}{\(#2#3\)}}
+
 %% Modify subscript position
 \NewDocumentCommand{\lowerindex}{O{0pt} O{0pt} e{_^}}{
-    _{\IfValueT{#3}{\raisebox{#1}{\(\scriptstyle #3\)}}}
-    ^{\IfValueT{#4}{\raisebox{#2}{\(\scriptstyle #4\)}}}
+    \IfValueT{#3}{_{\raisemath{#1}{#3}}}
+    \IfValueT{#4}{^{\raisemath{#2}{#4}}}
 }
 
 %% Modify superscript/subscript positions for some greek letters
@@ -150,6 +156,15 @@
 \NewDocumentCommand{\bmdelta}{}{\bm{\olddelta}\lowerindex[1pt][1.0pt]}
 \NewDocumentCommand{\altdelta}{}{{\olddelta\xmathstrut[-0.2]{0.0}}}
 \NewDocumentCommand{\altbmdelta}{}{{\bm{\olddelta}\xmathstrut[-0.2]{0.0}}}
+
+%% Smaller \in, \notin, \subset, ...
+%% https://tex.stackexchange.com/questions/34393/the-mysteries-of-mathpalette
+\NewDocumentCommand{\smallermath}{O{0.05ex} O{0.85} m}{\raisemath{#1}{\scalemath{#2}{#3}}}
+\NewDocumentCommand{\smallin}    {}{\mathrel{\smallermath{\in}}}
+\NewDocumentCommand{\smallnotin} {}{\mathrel{\smallermath{\notin}}}
+\NewDocumentCommand{\smallsubset}{}{\mathrel{\smallermath{\subset}}}
+\NewDocumentCommand{\smallotimes}{}{\mathbin{\smallermath[0ex]{\oldotimes}}}
+
 
 %% Determinants (use normal position of superscript/subscript)
 \NewCommandCopy{\olddet}{\det}
@@ -178,16 +193,6 @@
     \operatorname{\ydiagram[#3]{1}}%
 }
 \NewDocumentCommand{\smallsquare}{O{0.35em}}{\square[#1]}
-
-%% Smaller \in, \notin, \subset, ...
-%% https://tex.stackexchange.com/questions/34393/the-mysteries-of-mathpalette
-\NewDocumentCommand{\smallerrel}{m}{\mathrel{\mathpalette\smallerrelaux{#1}}}
-\NewDocumentCommand{\smallerrelaux}{mm}{\raisebox{.1ex}{\scalebox{.85}{\(#1#2\)}}}
-\NewDocumentCommand{\smallin}{}{\smallerrel{\in}}
-\NewDocumentCommand{\smallnotin}{}{\smallerrel{\notin}}
-\NewDocumentCommand{\smallsubset}{}{\smallerrel{\subset}}
-\NewDocumentCommand{\smallotimes}{}{\mspace{+1mu}\raisebox{.275ex}{\scalebox{.5}{\(\oldotimes\)}}\mspace{+1mu}}
-
 
 %% Sizeable bullet
 \NewDocumentCommand{\sbullet}{O{0.5}}{%
@@ -245,15 +250,15 @@
 
 %% Quotient macro
 \NewDocumentCommand{\bigslant}{O{0.2}O{1.7}mm}{
-    \left. \raisebox{#1em}{\(#3\)}
+    \left.\mspace{-1mu}\raisemath{#1em}{#3}
     \mspace{-#2mu} \originalmiddle/ \mspace{-\fpeval{#2+1}mu}
-    \raisebox{-#1em}{\(#4\)} \mspace{-\fpeval{5*#1}mu} \right.
+    \raisemath{-#1em}{#4} \mspace{-\fpeval{5*#1}mu} \right.
 }
 % \NewDocumentCommand{\coset}{O{0.05} O{0.1} m m}{\bigslant[#1][#2]{#3}{#4}}
 \NewDocumentCommand{\coset}{O{}O{} m m}{#3/#4}
 \NewDocumentCommand{\gt}{}{\bigslant{\g}{\mathfrak{t}}}
 \NewDocumentCommand{\gts}{}{\bigslant[0.15]{\scriptstyle\g}{\scriptstyle\mathfrak{t}}}
-\NewDocumentCommand{\onehalf}{}{\!\bigslant[0.15]{\scriptscriptstyle 1 \mspace{-1.2mu}}{\scriptscriptstyle 2}}
+\NewDocumentCommand{\onehalf}{}{\mspace{-2mu}\bigslant[0.15]{\scriptscriptstyle 1 \mspace{-1.2mu}}{\scriptscriptstyle 2}}
 
 %% Cancel macro
 \definecolor{cancelgray}{gray}{0.85}
