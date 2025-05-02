@@ -17,6 +17,24 @@
     headsep=0mm,        % no extra space between header and text
     % showframe,          % for DEBUG: helper lines for adjusting layout
 }
+\ifWIP\ifEXTRAMARGIN
+        \geometry{
+            paperwidth=260mm,   % PDF will be wider
+            paperheight=297mm,  % A4 paper height
+            layoutwidth=210mm,  % Real A4 content area
+            layoutheight=297mm,
+            layoutoffset=0mm,   % Align A4 layout to left edge
+            % showcrop,
+        }
+        \usepackage{eso-pic}
+        \AddToShipoutPicture{%
+            \begin{tikzpicture}[remember picture, overlay]
+                \draw[dashed, black!10, line width=0.3pt]
+                ([xshift=210mm]current page.south west) --
+                ([xshift=210mm]current page.north west);
+            \end{tikzpicture}
+        }
+    \fi\fi
 
 %% try to make text on all pages have the same height (default for `twoside`)
 \flushbottom
