@@ -4,11 +4,11 @@
 %% Thesis title (exactly as in the formal assignment)
 \NewExpandableDocumentCommand{\ThesisTitle}{}{\TeXtured{} Manual}
 %% Plaintext version for PDF metadata, uncomment if needed (defauls to \ThesisTitle)
-\NewExpandableDocumentCommand{\ThesisTitlePlaintext}{}{TeXtured Manual}
+\NewExpandableDocumentCommand{\ThesisTitlePlaintext}{}{TeXtured Manual \TeXturedVERSION}
 %% Thesis title (if custom formatting is needed for the title page, defauls to \ThesisTitle)
 \NewExpandableDocumentCommand{\ThesisTitleFront}{}{
     \ThesisTitle\\
-    {\Huge\color{gray}v1.1.0}
+    {\Huge\color{gray}\TeXturedVERSION}
 }
 
 %% Author of the thesis
