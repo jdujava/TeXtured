@@ -21,7 +21,10 @@ To avoid large and hard to navigate preamble files, the code is organized into m
         \caption[Structure of Preamble Directory]{%
             Structure of the \path{preamble/} directory.
 
-            Apart from the \path{preamble/pdfA-compliance/glyphtounicode.tex} file, which needs to be sourced before calling \fakemacro{\documentclass}, all other files are loaded in the \path{preamble/main.tex} file.
+            It is critical that the \path{preamble/pdfA-compliance/glyphtounicode.tex} file ensuring the PDF/A compliance is sourced before \fakemacro{\documentclass}.
+
+            The \path{preamble/toggles.tex} files defines various toggles, which should be appropriately set right after.
+            Finally, the rest of \grayenclose{preamble} files are then loaded through the \path{preamble/main.tex} file.
 
             When possible, add your own tweaks and macros to the \path{preamble/user/} directory reserved for this purpose.
             This way, you can easily update to newer versions of \TeXtured{} (hopefully) without conflicts.
@@ -32,6 +35,7 @@ To avoid large and hard to navigate preamble files, the code is organized into m
             \node[directory] {preamble/}
             child { node {bibliography.bib}}
             child { node {data.tex}}
+            child { node {toggles.tex}}
             child { node {main.tex}}
             child { node[directory] {debug/...}
                 % child { node {commands.tex}}

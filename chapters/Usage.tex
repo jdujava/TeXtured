@@ -58,9 +58,12 @@ The usual workflow looks something like this:
     There are a couple of \emph{toggles} in the \path{thesis.tex} file that can be used to customize style/layout/creation of the document:
     \begin{itemize}
         \item \textsf{Page Layout} --- you can choose between \emph{Single-Side} or \emph{Two-Sided} printing by uncommenting the appropriate \macro{\documentclass} line.
-        \item \textsf{Work-In-Progress Version} --- if you want to mark the document as a \emph{Draft}, leave the \macro{\WIPtrue} line uncommented (comment out for the final version).
-        \item \textsf{Censored Version} --- if you want to censor chosen parts of the document, include the \macro{\CENSORtrue} line.
-        \item \textsf{Fancy Style} --- if the default style is not to your liking, you can disable some of the more \enquote{fancy} stylistic elements by uncommenting the \macro{\FANCYtrue} line.
+        \item \textsf{Fancy Style} \textcolor{gray}{(default:\,\texttt{enabled})} --- if the default style is not to your liking, you can disable some of the more \enquote{fancy} stylistic elements by using the \custommacro{\FANCYfalse} line.
+        \item \textsf{Work-In-Progress Version} \textcolor{gray}{(default:\,\texttt{disabled})} --- if you want to mark the document as a \emph{Draft}, leave the \custommacro{\WIPtrue} line uncommented (comment out for the final version).
+              \begin{itemize}
+                  \item \textsf{Extra Margin} \textcolor{gray}{(default:\,\texttt{disabled})} --- the \emph{Draft} document will include extra right margin (for notes and corrections) when you enable it using \custommacro{\EXTRAMARGINtrue}.
+              \end{itemize}
+        \item \textsf{Censored Version} \textcolor{gray}{(default:\,\texttt{disabled})} --- if you want to censor chosen parts of the document, include the \custommacro{\CENSORtrue} line.
         \item \textsf{Include Only \ldots{}} --- if you want to compile only a subset of chapters, you can utilize the \custommacro{\includeonlysmart} command. \qedhere*
     \end{itemize}
 \end{remark}
