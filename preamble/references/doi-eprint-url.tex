@@ -3,6 +3,10 @@
     \bibstring{github}\addcolon\space%
     \ifhyperref{\href{https://github.com/#1}{\nolinkurl{#1}}}{\nolinkurl{#1}}%
 }
+\DeclareFieldFormat*{gitlab}{%
+    \bibstring{gitlab}\addcolon\space%
+    \ifhyperref{\href{https://gitlab.com/#1}{\nolinkurl{#1}}}{\nolinkurl{#1}}%
+}
 
 %% put DOI/arXiv/GitHub/URL on a new line
 %% support also `github` field
@@ -19,6 +23,8 @@
     \ifboolexpr{togl {bbx:eprint} and not test {\iffieldxref{eprint}}}{\usebibmacro{eprint}}{}%
     \newunit\newblock
     \ifboolexpr{not test {\iffieldxref{github}}}{\printfield{github}}{}% <--- added print of `github` field
+    \newunit\newblock
+    \ifboolexpr{not test {\iffieldxref{gitlab}}}{\printfield{gitlab}}{}% <--- added print of `gitlab` field
     \newunit\newblock
     \ifboolexpr{togl {bbx:url} and not test {\iffieldxref{url}}}{\usebibmacro{url+urldate}}{}
 }

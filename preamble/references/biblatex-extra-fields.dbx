@@ -1,3 +1,6 @@
 %% Support `github` field
 \DeclareDatamodelFields[type=field,datatype=verbatim]{github}
 \DeclareDatamodelEntryfields{github}
+%% Support `gitlab` field
+\DeclareDatamodelFields[type=field,datatype=verbatim]{gitlab}
+\DeclareDatamodelEntryfields{gitlab}
