@@ -8,6 +8,8 @@
 \renewbibmacro*{cite}{%
     \printtext[bibhyperref]{%
         \citebox{%    <---- wrap the whole citation with a `tcolorbox` frame
+            %% turn postnote into custom prenote
+            \iffieldundef{postnote}{}{{\normalfont\hspace{0.18em}\printfield{postnote}\hspace{0.15em}}}%
             \lbrack%  <---- always consistently use brackets
             \printfield{labelprefix}%
             \printfield{labelnumber}%
@@ -16,3 +18,24 @@
         }%
     }%
 }
+
+%% do not put commas between multiple citations when using `\cite{something,something}`
+\renewcommand*{\multicitedelim}{\space}
+% \renewcommand*{\multicitedelim}{\addsemicolon\space}
+
+%% disable default postnote
+\renewbibmacro*{postnote}{%
+    % \iffieldundef{postnote}
+    % {}
+    % {\setunit{\printdelim{postnotedelim}}%
+    %     \printfield{postnote}}
+}
+
+%%% Alternative style of multicitations
+% \renewcommand*{\multicitedelim}{\addcomma} % no space between multiple citations, just a comma
+%
+% %% wrap the citation commands in a `\citebox`
+% \NewCommandCopy{\autociteOrig}{\autocite}
+% \NewCommandCopy{\citeOrig}    {\cite}
+% \RenewDocumentCommand{\autocite}{O{} O{} m}{\citebox{\autociteOrig[#1][#2]{#3}}}
+% \RenewDocumentCommand{\cite}    {O{} O{} m}{\citebox{\citeOrig[#1][#2]{#3}}}
