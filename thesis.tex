@@ -12,14 +12,12 @@
 \documentclass[12pt,a4paper]{report}                      % single-side (electronic)
 % \documentclass[12pt,a4paper,openright,twoside]{report}  % two-sided (for printing)
 
-\newif\ifWIP
-\newif\ifCENSOR
+%% Set some toggle flags to control some of the document properties
+\input{preamble/flags}
+% \FANCYfalse % disable some of the more fancy stylistic choices
 %% NOTE: Comment out the following lines for the final version
-\WIPtrue % THIS IS A WORK-IN-PROGRESS VERSION
-\CENSORtrue % THIS IS A CENSORED VERSION
-
-\newif\ifFANCY
-\FANCYtrue % enable some of the more fancy stylistic choices
+\WIPtrue            % THIS IS A WORK-IN-PROGRESS VERSION
+\CENSORtrue         % THIS IS A CENSORED VERSION
 
 %% Preamble - data, packages, macros, and more
 \input{preamble/main}
