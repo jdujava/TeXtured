@@ -31,9 +31,9 @@
 \NewCommandCopy{\urlold}{\url}
 
 %% Overwrite the default link commands to use the new boxes
-\RenewDocumentCommand{\href}{O{} m m}{\hrefold[#1]{#2}{\hrefbox{#3}}}   % remote links (DOI, arXiv, etc.)
-\RenewDocumentCommand{\url}{m}{\href{#1}{\nolinkurl{#1}}}               % URLs (using the new \href command)
-\RenewDocumentCommand{\hyperlink}{m m}{\hyperlinkold{#1}{\pagebox{#2}}} % used for backref links in References
+\RenewDocumentCommand{\href}{O{} m m}{\hrefold{#2}{\hrefbox[#1]{#3}}}   % remote links (DOI, arXiv, etc.)
+\RenewDocumentCommand{\url}{O{} m}{\href[#1]{#2}{\nolinkurl{#2}}}               % URLs (using the new \href command)
+\RenewDocumentCommand{\hyperlink}{O{} m m}{\hyperlinkold{#2}{\pagebox[#1]{#3}}} % used for backref links in References
 % \crefdefaultlabelformat{#2\refbox{#1}#3}                                % \Cref references
 
 %% \Cref reference with page number in a superscript, wrapped in a box
