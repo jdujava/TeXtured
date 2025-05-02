@@ -4,9 +4,16 @@
 \NewDocumentCommand{\eqend}{}{\,.}
 \NewDocumentCommand{\eqcomma}{}{\,,}
 
-%% Tiny space in math mode
-\NewCommandCopy{\dotaccent}{\.}
-\RenewDocumentCommand{\.}{}{\TextOrMath{\dotaccent}{\mspace{1mu}}}
+%% Equals in given dimension
+\NewDocumentCommand{\eqdim}{O{} m}{
+    \IfBlankTF{#1}
+    {\mathrel{\overset{\mathcolor{black!70}{d\.=\.#2}}{\scalebox{2.8}[1]{\(=\)}}}}
+    {\mathrel{\overset{\mathcolor{black!70}{#2}}{\scalebox{#1}[1]{\(=\)}}}}
+}
+%% Phantom with relation spacing
+\NewDocumentCommand{\relphantom}{m}{\mathrel{\phantom{#1}}}
+%% Continuation of expression to the next line
+\NewDocumentCommand{\graytimes}{}{\mathcolor{gray}{\times}}
 
 % %% (Optional) Automatically use \mathcolor in math mode
 % \NewCommandCopy{\textcolorOrig}{\textcolor}
@@ -19,21 +26,33 @@
 %     \IfBlankTF{#1}{\colorcmd{#2}{#3}}{\colorcmd[#1]{#2}{#3}}%
 % }
 
+%% Determinants (use normal position of superscript/subscript)
+\NewCommandCopy{\olddet}{\det}
+\RenewDocumentCommand{\det}{}{\olddet\nolimits}
+\DeclareMathOperator{\Det}{Det}
+
 %% Misc math macros
 \NewCommandCopy{\transpose}{\intercal}
+\DeclareMathOperator{\vol}{vol}
 \DeclareMathOperator{\sgn}{sgn}
 \NewDocumentCommand{\Id}{}{\bm{1}}
+\NewDocumentCommand{\const}{}{\text{const.}}
 \DeclareMathOperator{\Span}{Span}
 \DeclareMathOperator{\diag}{diag}
 \NewDocumentCommand{\bdry}{}{\partial}
 \NewDocumentCommand{\disjunion}{}{\sqcup} % TODO: spacing too small sometimes (in subscripts)
-\NewDocumentCommand{\inclusion}{}{\hookrightarrow}
+\NewDocumentCommand{\inclusion}{s}{\IfBooleanTF{#1}{\hookleftarrow}{\hookrightarrow}}
 \NewDocumentCommand{\surjection}{}{\twoheadrightarrow}
+\NewDocumentCommand{\exchange}{O{\quad}}{\xleftrightarrow{#1}}
 
 %% Imaginary unit and Euler's number
 %% inspired by Niklas Beisert
 \NewDocumentCommand{\I}{}{\mathring{\imath}}
 \NewDocumentCommand{\E}{s}{\IfBooleanTF{#1}{\mathrm{e}}{\mathinner{\mathrm{e}}}}
+
+%% Big O notation (\biggO for centered O)
+\NewDocumentCommand{\bigO} {l m}{\fbraces#1{\lparen}{\rparen}                   {O} {#2}}
+\NewDocumentCommand{\biggO}{l m}{\fbraces#1{\lparen}{\rparen}{\raisemath{-0.1ex}{O}}{#2}}
 
 %%% Various fields and number sets
 \NewDocumentCommand{\R}{}{\mathbb{R}}
@@ -56,6 +75,7 @@
 \DeclareMathOperator{\OO}{\mathsf{O}}
 \DeclareMathOperator{\so}{\mathfrak{so}}
 \NewDocumentCommand{\SO}{s}{\operatorname{\IfBooleanTF{#1}{\widetilde{\mathsf{SO}}}{\mathsf{SO}}}}
+\DeclareMathOperator{\ISO}{\mathsf{ISO}}
 \DeclareMathOperator{\spin}{\mathfrak{spin}}
 \DeclareMathOperator{\Spin}{\mathsf{Spin}}
 \DeclareMathOperator{\U}{\mathsf{U}}
@@ -68,19 +88,21 @@
 %%% Differential Geometry
 
 \DeclareMathOperator{\Sect}{Sect}
+\NewDocumentCommand{\Tangent}{s e{_}}{\IfBooleanTF{#1}{\bm{T}^{*}\mspace{-2mu}}{\bm{T}}\IfValueT{#2}{_{\mspace{-2mu}#2}}}
+\NewDocumentCommand{\TSect}{s e{^_}}{\IfBooleanTF{#1}{\mathcal{T}^{*}\mspace{-2mu}}{\mathcal{T}}\IfValueT{#2}{^{#2}}\IfValueT{#3}{_{\mspace{0mu}#3}}\mspace{-2mu}}
 \NewDocumentCommand{\Lie}{}{\mathcal{L}}
 \DeclarePairedDelimiterX{\Liebracket}[2]{\dblbracketleft}{\dblbracketright}{#1,#2}
 % \DeclarePairedDelimiterX{\Liebracket}[2]{\lbrack}{\rbrack}{#1,#2}
 
 \DeclareMathOperator{\Tor}{\mathsf{Tor}}
-\NewDocumentCommand{\Riem}{}{\bm{R}}
-\NewDocumentCommand{\Ric}{}{\mathbf{Ric}}
+\NewDocumentCommand{\Riem}{O{}}{\IfBlankTF{#1}{\bm{R}}{\tens{\bm{R}}{#1}}}
+\NewDocumentCommand{\Ric}{O{}}{\IfBlankTF{#1}{\bmrm{Ric}}{\tens{\bmrm{Ric}}{#1}}}
 \NewDocumentCommand{\Rscalar}{}{\mathcal{R}}
 
 %% Override `physics` package command `\dd` to optionally use bold `d`
 \RenewDocumentCommand{\dd}{s O{} m}{
     \mathinner{
-        \IfBooleanTF{#1}{\mathbf{d}}{\mathrm{d}}^{\mspace{-1mu}#2}#3
+        \IfBooleanTF{#1}{\bm{\mathrm{d}}}{\mathrm{d}}^{\mspace{-1mu}#2}#3
     }
 }
 %% Bold differential
@@ -101,17 +123,17 @@
 }
 %% Coordinate derivative
 \NewDocumentCommand{\del}{s}{\IfBooleanTF{#1}{\partial}{\bm{\partial}}}
-\NewDocumentCommand{\fdel}{O{} m}{\frac{\del #1}{\del #2}}
-\NewDocumentCommand{\Dv}{O{} m}{\frac{\bm{D} #1}{d #2}}
-\NewDocumentCommand{\dAlambertian}{s}{
-    \mathord{
-        \.
-        \IfBooleanTF{#1}{\square[0.35em][boxframe=0.05em]}{\square[][boxframe=0.06em]}
-        \.\.
-    }
+\NewDocumentCommand{\fdel}{O{} m}{{\frac{\del #1}{\del #2}}}
+\NewDocumentCommand{\Dv}{O{} m}{{\frac{\bm{D} #1}{d #2}}}
+\NewDocumentCommand{\Laplacian}{}{\triangle}
+\NewDocumentCommand{\dAlembertian}{s}{
+    \mathord{\raisemath{0.07ex}{
+            \mspace{1.5mu}
+            \IfBooleanTF{#1}{\square[0.35em][boxframe=0.05em]}{\square[][boxframe=0.06em]}
+            \.\.
+        }}
 }
-
-
+% \RenewDocumentCommand{\dAlembertian}{s}{\mathord{\raisemath{-0.05ex}{\oldsquare}}}
 
 %%% Tweaking of math index positioning, spacing, etc.
 %%% (also definitions of new arrows, etc.)
@@ -137,8 +159,8 @@
 %% Math version of `\raisebox` and `\scalebox`
 \NewDocumentCommand{\raisemath}{m}{\mathpalette{\raisemathAux{#1}}}% \raisemath{<len>}{...}
 \NewDocumentCommand{\raisemathAux}{mmm}{\raisebox{#1}{\(#2#3\)}}
-\NewDocumentCommand{\scalemath}{m}{\mathpalette{\scalemathAux{#1}}}% \scalemath{<factor>}{...}
-\NewDocumentCommand{\scalemathAux}{mmm}{\scalebox{#1}{\(#2#3\)}}
+\NewDocumentCommand{\scalemath}{m O{}}{\mathpalette{\scalemathAux{#1}[#2]}}% \scalemath{<factor>}{...}
+\NewDocumentCommand{\scalemathAux}{m O{} mm}{\IfBlankTF{#2}{\scalebox{#1}{\(#3#4\)}}{\scalebox{#1}[#2]{\(#3#4\)}}}
 
 %% Modify subscript position
 \NewDocumentCommand{\lowerindex}{O{0pt} O{0pt} e{_^}}{
@@ -147,7 +169,6 @@
 }
 
 %% Modify superscript/subscript positions for some greek letters
-%% NOTE: maybe use \mathstrut or \xmathstrut
 \NewCommandCopy{\oldchi}{\chi}
 \RenewDocumentCommand{\chi}{}{\oldchi\lowerindex[-1.5pt]}
 \NewCommandCopy{\olddelta}{\delta}
@@ -159,16 +180,14 @@
 %% Smaller \in, \notin, \subset, ...
 %% https://tex.stackexchange.com/questions/34393/the-mysteries-of-mathpalette
 \NewDocumentCommand{\smallermath}{O{0.05ex} O{0.85} m}{\raisemath{#1}{\scalemath{#2}{#3}}}
+\NewDocumentCommand{\smallplus}  {}{\mathrel{\smallermath{+}}}
+\NewDocumentCommand{\textplus}   {}{\ensuremath{\.\smallplus\.}}
 \NewDocumentCommand{\smallin}    {}{\mathrel{\smallermath{\in}}}
 \NewDocumentCommand{\smallnotin} {}{\mathrel{\smallermath{\notin}}}
 \NewDocumentCommand{\smallsubset}{}{\mathrel{\smallermath{\subset}}}
 \NewDocumentCommand{\smallotimes}{}{\mathbin{\smallermath[0ex]{\oldotimes}}}
+% \NewDocumentCommand{\smallotimes}{}{\.\smallerrel{\oldotimes}\.}
 
-
-%% Determinants (use normal position of superscript/subscript)
-\NewCommandCopy{\olddet}{\det}
-\RenewDocumentCommand{\det}{}{\olddet\nolimits}
-\DeclareMathOperator{\Det}{Det}
 
 %% Fix spacing of \left( .. \middle| .. \right)
 \NewCommandCopy{\leftOrig}{\left}
@@ -177,6 +196,7 @@
 \RenewDocumentCommand{\left}{}{\mathopen{}\mathclose\bgroup\leftOrig}
 \RenewDocumentCommand{\right}{}{\aftergroup\egroup\rightOrig}
 \RenewDocumentCommand{\middle}{sm}{\IfBooleanTF{#1}{\.\middleOrig#2\.}{\mathrel{}\middleOrig#2\mathrel{}}}
+\NewDocumentCommand{\innermiddle}{m}{\mathinner{}\middleOrig#1\mathinner{}}
 
 %% Less space around \setminus (\mathord instead of \mathinner)
 \DeclareMathSymbol{\setminus}{\mathord}{symbols}{"6E}
@@ -197,11 +217,13 @@
 \NewDocumentCommand{\sbullet}{O{0.5}}{%
     \mathbin{\ThisStyle{\vcenter{\hbox{\scalebox{#1}{\(\SavedStyle\bullet\)}}}}}
 }
+\NewDocumentCommand{\fdot}{}{\mathcolor{black!80}{\sbullet[0.65]}}
 \NewDocumentCommand{\adot}{}{\sbullet[0.52]}
 \NewDocumentCommand{\idot}{s}{\mathcolor{darkgray}{\IfBooleanTF{#1}{\.\sbullet[0.4]\.}{\sbullet[0.4]}}}
 
 %% (abstract) index placeholders
 \NewDocumentCommand{\aind}{}{\bullet}
+\NewDocumentCommand{\dind}{}{\mathcolor{black!60}{\sbullet[1.2]}}
 \NewDocumentCommand{\ind}{}{\mathcolor{lightgray}{\bullet}}
 
 %% Argument placeholder
@@ -209,6 +231,7 @@
     \def\squaresize{1.0}%                   % default size
     \IfBooleanT{#1}{\def\squaresize{0.7}}%  % if starred, set size corresponding to scriptstyle
     \IfBlankF{#2}{\def\squaresize{#2}}%     % if optional argument is passed, set size to custom value
+    % TODO: utilize \mathpalette
     \scalebox{\squaresize}{%
         \begin{tikzpicture}[baseline=-#3*0.6ex]
             \node(char)[draw, shape=rectangle, dash=on 1.2pt off 1.05pt phase 0.5pt, dash expand off,
@@ -223,15 +246,18 @@
 %% Curly arrows
 \tikzset{
     leadsto/.style={-{Stealth[length=0.6em,open,round]},decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.2em,post length=0.6em}},
+    toleads/.style={{Stealth[length=0.6em,open,round]}-,decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.6em,post length=0.2em}},
     correspondsto/.style={{Stealth[length=0.6em,open,round]}-{Stealth[length=0.6em,open,round]},decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.7em,post length=0.7em}},
 }
-\NewDocumentCommand{\longleadsto}{O{}O{}}{%
+\NewDocumentCommand{\longleadsto}{s O{} O{}}{%
     \ensuremath{\mathrel{
             \tikz[baseline=-0.5ex, inner sep=0ex, font=\scriptsize]{
-                \node[minimum width=2.15em, inner xsep=0.6em, align=center] (a){\hphantom{#1}\\[0ex]\hphantom{#2}};
-                \IfBlankF{#1}{\node[inner sep=0.3ex, above=0.3ex, xshift=-0.1em] at (a){#1};}
-                \IfBlankF{#2}{\node[inner sep=0.3ex, below=0.3ex, xshift=-0.1em] at (a){#2};}
-                \draw[line width=0.6pt, leadsto] (a.west) -- (a.east);
+                \node[minimum width=2.15em, inner xsep=0.6em, align=center] (a){\hphantom{#2}\\[0ex]\hphantom{#3}};
+                \IfBlankF{#2}{\node[inner sep=0.3ex, above=0.3ex, xshift=-0.1em] at (a){#2};}
+                \IfBlankF{#3}{\node[inner sep=0.3ex, below=0.3ex, xshift=-0.1em] at (a){#3};}
+                \IfBooleanTF{#1}
+                {\draw[line width=0.6pt, toleads] (a.west) -- (a.east);}
+                {\draw[line width=0.6pt, leadsto] (a.west) -- (a.east);}
             }
         }}%
 }

@@ -6,8 +6,9 @@
     arrows.meta,
     calc,
     cd,
-    decorations.pathmorphing,
+    decorations.pathmorphing, decorations.markings,
     trees,
+    fit, matrix,
 }
 
 %% Directory Tree Structure
@@ -22,4 +23,37 @@
         directory/.style={draw=black!80!cyan!40, fill=black!60!cyan!8},
         font=\ttfamily,
     },
+}
+
+%%% Quiver macros (for https://q.uiver.app/ diagrams)
+%% A TikZ style for curved arrows of a fixed height, due to AndréC.
+\tikzset{curve/.style={settings={#1},to path={(\tikztostart)
+    .. controls ($(\tikztostart)!\pv{pos}!(\tikztotarget)!\pv{height}!270:(\tikztotarget)$)
+    and ($(\tikztostart)!1-\pv{pos}!(\tikztotarget)!\pv{height}!270:(\tikztotarget)$)
+    .. (\tikztotarget)\tikztonodes}},
+    settings/.code={\tikzset{quiver/.cd,#1}
+        \def\pv##1{\pgfkeysvalueof{/tikz/quiver/##1}}},
+    quiver/.cd,pos/.initial=0.35,height/.initial=0}
+
+%% TikZ arrowhead/tail styles.
+\tikzset{tail reversed/.code={\pgfsetarrowsstart{tikzcd to}}}
+\tikzset{2tail/.code={\pgfsetarrowsstart{Implies[reversed]}}}
+\tikzset{2tail reversed/.code={\pgfsetarrowsstart{Implies}}}
+%% TikZ arrow styles.
+\tikzset{no body/.style={/tikz/dash pattern=on 0 off 1mm}}
+
+%% Custom equal sign style - https://tex.stackexchange.com/a/443023
+\tikzset{
+    double line with arrow/.style args={#1,#2}{decorate,decoration={
+        markings,%
+        mark=at position 0 with {
+            \coordinate (ta-base-1) at (0,1.2pt);
+            \coordinate (ta-base-2) at (0,-1.2pt);
+        },
+        mark=at position 1 with {
+            \draw[#1] (ta-base-1) -- (0,1.2pt);
+            \draw[#2] (ta-base-2) -- (0,-1.2pt);
+        }
+    }},
+    Equal/.style args={#1}{-,double line with arrow={{-,#1},{-,#1}}},
 }

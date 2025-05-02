@@ -2,7 +2,7 @@
 %% Set the default bold math sans font to be `sbc` (sans bold condensed)
 %% https://tex.stackexchange.com/questions/27843/level-of-boldness-changeable
 \NewDocumentCommand{\mathsfbfdefault}{}{sbc}
-\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\mathsfbfdefault}{\updefault}
+\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\mathsfbfdefault}{n}
 % \SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
 
 %% Math sans slanted font
@@ -58,6 +58,10 @@
     \ifInSansMode\mathversion{sans}\else\mathversion{normal}\fi%
 }
 
+
+%% BUG: \mathbf{} is weird, use \bm with \mathrm
+\NewDocumentCommand{\bmrm}{m}{\bm{\mathrm{#1}}}
+
 %% Sans Greek Letters
 \DeclareSymbolFont{sfletters}{OML}{cmbrm}{m}{it}
 \DeclareSymbolFont{sflettersbold}{OML}{cmbrm}{b}{it}
@@ -74,7 +78,7 @@
 
 %% Shorter minus sign - https://tex.stackexchange.com/a/469724
 \DeclareMathSymbol{\shortminus}{\mathbin}{AMSa}{"39}
-\NewDocumentCommand{\shortminusone}{}{\mspace{-1.2mu}\shortminus\mspace{-1.5mu} 1}
+\NewDocumentCommand{\shortminusone}{}{\mspace{-1.1mu}\scalemath{1.2}[1]{\shortminus}\mspace{-1.4mu} 1}
 
 
 %% HACK: Reduce verbosity of "No alphabet change ..." messages
