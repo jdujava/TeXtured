@@ -1,7 +1,10 @@
 %%% Macros for definitions, theorems, claims, examples, ...
 \usepackage{amsthm}    % enhanced theorem/proof environments
 \usepackage{thmtools}  % easier/advanced interface for theorem environments
+
 \usepackage{cleveref}  % enhanced cross-referencing
+%% BUG: https://github.com/latex3/hyperref/issues/362
+\AddToHook{cmd/appendix/before}{\crefalias{chapter}{appendix}\crefalias{section}{appendix}}
 
 \usepackage{tcolorbox} % flexible frames/boxes
 \tcbuselibrary{skins, breakable, theorems}
