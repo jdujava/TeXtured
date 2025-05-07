@@ -124,7 +124,7 @@
 %% Coordinate derivative
 \NewDocumentCommand{\del}{s}{\IfBooleanTF{#1}{\partial}{\bm{\partial}}}
 \NewDocumentCommand{\fdel}{O{} m}{{\frac{\del #1}{\del #2}}}
-\NewDocumentCommand{\Dv}{O{} m}{{\frac{\bm{D} #1}{d #2}}}
+\NewDocumentCommand{\Dv}{O{} m}{{\frac{\bmrm{D} #1}{\mathrm{d} #2}}}
 \NewDocumentCommand{\Laplacian}{}{\triangle}
 \NewDocumentCommand{\dAlembertian}{s}{
     \mathord{\raisemath{0.07ex}{
