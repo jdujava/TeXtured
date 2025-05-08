@@ -29,8 +29,8 @@
 \DeclareCapitalPunctuation{} % disable automatic capitalization of localisation strings
 \NewBibliographyString{arxiv, github, gitlab} % define new localisation strings
 \DefineBibliographyStrings{english}{
-    url = {\textsc{url}},
-    arxiv = {\textsc{arXiv}},
+    url = {{}\textsc{url}},     % included `{}` to avoid automatic capitalization, see
+    arxiv = {{}\textsc{arXiv}}, % https://tex.stackexchange.com/a/472547 for more details
     github = {\textsc{GitHub}},
     gitlab = {\textsc{GitLab}},
     in = {\footnotesize\textsc{In}},
