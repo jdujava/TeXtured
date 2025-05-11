@@ -306,13 +306,15 @@ Custom reference/link/citation styles using \package{tcolorbox} package.
     By default, \package{hyperref} provides frames around links, but they are not that pretty, and the PDF viewer must support them.
     Using just colors can sometimes look better, but I still wasn't satisfied.
 
-    Sometimes it is nice to know the precise location of the reference, especially when printed, where you can't click on them.
-    % Additionally, it is sometimes good to have an idea where the links point, especially when printed, where you can't click on them.
-    Therefore, the page number is (by default) included with \custommacro{\Cref} --- use starred variant \custommacro{\Cref*} to omit it.
+    Sometimes it is nice to know the precise location of the reference, especially when the document is printed and you cannot simply click on them.
+    Therefore, the page number is (by default) included with \custommacro{\Cref}, see \Cref{rem:zref-clever}.
+    Use the starred variant \custommacro{\Cref*} to omit it.
 \end{remark}
-\begin{remark}[Automatic Reference Type Detection]
-    Package \package{cleveref} provides \macro{\Cref} command, which automatically detects the type of reference, and formats it accordingly.
-    This behavior is adapted in \TeXtured{} with the macro of the same name \custommacro{\Cref}.
+\begin{remark}[Automatic Reference Type Detection] \label{rem:zref-clever}
+    Package \package{zref-clever} provides \macro{\zcref} command --- similarly to the older, no longer maintained, \package{cleveref} package --- which automatically detects the type of reference, and formats it accordingly.
+    This behavior is adapted in \TeXtured{} with the macro \custommacro{\Cref}, which wraps the link in nice box, and also shows a corresponding page number of the target.
+
+    If you want the link to show the reference title, use \custommacro{\Nref} --- or the starred variant \custommacro{\Nref*} to omit the page number --- which utilizes \package{zref-titleref}.
 \end{remark}
 
 \subsection{Table of Contents and Outline/Index}%
