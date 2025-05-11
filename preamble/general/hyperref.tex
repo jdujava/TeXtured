@@ -1,8 +1,14 @@
 %% Hyperlinks, PDF metadata
 \usepackage[allowmove]{url}
 \usepackage{hyperref}   % clickable links and metadata
-\usepackage{nameref}    % cross-referencing by name
 \usepackage{bookmark}   % more control over PDF bookmarks
+
+\usepackage{zref-titleref}
+\usepackage{zref-clever}
+\zcsetup{
+    cap,     % capitalize the first letter of the reference type name
+    noabbrev % do not use abbreviations
+}
 
 %% Fallbacks for PDF metadata commands
 \ProvideExpandableDocumentCommand{\ThesisAuthorPlaintext}{}{\ThesisAuthor}

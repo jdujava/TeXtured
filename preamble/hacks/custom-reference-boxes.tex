@@ -27,37 +27,32 @@
 
 %% Save the original link commands
 \NewCommandCopy{\hrefold}{\href}
-\NewCommandCopy{\hyperlinkold}{\hyperlink}
 \NewCommandCopy{\urlold}{\url}
 
 %% Overwrite the default link commands to use the new boxes
-\RenewDocumentCommand{\href}{O{} m m}{\hrefold{#2}{\hrefbox[#1]{#3}}}   % remote links (DOI, arXiv, etc.)
-\RenewDocumentCommand{\url}{O{} m}{\href[#1]{#2}{\nolinkurl{#2}}}               % URLs (using the new \href command)
-\RenewDocumentCommand{\hyperlink}{O{} m m}{\hyperlinkold{#2}{\pagebox[#1]{#3}}} % used for backref links in References
-% \crefdefaultlabelformat{#2\refbox{#1}#3}                                % \Cref references
+\RenewDocumentCommand{\href}{O{} m m}{\hrefold{#2}{\hrefbox[#1]{#3}}}        % remote links (DOI, arXiv, etc.)
+\RenewDocumentCommand{\url}{O{} m}{\href[#1]{#2}{\nolinkurl{#2}}}            % URLs (using the new \href command)
 
-%% \Cref reference with page number in a superscript, wrapped in a box
+%% Clever reference with reference type name and page number in a superscript, all wrapped in a box
 %% TODO: maybe automatically omit the page number if the reference is on the same page?
 %% TODO: maybe (optionally) append name of theorem/remark/...?
-\RenewDocumentCommand{\Cref}{s m}{%
-    \hyperref[#2]{%                         link around the whole frame
-        \refbox[right={\IfBooleanTF{#1}{0.15em}{0.1em}}]{% frame around the reference (tweak right padding)
-            \nameCref{#2}~\labelcref*{#2}%  reference name and number
-            \IfBooleanF{#1}{%               if not starred, add page number to the superscript
-                \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\labelcpageref*{#2}}%
+\DeclareDocumentCommand{\Cref}{s m}{%
+    \hyperref[#2]{%                                        link around the whole reference box
+        \refbox[right={\IfBooleanTF{#1}{0.15em}{0.1em}}]{% box around the reference (tweak right padding)
+            \zcref*[noref]{#2}~\zcref*[noname]{#2}%        reference type name and label (number)
+            \IfBooleanF{#1}{%                              if not starred, add page number to the superscript
+                \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\zpageref{#2}}%
             }%
         }%
     }%
 }
-
 %% Like \Cref, but use reference title
-%% TODO: maybe overwrite \nameref?
-\NewDocumentCommand{\Nref}{s m}{%
-    \hyperref[#2]{%                         link around the whole frame
-        \refbox[right={\IfBooleanTF{#1}{0.15em}{0.1em}}]{% frame around the reference (tweak right padding)
-            \nameref*{#2}%                  reference title
-            \IfBooleanF{#1}{%               if not starred, add page number to the superscript
-                \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\labelcpageref*{#2}}%
+\DeclareDocumentCommand{\Nref}{s m}{%
+    \hyperref[#2]{%                                        link around the whole reference box
+        \refbox[right={\IfBooleanTF{#1}{0.15em}{0.1em}}]{% box around the reference (tweak right padding)
+            \ztitleref{#2}%                                reference title
+            \IfBooleanF{#1}{%                              if not starred, add page number to the superscript
+                \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\zpageref{#2}}%
             }%
         }%
     }%
@@ -66,3 +61,24 @@
 %% TODO: figure out how to push `tcbox` on the next line if it would cause overfull hbox...
 %%          issues: https://github.com/T-F-S/tcolorbox/issues/223
 %%                  https://github.com/T-F-S/tcolorbox/issues/272
+
+
+%% Backreferences in the bibliography
+\NewDocumentCommand{\pagelink}{O{} m}{\hyperlink{page.#2}{\pagebox[#1]{#2}}}
+%% -> changed from /usr/share/texmf-dist/tex/latex/biblatex/biblatex.def
+\makeatletter
+\DeclareListFormat{pageref}{%
+  \ifnumless{\abx@pagerefstyle}{0}
+    {\usebibmacro{list:plain}%
+     \ifhyperref
+       % {\hyperlink{page.#1}{#1}} % changed
+       {\pagelink{#1}}             % <--- to this
+       {#1}}
+    {\ifnumequal{\value{listcount}}{1}
+       {\usebibmacro{pageref:init}}
+       {}%
+     \usebibmacro{pageref:comp}{#1}%
+     \ifnumequal{\value{listcount}}{\value{liststop}}
+       {\usebibmacro{pageref:dump}}
+       {}}}
+\makeatother

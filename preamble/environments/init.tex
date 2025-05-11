@@ -2,10 +2,6 @@
 \usepackage{amsthm}    % enhanced theorem/proof environments
 \usepackage{thmtools}  % easier/advanced interface for theorem environments
 
-\usepackage{cleveref}  % enhanced cross-referencing
-%% BUG: https://github.com/latex3/hyperref/issues/362
-\AddToHook{cmd/appendix/before}{\crefalias{chapter}{appendix}\crefalias{section}{appendix}}
-
 \usepackage{tcolorbox} % flexible frames/boxes
 \tcbuselibrary{skins, breakable, theorems}
 
@@ -43,4 +39,13 @@
     \NewCommandCopy{\oldqed}{\qedsymbol}%
     \RenewDocumentCommand{\qedsymbol}{}{\raisebox{-\qedshift}{\oldqed}}%
     \oldqedhere%
+}
+
+%% provide a reference type name for `zref-clever` package
+%% NOTE: the plural form is defined only heuristically, tweak manually later if necessary
+\NewDocumentCommand{\declareCleverTypeName}{m}{
+    \zcRefTypeSetup{#1}{
+        name-sg = #1,  Name-sg = \MakeTitlecase{#1},  % singular form (second is capitalized)
+        name-pl = #1s, Name-pl = \MakeTitlecase{#1}s, % plural form   (second is capitalized)
+    }
 }

@@ -11,8 +11,15 @@
     \declaretheorem[sibling=table, style=thmcommon, #1]{#2} % same numbering as tables/figures
     % \tcolorboxenvironment{#2}{parbox=false}                 % wrap in a `tcolorbox`
     \tcolorboxenvironment{#2}{parbox=false, breakable}      % wrap in a `tcolorbox`, allow breaking
+    \declareCleverTypeName{#2} % provide a reference type name
 }
 \NewDocumentCommand{\NewTheoremLikes}{>{\SplitList{,}}m}{\ProcessList{#1}{\NewTheoremLike}}
 
 %% Define theorem-like environments
 \NewTheoremLikes{definition, theorem, lemma, corollary, proposition}
+
+%% Tweak plural form of `corollary` reference type name
+\zcRefTypeSetup{corollary}{
+    name-sg = corollary,   Name-sg = Corollary,
+    name-pl = corollaries, Name-pl = Corollaries,
+}

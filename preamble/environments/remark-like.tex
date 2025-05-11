@@ -19,6 +19,7 @@
         },
     }
     % \tcolorboxenvironment{#1}{parbox=false, breakable, blanker, borderline horizontal={0.4pt}{0pt}{red}}
+    \declareCleverTypeName{#2} % provide a reference type name
 }
 \NewDocumentCommand{\NewRemarkLikes}{>{\SplitList{,}}m}{\ProcessList{#1}{\NewRemarkLike}}
 
