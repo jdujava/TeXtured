@@ -159,7 +159,7 @@ Using \package{fancyhdr} package --- page headers and footers --- consistent sty
 \label{sub:Page Numbering}
 \fileTeXtured{preamble/layout/numbering.tex}
 
-Placing custom \custommacro{\frontmatter}, \custommacro{\mainmatter}, and \custommacro{\backmatter} macros at appropriate places in \path{thesis.tex}, \emph{roman numbering} is set up for \emph{front matter}, that is until the start of first numbered chapter, and then \emph{arabic numbering} for the rest of the document.
+Placing custom \custommacro{\frontmatter}, \custommacro{\mainmatter}, and \custommacro{\backmatter} macros at appropriate places in \path{thesis.tex}, \emph{Roman numbering} is set up for \emph{front matter}, that is until the start of first numbered chapter, and then \emph{Arabic numbering} for the rest of the document.
 
 
 \subsection{Heading Style}%
@@ -256,7 +256,7 @@ This can be achieved by using various environments for different types of conten
 % \fileTeXtured{preamble/environments/remark-like.tex}
 % \fileTeXtured{preamble/environments/todo-like.tex}
 
-Inspired by the structured mathematical texts, enclosing various parts of the document in corresponding environments can help making the document more structured and easier to read.
+Inspired by the structured mathematical texts, enclosing various parts of the document in the corresponding environments can help to make the document more structured and easier to read.
 Implemented mostly via \package{tcolorbox} package (and \package{thmtools}).
 
 \begin{remark}[Default Environments]
@@ -319,7 +319,7 @@ Custom reference/link/citation styles using \package{tcolorbox} package.
 \label{sub:Table of Contents and Index}
 \fileTeXtured{preamble/layout/toc.tex}
 
-Clear and elegant Table of Contents, which includes all of the important parts --- also (unnumbered) subsections, but in a more compact style.
+Clear and elegant Table of Contents, which includes all the important parts --- also \grayenclose{unnumbered} subsections, but in a more compact style.
 
 Similarly, automatically populate the PDF Outline/Index (digital Table of Contents in PDF viewer).
 It is very handy for navigating longer documents, and includes also other important pages other than just initial pages of main chapters: Title Page, Contents, Introduction, References, and so on.
@@ -499,9 +499,7 @@ This does not mean that it is hard or not compatible to use them with \TeXtured{
 
 \begin{itemize}
     \item they break the flow of reading, can be distracting
-    \item either it is important and you want it there --- no need to use footnotes,
-          or it is not so important (maybe just a reminder/remark), but then there
-          are in my opinion better ways to handle such situation
+    \item either it is important and you want it there --- no need to use footnotes --- or it is not so important (maybe just a reminder/remark), but then there are in my opinion better ways to handle such situation
           \begin{itemize}
               \item grayed out/smaller text, sidenotes are better alternative, if the page layout enables them
               \item it is not bad to remind reader of something in the main text\ldots
