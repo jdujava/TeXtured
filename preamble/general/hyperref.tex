@@ -10,19 +10,19 @@
 \ProvideExpandableDocumentCommand{\KeywordsPlaintext}{}{\Keywords}
 
 \hypersetup{
-    linktoc=all,         % whole entry in TOC is clickable link
-    pdfborder={0 0 0},   % to disable borders/frames around links
-    pdflinkmargin=1.0pt, % extra link area around the text box (default 1pt)
-    citebordercolor=CiteColor,
-    linkbordercolor=LinkColor,
-    urlbordercolor=UrlColor,
-    % PDF metadata
-    pdfauthor=\ThesisAuthorPlaintext,
-    pdftitle=\ThesisTitlePlaintext,
-    pdfsubject=\Subject,
-    pdfkeywords=\KeywordsPlaintext,
-    pdfcreator={LaTeX with hyperref, and biblatex/biber},
-    pdfdisplaydoctitle, % https://tex.stackexchange.com/a/435434/120853
+    linktoc = all,         % whole entry in TOC is clickable link
+    colorlinks = true,     % color links/references (if not using boxed variants provided by \Cref{...})
+    urlcolor = [rgb]{0.82,0.25,0.08}, % tweak the default URL color
+    pdfborder = {0 0 0},   % to disable borders/frames around links (even when colorlinks=false)
+    pdflinkmargin = 1.0pt, % extra link area around the text box (default 1pt)
+    pdfdisplaydoctitle,    % https://tex.stackexchange.com/a/435434/120853
+}
+\hypersetup{ % PDF metadata
+    pdfauthor   = {\ThesisAuthorPlaintext},
+    pdftitle    = {\ThesisTitlePlaintext},
+    pdfsubject  = {\Subject},
+    pdfkeywords = {\KeywordsPlaintext},
+    pdfcreator  = {LaTeX with hyperref, and biblatex/biber},
 }
 \bookmarksetup{
     numbered, % include chapter/section numbers in PDF outline
