@@ -10,23 +10,6 @@
 \usepackage{amssymb}    % math fonts
 \usepackage{bm}         % boldface math via `\bm`
 
-
-\usepackage{mathfixs}   % fix some odd behaviour in math mode, add math macros
-% \ProvideMathFix{autobold} % TeXtured contains automatic swith to bold and sans math
-\ProvideMathFix{greekcaps=it}
-\ProvideMathFix{frac,rfrac,vfrac,vfracskippre=4mu}
-% \ProvideMathFix{der,diff}
-
-%% Tiny space in math mode
-%% As of now the `mathfixs` implementation doesn't work in section titles
-% \ProvideMathFix{multskip=1mu} % tiny space `\.` in math mode
-\NewCommandCopy{\dotaccent}{\.}
-\RenewDocumentCommand{\.}{}{\TextOrMath{\dotaccent}{\mspace{1mu}}}
-\NewCommandCopy{\acuteaccent}{\'}
-\RenewDocumentCommand{\'}{}{\TextOrMath{\acuteaccent}{\mspace{-1mu}}}
-
-%% TODO: try out `delimset`, `eqnlines`, maybe `metastr`
-
 %% Some notation used in physics
 \usepackage{physics}
 
@@ -51,3 +34,23 @@
     % table-alignment-mode = format,
     % table-number-alignment = center,
 }
+
+
+\usepackage{mathfixs}   % fix some odd behaviour in math mode, add math macros
+% \ProvideMathFix{autobold} % TeXtured contains automatic swith to bold and sans math
+\ProvideMathFix{greekcaps=it}
+\ProvideMathFix{frac,rfrac,vfrac,vfracskippre=4mu}
+% \ProvideMathFix{der,diff}
+
+%% Tiny space in math mode
+%% As of now the `mathfixs` implementation doesn't work in section titles
+% \ProvideMathFix{multskip=1mu} % tiny space `\.` in math mode
+\NewCommandCopy{\dotaccent}{\.}
+\RenewDocumentCommand{\.}{}{\TextOrMath{\dotaccent}{\mspace{1mu}}}
+\NewCommandCopy{\acuteaccent}{\'}
+\RenewDocumentCommand{\'}{}{\TextOrMath{\acuteaccent}{\mspace{-1mu}}}
+
+\usepackage[extdef]{delimset} % flexible typesetting and declaration delimeters sets
+
+%% TODO: fix/adapt a lot of stuff after the new release
+\usepackage{eqnlines} % modern framework for typesetting single- and multi-line equations
