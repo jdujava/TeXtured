@@ -8,17 +8,17 @@
 \NewDocumentCommand{\NewRemarkLike}{O{qed=\remarkqed} m}{
     \declaretheorem[sibling=table, style=thmcommon, #1]{#2}
     \tcolorboxenvironment{#2}{parbox=false, breakable, blanker,  % allow page breaks, no frame
-        % overlay first={\node[font=\scriptsize, gray, anchor=south] at (frame.south east) {\(\triangledown\)}; },
-        overlay first and middle={ %% customized breakable boxes [zathura:273:~/Documents/Books/IT/LaTeX/tcolorbox.pdf]
-            \path[fill=black!10] ([xshift=2.5mm,yshift=0.8mm]frame.south east) -- +(120:2mm) -- +(60:2mm)-- cycle;
-            \draw[line width=1.5pt, dotted, black!10] ([xshift=2.5mm,yshift=0.3mm]frame.south east) -- +(-90:2mm);
+        overlay first={ %% marks indicating that the box continues to the next page
+            \draw[-{>[length=2pt]}, line width=0.7pt, black!15] ([xshift=0.5em,yshift=0.9ex]frame.south east) -- +(0.08,0) arc[start angle=90, end angle=0, radius=0.05] -- +(0,-0.2);
         },
-        overlay middle and last={
-            \path[fill=black!10] ([xshift=-2.5mm,yshift=-0.8mm]frame.north west) -- +(-120:2mm) -- +(-60:2mm)-- cycle;
-            \draw[line width=1.5pt, dotted, black!10] ([xshift=-2.5mm,yshift=-0.3mm]frame.north west) -- +(90:2mm);
+        overlay middle={
+            \draw[-{>[length=2pt]}, line width=0.7pt, black!15] ([xshift=0.5em,yshift=0.9ex]frame.south east) -- +(0.08,0) arc[start angle=90, end angle=0, radius=0.05] -- +(0,-0.2);
+            \draw[{<[length=2pt]}-, line width=0.7pt, black!15] ([xshift={-0.5em-0.15},yshift={-1.1ex}]frame.north west) -- +(-0.1,0) arc[start angle=270, end angle=180, radius=0.05] -- +(0,0.2);
+        },
+        overlay last={
+            \draw[{<[length=2pt]}-, line width=0.7pt, black!15] ([xshift={-0.5em-0.15},yshift={-1.1ex}]frame.north west) -- +(-0.1,0) arc[start angle=270, end angle=180, radius=0.05] -- +(0,0.2);
         },
     }
-    % \tcolorboxenvironment{#1}{parbox=false, breakable, blanker, borderline horizontal={0.4pt}{0pt}{red}}
     \declareCleverTypeName{#2} % provide a reference type name
 }
 \NewDocumentCommand{\NewRemarkLikes}{>{\SplitList{,}}m}{\ProcessList{#1}{\NewRemarkLike}}
