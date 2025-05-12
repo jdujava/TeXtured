@@ -83,6 +83,23 @@ Then it is possible to write pretty multi-line equations like the following incl
         \end{dcases}
     }
 \>
+\else
+\[
+    \begin{alignedat}{2}
+        % NOTE: maybe there is a better way to center parameters (t,r,\mathsf{\hat{x}})?
+        \iota\colon & \brk{\Sphere^{1}, \R_{\ge 0}, \Sphere^{\spacedim-1}}                                                        &  & \longrightarrow \coset{\AdS_{\spacedim+1}}{\Z} \\
+                    & \brk{\chphantom{t}{\Sphere^{1}},\chphantom{r}{\R_{\ge 0}},\chphantom{\omega^{\ind}}{\Sphere^{\spacedim-1}}} &  & \longmapsto X =
+        \iota(t,r,\omega^{\ind}) \equiv \smash[t]{
+            \begin{dcases}
+                \begin{aligned}
+                    X^{\shortminusone} & = \sqrt{\ell^{2} + r^{2}} \cos(t/\ell), \\
+                    X^{0}              & = \sqrt{\ell^{2} + r^{2}} \sin(t/\ell), \\
+                    X^{i}              & = r\.\omega^{i} \quad \mathcolor{darkgray}{\text{for } i\in \{1,\ldots,\spacedim\}} \eqend \\
+                \end{aligned}
+            \end{dcases}
+        }
+    \end{alignedat}
+\]
 \fi
 \begin{remark}[Math Ending Punctuation]
     Make sure to use \custommacro{\eqend} or \custommacro{\eqcomma} macro (when appropriate) to properly end a math environment with a period or a comma, respectively.
