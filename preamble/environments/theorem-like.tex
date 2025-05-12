@@ -1,16 +1,17 @@
 %% Ensure consistent height of the final line with `\strut`
 %% NOTE: `\hspace{-1.␣␣em}` to enable longer last line in theorem-like environments,
-%%       otherwise the line was getting breaked earlier then necesarry
+%%                          otherwise the line is breaking earlier then necesarry
 \NewDocumentCommand{\theoremqed}{}{\hspace{-1.195em}\strut}
 
 %% Factory for new theorem-like environments
-%% NOTE: at this point they are not breakable, maybe think about implementing something like
-%% "torn page" effect in ~/Documents/customfiles/phd-thesis-valentin/tex/preamble/settings/theorems.tex
-%% NOTE: ENABLED BREAKABLE for better flow when WIP
 \NewDocumentCommand{\NewTheoremLike}{O{qed=\theoremqed} m}{
-    \declaretheorem[sibling=table, style=thmcommon, #1]{#2} % same numbering as tables/figures
-    % \tcolorboxenvironment{#2}{parbox=false}                 % wrap in a `tcolorbox`
-    \tcolorboxenvironment{#2}{parbox=false, breakable}      % wrap in a `tcolorbox`, allow breaking
+    \declarekeytheorem{#2}[
+        sibling=table,   % same numbering as tables/figures
+        style=thmcommon, % use the common theorem style
+        #1,              % other options, such as `qed` symbol
+        tcolorbox-no-titlebar={parbox=false, breakable}, % wrap in a `tcolorbox`, allow breaking
+        % TODO: maybe set refname, Refname already here, see https://github.com/mbertucci47/keytheorems/issues/21
+    ]
     \declareCleverTypeName{#2} % provide a reference type name
 }
 \NewDocumentCommand{\NewTheoremLikes}{>{\SplitList{,}}m}{\ProcessList{#1}{\NewTheoremLike}}
@@ -20,6 +21,6 @@
 
 %% Tweak plural form of `corollary` reference type name
 \zcRefTypeSetup{corollary}{
-    name-sg = corollary,   Name-sg = Corollary,
-    name-pl = corollaries, Name-pl = Corollaries,
+    name-sg = corollary,   Name-sg = Corollary,   % singular form
+    name-pl = corollaries, Name-pl = Corollaries, % plural form
 }

@@ -1,24 +1,31 @@
 %% Mark denoting end of remark-like environment;
 %% `\strut` to ensure consistent height of the final line
 %% NOTE: `\hspace{-0.9em}` to enable longer last line in remark-like environments,
-%%       otherwise the line was getting breaked earlier then necesarry
+%%                         otherwise the line is breaking earlier then necesarry
 \NewDocumentCommand{\remarkqed}{}{\hspace{-0.9em}\textcolor{black!60}{\(\lrcorner\)}\strut}
 
 %% Factory for new remark-like environments
 \NewDocumentCommand{\NewRemarkLike}{O{qed=\remarkqed} m}{
-    \declaretheorem[sibling=table, style=thmcommon, #1]{#2}
-    \tcolorboxenvironment{#2}{parbox=false, breakable, blanker,  % allow page breaks, no frame
-        overlay first={ %% marks indicating that the box continues to the next page
-            \draw[-{>[length=2pt]}, line width=0.7pt, black!15] ([xshift=0.5em,yshift=0.9ex]frame.south east) -- +(0.08,0) arc[start angle=90, end angle=0, radius=0.05] -- +(0,-0.2);
-        },
-        overlay middle={
-            \draw[-{>[length=2pt]}, line width=0.7pt, black!15] ([xshift=0.5em,yshift=0.9ex]frame.south east) -- +(0.08,0) arc[start angle=90, end angle=0, radius=0.05] -- +(0,-0.2);
-            \draw[{<[length=2pt]}-, line width=0.7pt, black!15] ([xshift={-0.5em-0.15},yshift={-1.1ex}]frame.north west) -- +(-0.1,0) arc[start angle=270, end angle=180, radius=0.05] -- +(0,0.2);
-        },
-        overlay last={
-            \draw[{<[length=2pt]}-, line width=0.7pt, black!15] ([xshift={-0.5em-0.15},yshift={-1.1ex}]frame.north west) -- +(-0.1,0) arc[start angle=270, end angle=180, radius=0.05] -- +(0,0.2);
-        },
-    }
+    \declarekeytheorem{#2}[
+        sibling=table,   % same numbering as tables/figures
+        style=thmcommon, % use the common theorem style
+        #1,              % other options, such as `qed` symbol
+        tcolorbox-no-titlebar={ % wrap in a `tcolorbox`
+            parbox=false,
+            breakable, % allow breaking
+            blanker,   % no frame
+            overlay first={ %% marks indicating that the box continues to the next page
+                \draw[-{>[length=2pt]}, line width=0.7pt, black!15] ([xshift=0.5em,yshift=0.9ex]frame.south east) -- +(0.08,0) arc[start angle=90, end angle=0, radius=0.05] -- +(0,-0.2);
+            },
+            overlay middle={
+                \draw[-{>[length=2pt]}, line width=0.7pt, black!15] ([xshift=0.5em,yshift=0.9ex]frame.south east) -- +(0.08,0) arc[start angle=90, end angle=0, radius=0.05] -- +(0,-0.2);
+                \draw[{<[length=2pt]}-, line width=0.7pt, black!15] ([xshift={-0.5em-0.15},yshift={-1.1ex}]frame.north west) -- +(-0.1,0) arc[start angle=270, end angle=180, radius=0.05] -- +(0,0.2);
+            },
+            overlay last={
+                \draw[{<[length=2pt]}-, line width=0.7pt, black!15] ([xshift={-0.5em-0.15},yshift={-1.1ex}]frame.north west) -- +(-0.1,0) arc[start angle=270, end angle=180, radius=0.05] -- +(0,0.2);
+            },
+        }
+    ]
     \declareCleverTypeName{#2} % provide a reference type name
 }
 \NewDocumentCommand{\NewRemarkLikes}{>{\SplitList{,}}m}{\ProcessList{#1}{\NewRemarkLike}}

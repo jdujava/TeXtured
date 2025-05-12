@@ -1,6 +1,6 @@
 %%% Macros for definitions, theorems, claims, examples, ...
-\usepackage{amsthm}    % enhanced theorem/proof environments
-\usepackage{thmtools}  % easier/advanced interface for theorem environments
+\usepackage{keytheorems}   % key-value interface for enhanced theorem/proof environments
+                           % extending `amsthm` (modern implementation of `thmtools` package)
 
 \usepackage{tcolorbox} % flexible frames/boxes
 \tcbuselibrary{skins, breakable, theorems}
@@ -21,12 +21,12 @@
 }                                 % set inside `every box`, thus using color at the place of box creation
 
 %%% Definitions of theorem/remark-like environments
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily, notefont=\mdseries\sffamily, bodyfont=\normalfont,
-    headpunct={\strut.},  % always same height (of the first line)
-    % prefoothook=\strut, % [this messes up the spacing when the last line is an equation]
-    %% ----------------- %%   -> better to handle with the qed symbol using `qedhere`
-]{thmcommon}
+\newkeytheoremstyle{thmcommon}{
+    headfont=\bfseries\sffamily,
+    notefont=\mdseries\sffamily,
+    bodyfont=\normalfont,
+    headpunct={\strut.}, % dot, and `\strut` to ensure consistent height of the first line
+}
 
 %% More flexible placement of "qed" symbol (star/optional argument tweaks the vertical shift)
 %% NOTE: this is used in all theorem/remark-like environments to ensure consistent height
