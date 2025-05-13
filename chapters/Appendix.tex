@@ -7,6 +7,7 @@
 \end{example}
 
 \begin{figure}[!ht]
+    \exportInkscapeSVG{parallel-plate-capacitor}% export already here, such that we can use it in the caption
     \fcapside[\FBwidth]{%
         \caption[Example of a figure with a side-caption.]{
             Example of a figure with a side-caption.
@@ -23,7 +24,7 @@
         }%
         \label{fig:parallel-plate-capacitor}%
         \floatfoot{You can also optionally use a footnote\\ for the figure caption.}%
-    }{\includegraphics[width=0.6\textwidth]{parallel-plate-capacitor}}
+    }{\includeInkscapeSVG[0.6\textwidth]{parallel-plate-capacitor}}%
 \end{figure}
 \begin{figure}[!ht]
     \ffigbox[\FBwidth]{%
