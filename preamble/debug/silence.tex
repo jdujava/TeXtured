@@ -1,3 +1,28 @@
-\usepackage{silence} % filter out unwanted warnings
+\usepackage[debrief]{silence} % filter out unwanted warnings
 
-\WarningFilter{latex}{Marginpar on page} % ignore "Marginpar on page ___ moved"
+% ignore "Marginpar on page ___ moved" (basically harmless)
+\WarningFilter{latex}{Marginpar on page}
+
+%% ignore "Unused \captionsetup[floatfoot]" (harmless)
+\WarningFilter{caption}{Unused \captionsetup[floatfoot]}
+
+%% ignore "Detected the "physics" package: omitting definition of \qty."
+%% see https://github.com/josephwright/siunitx/issues/720
+\ExplSyntaxOn
+\msg_redirect_name:nnn{siunitx}{physics-pkg}{none}
+\ExplSyntaxOn
+
+%% ignore "Font shape `U/stmry/m/n' in size <30> (or <15>) not available ..."
+%% WARN: stmry math font is not availabe in arbitary sizes
+%%          -> it will be replaced by closes available size
+\WarningFilter{latexfont}{Font shape `U/stmry/m/n' in size <30>}
+\WarningFilter{latexfont}{Font shape `U/stmry/m/n' in size <15>}
+\WarningFilter*{latexfont}{Size substitutions with differences\MessageBreak
+                           up to \font@submax\space have occurred}
+
+%% ignore "Font shape `OT1/cmbr/bx/n' in size (less than <9>) ..."
+%% WARN: sans-serif math font is not available for sizes smaller than <9>
+%%          -> it will be replaced by regular (not bold, medium) font
+\WarningFilter{latexfont}{Font shape `OT1/cmbr/bx/n' in size <6>}
+\WarningFilter{latexfont}{Font shape `OT1/cmbr/bx/n' in size <7>}
+\WarningFilter{latexfont}{Font shape `OT1/cmbr/bx/n' in size <8>}
