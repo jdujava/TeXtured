@@ -22,6 +22,8 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: thesis.tex
+          texlive_version: latest # must be `2024` or later (`latest` chosen by default)
+          extra_system_packages: coreutils icu inkscape # `coreutils` for `mktemp`, `icu` for `uconv`
       - name: Upload the artifact
         uses: actions/upload-artifact@v4
         with:

@@ -18,11 +18,13 @@ if [ -f "$directory/add-watermark" ]; then
     author_name=$(sed -n 's/^[^%].*ThesisAuthorPlaintext}{}{\(.*\)}$/\1/p' preamble/data.tex)
     ## if the `\ThesisAuthorPlaintext` command is commented out, extract from the `\ThesisAuthor` command
     [ -z "$author_name" ] && author_name=$(sed -n 's/.*ThesisAuthor}{}{\(.*\)}$/\1/p' preamble/data.tex)
+    ## use just ASCII characters, see https://unix.stackexchange.com/a/653210
+    author_name=$(echo "$author_name" | uconv -x Latin-ASCII)
 
-    author_name=$(printf "%s" "$author_name" | iconv -f utf8 -t ascii//TRANSLIT) # use just ASCII characters
-    watermark_string="$(date +%Y) $author_name"                                  # prepend the year
+    watermark_string="$(date +%Y) $author_name"  # prepend the year
+    # watermark_string="$(date +%Y) Author's Name" # NOTE: or manually edit the watermark string here
 
-    # watermark_string="$(date +%Y) Author's Name" ## NOTE: or manually edit the watermark string here
+    ## use the `add-watermark` script to insert the watermark into the PDF
     "$directory"/add-watermark "$1-fixed.pdf" "$watermark_string"
 fi
 
