@@ -6,6 +6,7 @@
 \usepackage{filemod}
 \NewDocumentCommand{\exportInkscapeSVG}{O{./figures/Inkscape/} m}{%
     \filemodCmp{#1#2.pdf}{#1#2.svg}{}{% regenerate PDF+LaTeX code if SVG is newer
+        \ClassNote{TeXtured}{(Re)generating Inkscape SVG to PDF+LaTeX figure:\MessageBreak #1#2.svg}%
         \ShellEscape{#1inkscape-export-to-latex "#1#2"}% use `inkscape-export-to-latex` script in the same directory
     }%
 }
