@@ -11,9 +11,9 @@
 }
 
 %% Fallbacks for PDF metadata commands
-\ProvideExpandableDocumentCommand{\ThesisAuthorPlaintext}{}{\ThesisAuthor}
-\ProvideExpandableDocumentCommand{\ThesisTitlePlaintext}{}{\ThesisTitle}
-\ProvideExpandableDocumentCommand{\KeywordsPlaintext}{}{\Keywords}
+\providecommand*{\ThesisAuthorPlaintext}{\ThesisAuthor}
+\providecommand*{\ThesisTitlePlaintext}{\ThesisTitle}
+\providecommand*{\KeywordsPlaintext}{\Keywords}
 
 \hypersetup{
     linktoc = all,         % whole entry in TOC is clickable link

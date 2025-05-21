@@ -13,8 +13,8 @@
 %%     - `sbc` - sans bold condensed
 %%     - `sfe` - sans serif extended (font family `lmssq` for "Latin Modern Sans Serif Quotation")
 %% https://www.tug.org/pracjourn/2006-1/robertson/robertson.pdf
-\NewDocumentCommand{\sbcseries}{}{\sffamily\fontseries{sbc}\selectfont}
-\NewDocumentCommand{\sfefamily}{}{\fontfamily{lmssq}\selectfont}
+\newcommand*{\sbcseries}{\sffamily\fontseries{sbc}\selectfont}
+\newcommand*{\sfefamily}{\fontfamily{lmssq}\selectfont}
 \DeclareTextFontCommand{\textsbc}{\sbcseries}
 \DeclareTextFontCommand{\textsfe}{\sfefamily}
 

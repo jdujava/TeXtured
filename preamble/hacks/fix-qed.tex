@@ -2,7 +2,7 @@
 %%        I dont entirely know what I am doing here, but seems to work
 %%        -> changed from /usr/share/texmf-dist/tex/latex/amscls/amsthm.sty
 \makeatletter
-\RenewDocumentCommand{\equation@qed}{}{%
+\renewcommand*{\equation@qed}{%
     \iftagsleft@
         \hbox{\phantom{\quad\qedsymbol}}%
         \gdef\alt@tag{%

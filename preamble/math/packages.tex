@@ -46,9 +46,9 @@
 %% As of now the `mathfixs` implementation doesn't work in section titles
 % \ProvideMathFix{multskip=1mu} % tiny space `\.` in math mode
 \NewCommandCopy{\dotaccent}{\.}
-\RenewDocumentCommand{\.}{}{\TextOrMath{\dotaccent}{\mspace{1mu}}}
+\renewcommand*{\.}{\TextOrMath{\dotaccent}{\mspace{1mu}}}
 \NewCommandCopy{\acuteaccent}{\'}
-\RenewDocumentCommand{\'}{}{\TextOrMath{\acuteaccent}{\mspace{-1mu}}}
+\renewcommand*{\'}{\TextOrMath{\acuteaccent}{\mspace{-1mu}}}
 
 \usepackage[extdef]{delimset} % flexible typesetting and declaration delimeters sets
 

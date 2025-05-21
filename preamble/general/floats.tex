@@ -17,7 +17,7 @@
 \ExplSyntaxOn
 \NewDocumentCommand{\appendtographicspath}{m}{
     \tl_if_exist:cF { Ginput@path } { \tl_new:c { Ginput@path } }
-    \tl_gput_right:cn {Ginput@path} { #1 }
+    \tl_gput_right:cn { Ginput@path } { #1 }
 }
 \ExplSyntaxOff
 

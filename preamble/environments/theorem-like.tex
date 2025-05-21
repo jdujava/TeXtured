@@ -1,7 +1,7 @@
 %% Ensure consistent height of the final line with `\strut`
 %% `\hspace{-1.␣␣em}` to enable longer last line in theorem-like environments,
 %%                    otherwise the line is breaking earlier then necesarry
-\NewDocumentCommand{\theoremqed}{}{\hspace{-1.195em}\strut}
+\newcommand*{\theoremqed}{\hspace{-1.195em}\strut}
 
 %% Factory for new theorem-like environments
 \NewDocumentCommand{\NewTheoremLike}{O{qed=\theoremqed} m}{

@@ -7,7 +7,7 @@
 %%        However, I am not entirely sure why this works..
 
 \makeatletter
-\NewDocumentCommand{\redefineparboxrestore}{}{%
+\newcommand*{\redefineparboxrestore}{%
     \def\@arrayparboxrestore{%
         \let\if@nobreak\iffalse
         \let\if@noskipsec\iffalse
