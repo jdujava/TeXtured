@@ -2,7 +2,7 @@
 %% `\strut` to ensure consistent height of the final line
 %% `\hspace{-0.9em}` to enable longer last line in remark-like environments,
 %%                   otherwise the line is breaking earlier then necesarry
-\NewDocumentCommand{\remarkqed}{}{\hspace{-0.9em}\textcolor{black!60}{\(\lrcorner\)}\strut}
+\newcommand*{\remarkqed}{\hspace{-0.9em}\textcolor{black!60}{\(\lrcorner\)}\strut}
 
 %% Factory for new remark-like environments
 \NewDocumentCommand{\NewRemarkLike}{O{qed=\remarkqed} m}{
@@ -39,7 +39,7 @@
 %% Proof QED symbol
 %% `\hspace{-1em}` to enable longer last line in the proof environment,
 %%                 otherwise the line is breaking earlier then necesarry
-\NewDocumentCommand{\proofqed}{}{
+\newcommand*{\proofqed}{
     \color{black!60}% lighter color for the smaller square QED symbol
     \hspace{-1em}\raisebox{-0.01em}{\(\square[0.4em][aligntableaux=bottom]\mspace{1mu}\)}% tweak positioning
     \strut% ensure consistent height of the final line

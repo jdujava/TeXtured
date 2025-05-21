@@ -5,7 +5,7 @@
 %% Disable `fancyhdr` warning: "\fancyhead's `E' option without twoside option is useless.
 %%                               Please consider using the `twoside' option"
 \makeatletter
-\RenewDocumentCommand{\f@nch@fancyhf@Echeck}{m}{}
+\def\f@nch@fancyhf@Echeck#1{}
 \makeatother
 
 \newlength{\headerpadding}  % left/right padding of header
@@ -22,8 +22,8 @@
 
 %% Default header style (includes a rule with decorations)
 \fancypagestyle{header}{
-    \RenewDocumentCommand{\headrule}{}{
-        % \RenewDocumentCommand{\headrulewidth}{}{0.9pt}
+    \renewcommand*{\headrule}{
+        % \renewcommand*{\headrulewidth}{0.9pt}
         % \textcolor{HeaderRuleColor}{\rule[1em]{\headwidth}{\headrulewidth}}%
         \tikz[baseline=-1em]{
             \fill[header rule] (0, 0) rectangle (\headwidth, 0.9pt);
@@ -46,7 +46,7 @@
 }
 %% For chapter pages, the `plain` style is used
 \fancypagestyle{plain}[header]{
-    \RenewDocumentCommand{\headrule}{}{
+    \renewcommand*{\headrule}{
         \hfill\tikz[baseline=-1em]{
             \fill[header rule, path fading=west] (0, 0) rectangle (0.45\headwidth, 0.9pt);
             \ifFANCY % add fancy decorations

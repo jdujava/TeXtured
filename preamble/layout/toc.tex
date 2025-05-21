@@ -1,12 +1,12 @@
 %% Table of Contents
 % \addtocontents{toc}{\vspace{-0.9em}}  % change space after "Contents" title in TOC
-\NewDocumentCommand{\contentsandlists}{}{
+\newcommand*{\contentsandlists}{
     {\hypersetup{hidelinks}
         \tableofcontents
 
         %% Add list of structured environments
         %%  -> see `keytheorems` package documentation for more customization
-        % \DeclareExpandableDocumentCommand{\listtheoremname}{}{List of Definitions, Remarks, \ldots}
+        % \newcommand*{\listtheoremname}{List of Definitions, Remarks, \ldots}
         % \cleardoublepage\phantomsection
         % \currentpdfbookmark{\listtheoremname}{loe} % add PDF Index/Outline entry
         % \listofkeytheorems[onlynamed, swapnumber, title=\listtheoremname]

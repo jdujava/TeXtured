@@ -1,8 +1,8 @@
 %%% Macros for math symbols
 
 %% Punctuation in math mode
-\NewDocumentCommand{\eqend}{}{\,.}
-\NewDocumentCommand{\eqcomma}{}{\,,}
+\newcommand*{\eqend}{\,.}
+\newcommand*{\eqcomma}{\,,}
 
 %% Equals in given dimension
 \NewDocumentCommand{\eqdim}{O{} m}{
@@ -28,21 +28,21 @@
 
 %% Determinants (use normal position of superscript/subscript)
 \NewCommandCopy{\olddet}{\det}
-\RenewDocumentCommand{\det}{}{\olddet\nolimits}
+\renewcommand*{\det}{\olddet\nolimits}
 \DeclareMathOperator{\Det}{Det}
 
 %% Misc math macros
 \NewCommandCopy{\transpose}{\intercal}
 \DeclareMathOperator{\vol}{vol}
 \DeclareMathOperator{\sgn}{sgn}
-\NewDocumentCommand{\Id}{}{\bm{1}}
-\NewDocumentCommand{\const}{}{\text{const.}}
+\newcommand*{\Id}{\bm{1}}
+\newcommand*{\const}{\mathrm{const.}}
 \DeclareMathOperator{\Span}{Span}
 \DeclareMathOperator{\diag}{diag}
-\NewDocumentCommand{\bdry}{}{\partial}
-\NewDocumentCommand{\disjunion}{}{\sqcup} % TODO: spacing too small sometimes (in subscripts)
+\newcommand*{\bdry}{\partial}
+\newcommand*{\disjunion}{\sqcup} % TODO: spacing too small sometimes (in subscripts)
 \NewDocumentCommand{\inclusion}{s}{\IfBooleanTF{#1}{\hookleftarrow}{\hookrightarrow}}
-\NewDocumentCommand{\surjection}{}{\twoheadrightarrow}
+\NewDocumentCommand{\surjection}{s}{\IfBooleanTF{#1}{\twoheadleftarrow}{\twoheadrightarrow}}
 \NewDocumentCommand{\exchange}{O{\quad}}{\xleftrightarrow{#1}}
 
 %% Imaginary unit and Euler's number
@@ -55,11 +55,11 @@
 \NewDocumentCommand{\biggO}{l m}{\fbraces#1{\lparen}{\rparen}{\raisemath{-0.1ex}{O}}{#2}}
 
 %%% Various fields and number sets
-\NewDocumentCommand{\R}{}{\mathbb{R}}
-\NewDocumentCommand{\Z}{}{\mathbb{Z}}
-\NewDocumentCommand{\C}{}{\mathbb{C}}
-\NewDocumentCommand{\F}{}{\mathbb{F}}
-\NewDocumentCommand{\N}{}{\mathbb{N}}
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\F}{\mathbb{F}}
+\newcommand*{\N}{\mathbb{N}}
 
 %% Group/Representation Theory
 \DeclareMathOperator{\Hom}{Hom}
@@ -82,8 +82,8 @@
 \DeclareMathOperator{\su}{\mathfrak{su}}
 \DeclareMathOperator{\SU}{\mathsf{SU}}
 \DeclareMathOperator{\Sp}{\mathsf{Sp}}
-\NewDocumentCommand{\g}{}{\mathfrak{g}}
-\NewDocumentCommand{\rankgroup}{}{\mathsf{r}}
+\newcommand*{\g}{\mathfrak{g}}
+\newcommand*{\rankgroup}{\mathsf{r}}
 
 %%% Differential Geometry
 
@@ -170,31 +170,31 @@
 
 %% Modify superscript/subscript positions for some greek letters
 \NewCommandCopy{\oldchi}{\chi}
-\RenewDocumentCommand{\chi}{}{\oldchi\lowerindex[-1.5pt]}
+\renewcommand*{\chi}{\oldchi\lowerindex[-1.5pt]}
 \NewCommandCopy{\olddelta}{\delta}
-\RenewDocumentCommand{\delta}{}{\olddelta\lowerindex[1pt][1.0pt]}
-\NewDocumentCommand{\bmdelta}{}{\bm{\olddelta}\lowerindex[1pt][1.0pt]}
-\NewDocumentCommand{\altdelta}{}{{\olddelta\xmathstrut[-0.2]{0.0}}}
-\NewDocumentCommand{\altbmdelta}{}{{\bm{\olddelta}\xmathstrut[-0.2]{0.0}}}
+\renewcommand*{\delta}{\olddelta\lowerindex[1pt][1.0pt]}
+\newcommand*{\bmdelta}{\bm{\olddelta}\lowerindex[1pt][1.0pt]}
+\newcommand*{\altdelta}{{\olddelta\xmathstrut[-0.2]{0.0}}}
+\newcommand*{\altbmdelta}{{\bm{\olddelta}\xmathstrut[-0.2]{0.0}}}
 
 %% Smaller \in, \notin, \subset, ...
 %% https://tex.stackexchange.com/questions/34393/the-mysteries-of-mathpalette
 \NewDocumentCommand{\smallermath}{O{0.05ex} O{0.85} m}{\raisemath{#1}{\scalemath{#2}{#3}}}
-\NewDocumentCommand{\smallplus}  {}{\mathrel{\smallermath{+}}}
-\NewDocumentCommand{\textplus}   {}{\ensuremath{\.\smallplus\.}}
-\NewDocumentCommand{\smallin}    {}{\mathrel{\smallermath{\in}}}
-\NewDocumentCommand{\smallnotin} {}{\mathrel{\smallermath{\notin}}}
-\NewDocumentCommand{\smallsubset}{}{\mathrel{\smallermath{\subset}}}
-\NewDocumentCommand{\smallotimes}{}{\mathbin{\smallermath[0ex]{\oldotimes}}}
-% \NewDocumentCommand{\smallotimes}{}{\.\smallerrel{\oldotimes}\.}
+\newcommand*{\smallplus}  {\mathrel{\smallermath{+}}}
+\newcommand*{\textplus}   {\ensuremath{\.\smallplus\.}}
+\newcommand*{\smallin}    {\mathrel{\smallermath{\in}}}
+\newcommand*{\smallnotin} {\mathrel{\smallermath{\notin}}}
+\newcommand*{\smallsubset}{\mathrel{\smallermath{\subset}}}
+\newcommand*{\smallotimes}{\mathbin{\smallermath[0ex]{\oldotimes}}}
+% \newcommand*{\smallotimes}{\.\smallerrel{\oldotimes}\.}
 
 
 %% Fix spacing of \left( .. \middle| .. \right)
 \NewCommandCopy{\leftOrig}{\left}
 \NewCommandCopy{\rightOrig}{\right}
 \NewCommandCopy{\middleOrig}{\middle}
-\RenewDocumentCommand{\left}{}{\mathopen{}\mathclose\bgroup\leftOrig}
-\RenewDocumentCommand{\right}{}{\aftergroup\egroup\rightOrig}
+\renewcommand*{\left}{\mathopen{}\mathclose\bgroup\leftOrig}
+\renewcommand*{\right}{\aftergroup\egroup\rightOrig}
 \RenewDocumentCommand{\middle}{sm}{\IfBooleanTF{#1}{\.\middleOrig#2\.}{\mathrel{}\middleOrig#2\mathrel{}}}
 \NewDocumentCommand{\innermiddle}{m}{\mathinner{}\middleOrig#1\mathinner{}}
 
