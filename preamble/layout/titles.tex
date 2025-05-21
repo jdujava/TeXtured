@@ -24,47 +24,40 @@
 %%% Chapter title formatting
 %% No extra space above and below chapter headings, big number/letter behind chapter title
 %% inspired by https://tex.stackexchange.com/a/690632
-\NewDocumentCommand{\chaphead}{m O{}}{
+\NewDocumentCommand{\chaphead}{s O{} m}{
     \vspace*{-25pt}% reduce vertical space before the title
     {\setlength{\parindent}{0pt}\raggedright
         \Huge\sffamily\bfseries
-        \ifFANCY%
+        \ifFANCY
             \chapterheadingletter{#2}% fancy Chapter number/letter
-        \else%
-            \IfBlankF{#2}{\thechapter\hspace{0.7em}}% just basic Chapter number
-        \fi%
-        #1\par\nobreak% Chapter title
+        \else
+            \IfBooleanF{#1}{#2\hspace{0.7em}}% just a basic Chapter number/letter
+        \fi
+        #3\par\nobreak% Chapter title
         \vspace{20pt}% extra vertical space after the title
     }
 }
 %% -> modifying /usr/share/texmf-dist/tex/latex/base/report.cls
 \makeatletter
-\def\@makechapterhead#1{\chaphead{#1}[\thechapter]} % For numbered Chapters use their number
-\def\@makeschapterhead#1{
-    \ifFANCY
-        \chaphead{#1}[\extract{#1}{1}] % extract first letter of the current chapter title
-    \else
-        \chaphead{#1} % just Chapter title
-    \fi
-}
+\def\@makechapterhead#1{\chaphead[\thechapter]{#1}}                % for numbered Chapters simply use their number
+\def\@makeschapterhead#1{\chaphead*[\ExtractLeadingChars{#1}]{#1}} % extract first letter of the unnumbered Chapter title
 \makeatother
 
 %% Chapter number/letter formatting
 \NewDocumentCommand{\chapterheadingletter}{m}{%
     \makebox[0pt][l]{%              Make box of zero width, don't move other stuff horizontally
         \raisebox{-16pt}[0pt][0pt]{% Align the number vertically, don't move other stuff vertically
-            \hspace{6pt} \color{ChapterNumberColor}% Horizontal whitespace, text color
+            \hspace{0.55em}\color{ChapterNumberColor}% Horizontal whitespace, text color
             \usefont{T1}{qzc}{m}{it}\fontsize{95pt}{95pt}\selectfont% Font type and size (TeX Gyre Chorus)
             #1 % Chapter heading letter
         }%
     }%
 }
-%% Macro to extract first `#2` characters from `#1`
-%% https://tex.stackexchange.com/questions/402835/extract-first-character-of-string-stored-in-macro-using-expl3
+%% Macro to extract first `#1` characters from `#2` (see https://tex.stackexchange.com/a/402840)
 %% TODO: latex treesitter grammar support ExplSyntaxOn/Off, command names containting also `_:`
 \ExplSyntaxOn
-\cs_generate_variant:Nn \tl_item:nn { f }
-\DeclareExpandableDocumentCommand{\extract}{mm}{
-    \tl_item:fn { #1 } { #2 }
+\cs_generate_variant:Nn \tl_item:nn { f } % `f` argument -> full expansion to the first unexpandable token
+\NewDocumentCommand{\ExtractLeadingChars}{O{1} m}{
+    \tl_item:fn { #2 } { #1 }
 }
 \ExplSyntaxOff
