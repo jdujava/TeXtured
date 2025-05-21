@@ -13,6 +13,7 @@
 %%  -> use Computer Modern Bright when `\mathversion{sans}` is active
 %% see https://tex.stackexchange.com/q/33165
 %%     https://mirrors.nic.cz/tex-archive/fonts/cmbright/cmbright.pdf
+%% Requirements (font packages): `cmbright`, `hfbright`, `iwona`
 \DeclareMathVersion{sans}
 \SetSymbolFont{operators}{sans}{OT1}{cmbr}{m}{n}
 \SetSymbolFont{letters}{sans}{OML}{cmbrm}{m}{it}
@@ -69,7 +70,7 @@
 %% Alternative caligraphic math font `mathpazo`
 \DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
 
-%% Load doublebrackets symbols
+%% Load doublebrackets symbols (requires `stmaryrd` font package)
 %% (need to declare `pdfglyphtounicode` translations to satisfy PDF/A -> done in `pdfA-compliance.tex`)
 \DeclareSymbolFont{stmry}{U}{stmry}{m}{n}
 \DeclareMathDelimiter{\dblbracketleft}{\mathopen}{stmry}{"4A}{stmry}{"71}
