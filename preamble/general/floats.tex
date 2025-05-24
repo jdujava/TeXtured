@@ -29,12 +29,6 @@
 %% Increase default vertical space between rows in tables (default is 1.0)
 \renewcommand*{\arraystretch}{1.1}
 
-% HACK: `ninecolors` is needed for `tabularray`, but fails to load with
-%       rgb color model -> see https://tex.stackexchange.com/a/614702
-\selectcolormodel{natural}  % temporarily switch to natural color model
-\usepackage{ninecolors}     % now we can load `ninecolors` package
-\selectcolormodel{rgb}      % switch back to RGB color model
-
 \usepackage{tabularray}     % advanced LaTeX tables
 \usepackage{codehigh}       % verbatim in tables (with `\fakeverb` macro)
 \UseTblrLibrary{amsmath, booktabs, siunitx} % load libraries for `tabularray`
