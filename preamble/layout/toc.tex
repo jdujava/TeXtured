@@ -28,8 +28,9 @@
 
 %% bold math for chapter titles in TOC, slightly bigger space between label and title
 %% BUG: pdfLaTeX with changed `\contentsmargin` does not properly align page numbers
-%% HACK: to obatain proper placement of page numbers we need to toggle off
-%%       `\bfseries` with `\normalfont`, and only then apply it inside `\contentspage`
+%%             (works properly when using absolute \contentsmargin, or with luaLaTeX)
+%% HACK: to obatain consistent placement of page numbers (bold or not), we need to toggle
+%%       off `\bfseries` with `\normalfont`, and only then apply it inside `\contentspage`
 \titlecontents{chapter}[1.6em]{\addvspace{2.4ex}\bfseries} % <section> <left> <above-code>
 {\contentslabel{1.4em}}{\hspace*{-1.4em}} % <numbered-entry-format> <numberless-entry-format>
 {\hfill\normalfont\contentspage[\bfseries\thecontentspage]} % <filler-page-format> <--- HACK

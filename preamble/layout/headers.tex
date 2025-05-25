@@ -46,6 +46,7 @@
 }
 %% For chapter pages, the `plain` style is used
 \fancypagestyle{plain}[header]{
+    %% NOTE: following does not handle properly the even-numbered pages for the two-sided printing
     \renewcommand*{\headrule}{
         \hfill\tikz[baseline=-1em]{
             \fill[header rule, path fading=west] (0, 0) rectangle (0.45\headwidth, 0.9pt);
@@ -54,6 +55,6 @@
             \fi
         }
     }
-    \fancyhead[LO,RE]{}
+    \fancyhead[LO,RE]{} % leave only the page number
 }
 \pagestyle{header} % set up default header style
