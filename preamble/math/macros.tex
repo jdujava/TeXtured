@@ -27,8 +27,9 @@
 % }
 
 %% Determinants (use normal position of superscript/subscript)
-\NewCommandCopy{\olddet}{\det}
-\renewcommand*{\det}{\olddet\nolimits}
+\AddToHook{cmd/det/after}{\nolimits} % functionally replaces the following 2 lines
+% \NewCommandCopy{\olddet}{\det}
+% \renewcommand*{\det}{\olddet\nolimits}
 \DeclareMathOperator{\Det}{Det}
 
 %% Misc math macros

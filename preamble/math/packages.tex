@@ -50,6 +50,9 @@
 \NewCommandCopy{\acuteaccent}{\'}
 \renewcommand*{\'}{\TextOrMath{\acuteaccent}{\mspace{-1mu}}}
 
+%% if `amsmath` package is loaded, slightly reduce the space after `\colon`
+\AddToHook{package/amsmath/after}{\AddToHook{cmd/colon/after}{\mspace{-2mu}}}%
+
 \usepackage[extdef]{delimset} % flexible typesetting and declaration delimeters sets
 
 %% TODO: fix/adapt a lot of stuff after the new release

@@ -36,27 +36,11 @@
 
 %%% Automatic switching between math versions
 \newif\ifInSansMode % keep track of whether we are in sans mode
-\newif\ifInBoldMode % keep track of whether we are in sans mode
-%% automatically switch to sans math version in `\sffamily` text
-%% automatically switch to normal math version in `\rmfamily` text
-\NewCommandCopy{\sffamilyOrig}{\sffamily}
-\NewCommandCopy{\rmfamilyOrig}{\rmfamily}
-\RenewDocumentCommand{\sffamily}{}{\sffamilyOrig\InSansModetrue%
-    \ifInBoldMode\mathversion{boldsans}\else\mathversion{sans}\fi
-}
-\RenewDocumentCommand{\rmfamily}{}{\rmfamilyOrig\InSansModefalse%
-    \ifInBoldMode\mathversion{bold}\else\mathversion{normal}\fi
-}
-%% automatically switch to bold math version in `\bfseries` text
-%% automatically switch to normal math version in `\bfseries` text
-\NewCommandCopy{\bfseriesOrig}{\bfseries}
-\NewCommandCopy{\mdseriesOrig}{\mdseries}
-\RenewDocumentCommand{\bfseries}{}{\bfseriesOrig\InBoldModetrue%
-    \ifInSansMode\mathversion{boldsans}\else\mathversion{bold}\fi%
-}
-\RenewDocumentCommand{\mdseries}{}{\mdseriesOrig\InBoldModefalse%
-    \ifInSansMode\mathversion{sans}\else\mathversion{normal}\fi%
-}
+\newif\ifInBoldMode % keep track of whether we are in bold mode
+\AddToHook{cmd/sffamily/after}{\InSansModetrue \ifInBoldMode\mathversion{boldsans}\else\mathversion{sans}\fi}
+\AddToHook{cmd/rmfamily/after}{\InSansModefalse\ifInBoldMode\mathversion{bold}\else\mathversion{normal}\fi}
+\AddToHook{cmd/bfseries/after}{\InBoldModetrue \ifInSansMode\mathversion{boldsans}\else\mathversion{bold}\fi}
+\AddToHook{cmd/mdseries/after}{\InBoldModefalse\ifInSansMode\mathversion{sans}\else\mathversion{normal}\fi}
 
 
 %% BUG: \mathbf{} is weird, use \bm with \mathrm

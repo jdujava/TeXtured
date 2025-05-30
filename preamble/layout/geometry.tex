@@ -26,12 +26,10 @@
             layoutoffset=0mm,   % Align A4 layout to left edge
             % showcrop,
         }
-        \usepackage{eso-pic}
-        \AddToShipoutPicture{%
+        \AddToHook{shipout/background}{ % add dashed line indicating the usual paper size
             \begin{tikzpicture}[remember picture, overlay]
                 \draw[dashed, black!10, line width=0.3pt]
-                ([xshift=210mm]current page.south west) --
-                ([xshift=210mm]current page.north west);
+                ([xshift=210mm]current page.south west) -- ([xshift=210mm]current page.north west);
             \end{tikzpicture}
         }
     \fi\fi
