@@ -10,10 +10,10 @@
 \usepackage[newparttoc, clearempty]{titlesec}
 
 %% NOTE: also include `\phantomsection` so that hyperlink anchors are properly placed 
-%%                                                (even for non-numbered subsections)
-\titleformat{\section}   {\phantomsection\Large\sffamily\bfseries}{\thesection}   {0.8em}{}
-\titleformat{\subsection}{\phantomsection\large\sffamily\bfseries}{\thesubsection}{0.8em}{}
-\titleformat{\paragraph}[runin]{\phantomsection\normalsize\sffamily\bfseries}{\theparagraph}{0em}{}
+%%         (or modern `\MakeLinkTarget`)          (even for non-numbered subsections)
+\titleformat{\section}   {\MakeLinkTarget[section]{}\Large\sffamily\bfseries}{\thesection}   {0.8em}{}
+\titleformat{\subsection}{\MakeLinkTarget[subsection]{}\large\sffamily\bfseries}{\thesubsection}{0.8em}{}
+\titleformat{\paragraph}[runin]{\MakeLinkTarget[paragraph]{}\normalsize\sffamily\bfseries}{\theparagraph}{0em}{}
 
 %% Part title (page) formatting
 \titleformat{\part}[display]
