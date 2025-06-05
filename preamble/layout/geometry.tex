@@ -26,11 +26,10 @@
             layoutoffset=0mm,   % Align A4 layout to left edge
             % showcrop,
         }
-        \AddToHook{shipout/background}{ % add dashed line indicating the usual paper size
-            \begin{tikzpicture}[remember picture, overlay]
-                \draw[dashed, black!10, line width=0.3pt]
-                ([xshift=210mm]current page.south west) -- ([xshift=210mm]current page.north west);
-            \end{tikzpicture}
+        \usepackage{pict2e}
+        \AddToHook{shipout/background}{% add gray line indicating the usual paper size
+            \color{black!10}\linethickness{0.4pt}
+            \put(210mm,0){\line(0,-1){297mm}}
         }
     \fi\fi
 
