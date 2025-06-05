@@ -14,24 +14,24 @@
 % \RenewDocumentCommand{\sectionmark}{m}{\markright{\thesection.\ #1}}
 
 %% Style of the header rule and decorations
+\renewcommand*{\headrulewidth}{0.9pt}
 \tikzset{
-    header rule/.style={HeaderRuleColor,line width=0.9},
-    header decor left/.style={HeaderRuleColor,line width=1.0,{Diamond[open]}-,overlay},
-    header decor right/.style={HeaderRuleColor,line width=1.0,-{Diamond[open]},overlay},
+    header rule/.style={HeaderRuleColor},
+    header decor/.style={HeaderRuleColor,line width=1.0pt,-{Diamond[open]},overlay},
 }
 
 %% Default header style (includes a rule with decorations)
 \fancypagestyle{header}{
     \renewcommand*{\headrule}{
-        % \renewcommand*{\headrulewidth}{0.9pt}
-        % \textcolor{HeaderRuleColor}{\rule[1em]{\headwidth}{\headrulewidth}}%
-        \tikz[baseline=-1em]{
-            \fill[header rule] (0, 0) rectangle (\headwidth, 0.9pt);
-            \ifFANCY % add fancy decorations
-                \draw[header decor right] (\headwidth,0.45pt) -- ++(7pt,0);
-                \draw[header decor left] (-7pt,0.45pt) -- (0,0.45pt);
-            \fi
-        }
+        \ifFANCY % add header rule with fancy decorations
+            \tikz[baseline=-1em]{
+                \fill[header rule] (0,0) rectangle (\headwidth,\headrulewidth);
+                \draw[header decor] (\headwidth,\headrulewidth/2) -- ++( 7pt,0);
+                \draw[header decor] (         0,\headrulewidth/2) -- ++(-7pt,0);
+            }
+        \else
+            \textcolor{HeaderRuleColor}{\rule[1em]{\headwidth}{0.9pt}}%
+        \fi
     }
     \fancyhead[LO]{\hspace{\headerpadding}\textcolor{HeaderColor}{\textsf{\nouppercase{\leftmark}}}}
     % \fancyhead[LO]{\hspace{\headerpadding}\textcolor{HeaderColor}{\textsf{\nouppercase{\rightmark}}}}
@@ -49,9 +49,9 @@
     %% NOTE: following does not handle properly the even-numbered pages for the two-sided printing
     \renewcommand*{\headrule}{
         \hfill\tikz[baseline=-1em]{
-            \fill[header rule, path fading=west] (0, 0) rectangle (0.45\headwidth, 0.9pt);
-            \ifFANCY % add fancy decorations
-                \draw[header decor right] (0.45\headwidth,0.4pt) -- ++(7pt,0);
+            \fill[header rule, path fading=west] (0,0) rectangle (0.45\headwidth,\headrulewidth);
+            \ifFANCY % add fancy decoration
+                \draw[header decor] (0.45\headwidth,\headrulewidth/2) -- ++(7pt,0);
             \fi
         }
     }
