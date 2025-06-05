@@ -3,6 +3,10 @@
 *.synctex.gz
 *.synctex.gz(busy)
 
+## Precompiled preamble format file
+prec.fmt
+prec.log
+
 ## Since the main PDF file is automatically generated with GitHub Actions
 ## and pushed to `gh-pages` branch, is is generally advised to ignore it
 ## (which makes the repository smaller and faster to clone)
