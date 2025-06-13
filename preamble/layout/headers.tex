@@ -31,13 +31,15 @@
         \fi
     }%
 }
-\sbox{\chapterheaderrule}{% half width header rule (optinally with decoration)
-    \tikz[baseline=-1em]{
-        \fill[header rule, path fading=west] (0,0) rectangle (0.45\textwidth,\headrulewidth);
-        \ifFANCY % add fancy decoration (just on the right side)
-            \draw[header decor] (0.45\textwidth,\headrulewidth/2) -- ++(7pt,0);
-        \fi
-    }%
+\AtBeginDocument{
+    \sbox{\chapterheaderrule}{% half width header rule (optinally with decoration)
+        \tikz[baseline=-1em]{
+            \fill[header rule, path fading=west] (0,0) rectangle (0.45\textwidth,\headrulewidth);
+            \ifFANCY % add fancy decoration (just on the right side)
+                \draw[header decor] (0.45\textwidth,\headrulewidth/2) -- ++(7pt,0);
+            \fi
+        }%
+    }
 }
 
 %% Default header style
