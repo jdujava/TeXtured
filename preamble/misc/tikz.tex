@@ -2,7 +2,6 @@
 
 \usepackage{tikz}
 \usetikzlibrary{
-    % fadings,
     arrows.meta,
     calc,
     cd,
@@ -10,6 +9,9 @@
     trees,
     fit, matrix,
 }
+%% HACK: load `fadings` library before `\begin{document}`,
+%% BUG:  otherwise it breaks the precompiled format file
+\AddToHook{begindocument/before}{\usetikzlibrary{fadings}}
 
 %% Directory Tree Structure
 \tikzset{
