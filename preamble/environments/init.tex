@@ -8,7 +8,7 @@
 %% Default style options for `tcolorbox` environments (used in theorems, remarks, ...)
 \newlength{\depthofj} \settodepth{\depthofj}{j} % save depth of character "j" (typical descender)
 \tcbset{
-    enhanced, % TODO: need to test for differences
+    skin=enhanced, % for better looking frame breaking
     colframe=black, colback=white,
     boxrule=0.4pt, arc=3pt, boxsep=0em,
     left=0.9em, right=0.9em, top=1.3ex, bottom=1.3ex-0.8\depthofj, % try to reduce effect of descenders
