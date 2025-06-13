@@ -39,9 +39,10 @@
 %% Proof QED symbol
 %% `\hspace{-1em}` to enable longer last line in the proof environment,
 %%                 otherwise the line is breaking earlier then necesarry
+\newsavebox{\proofsmallsquare}
+\sbox{\proofsmallsquare}{\color{black!60}\(\square[0.4em][aligntableaux=bottom]\mspace{1mu}\)}
 \newcommand*{\proofqed}{
-    \color{black!60}% lighter color for the smaller square QED symbol
-    \hspace{-1em}\raisebox{-0.01em}{\(\square[0.4em][aligntableaux=bottom]\mspace{1mu}\)}% tweak positioning
+    \hspace{-1em}\raisebox{-0.01em}{\usebox{\proofsmallsquare}}% tweak positioning
     \strut% ensure consistent height of the final line
 }
 
