@@ -1,5 +1,11 @@
 %&prec
-%! TEX root = thesis.tex
+%% NOTE: following is loaded only when \PRECOMPILED is not defined, that is when
+%% the previous line `%&prec` is commented out (for example as `%%&prec`), and the
+%% precompiled preamble in form of a format file `prec.fmt` is not already loaded
+\ifdefined\PreambleLoaded\else
+    \input{prec}
+    % \documentclass[12pt,a4paper]{report}
+\fi
 
 %% Only uncommented files are included (faster compilation)
 %% NOTE: If no files are uncommented, all files are included
