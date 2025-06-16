@@ -9,8 +9,18 @@
     draft.usage = preamble,
     name.store  = \@textured@name,
     name.usage  = load,
-    name.default = ..., % probably does not work by default without enabling `expl3`
-    random.code = ... % execute arbitary code
+    % name.default = ..., % probably does not work by default without enabling `expl3`
+    random.code = {...}, % execute arbitary code
+    FANCY.if    = FANCY,
+    noFANCY.ifnot = FANCY,
+    WIP.if      = WIP,
+    FINAL.ifnot = WIP,
+    EXTRAMARGIN.if = EXTRAMARGIN,
+    LINKBOXES.if = LINKBOXES,
+    noLINKBOXES.ifnot = LINKBOXES,
+    CENSOR.if   = CENSOR,
+    noCENSOR.ifnot = CENSOR,
+    twosided.code = {\PassOptionsToClass{openright,twoside}{report}},
 }
 
 \DeclareUnknownKeyHandler{%
@@ -18,15 +28,14 @@
 }
 
 \SetKeys{ % here we can set the defaults
-    ...
+    FANCY,     % by default, enable fancy decorations
+    LINKBOXES, % by default, enable link/reference/citation boxes
 }
 \ProcessKeyOptions
 
-% \PassOptionsToClass{12pt,a4paper}{report}
-\LoadClass[...]{report}
+\LoadClass{report}
 
-
-\RequirePackage[...]{package-name}[<release-info>]
+% \RequirePackage[...]{package-name}[<release-info>]
 
 % \ClassError[textured]{<error-text>}{<help-text>}
 % \ClassWarning[textured]{<warning-text>}

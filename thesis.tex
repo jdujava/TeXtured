@@ -8,18 +8,20 @@
 \DocumentMetadata{lang=en, pdfversion=1.7, pdfstandard=A-2u}
 \input{preamble/pdfA-compliance/glyphtounicode}
 
-%% NOTE: Choose the desirable page layout version (electronic vs print)
-\documentclass[12pt,a4paper]{report}                      % single-side (electronic)
-% \documentclass[12pt,a4paper,openright,twoside]{report}  % two-sided (for printing)
+%% Set options to control some of the document properties
+\PassOptionsToClass{
+    WIP,         % THIS IS A WORK-IN-PROGRESS VERSION (comment out for the final version)
+    % EXTRAMARGIN, % add extra right margin in WIP version (for notes/corrections)
+    % noLINKBOXES, % disable link/reference boxes for faster compilations
+    CENSOR,      % THIS IS A CENSORED VERSION
+    % noFANCY,   % disable some of the more fancy stylistic choices
+    % twosided,  % enable two-sided layout (for printing)
+}{textured}
 
-%% Set some toggle flags to control some of the document properties
-\input{preamble/toggles}
-% \FANCYfalse % disable some of the more fancy stylistic choices
-%% NOTE: Comment out the following lines for the final version
-\WIPtrue            % THIS IS A WORK-IN-PROGRESS VERSION
-% \EXTRAMARGINtrue  % add extra right margin in WIP version (for notes/corrections)
-% \LINKBOXESfalse   % disable reference/link boxes for faster compilations
-\CENSORtrue         % THIS IS A CENSORED VERSION
+%% NOTE: Choose the desirable page layout version (electronic vs print)
+\documentclass[12pt,a4paper]{preamble/textured}                      % single-side (electronic)
+% \documentclass[12pt,a4paper]{report}                      % single-side (electronic)
+% \documentclass[12pt,a4paper,openright,twoside]{report}  % two-sided (for printing)
 
 %% Preamble - data, packages, macros, and more
 \input{preamble/main}
