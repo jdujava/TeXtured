@@ -154,7 +154,8 @@
 
 %% Exchange \epsilon and \varepsilon
 \NewCommandCopy{\oldepsilon}{\epsilon}
-\renewcommand*{\epsilon}{\varepsilon}
+\NewCommandCopy{\oldvarepsilon}{\varepsilon}
+\renewcommand*{\epsilon}{\oldvarepsilon}
 \renewcommand*{\varepsilon}{\oldepsilon}
 
 %% Math version of `\raisebox` and `\scalebox`
