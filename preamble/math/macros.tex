@@ -229,19 +229,18 @@
 \NewDocumentCommand{\ind}{}{\mathcolor{lightgray}{\bullet}}
 
 %% Argument placeholder
-\NewDocumentCommand{\argument}{s O{} O{1}}{%
-    \def\squaresize{1.0}%                   % default size
-    \IfBooleanT{#1}{\def\squaresize{0.7}}%  % if starred, set size corresponding to scriptstyle
-    \IfBlankF{#2}{\def\squaresize{#2}}%     % if optional argument is passed, set size to custom value
-    % TODO: utilize \mathpalette
-    \scalebox{\squaresize}{%
-        \begin{tikzpicture}[baseline=-#3*0.6ex]
-            \node(char)[draw, shape=rectangle, dash=on 1.2pt off 1.05pt phase 0.5pt, dash expand off,
-                inner ysep=2pt, inner xsep=2pt, minimum size=0.6em, rounded corners=2pt] {};
-            %% alternative:
-            % \node(char)[draw, shape=rectangle, dash=on 1.1pt off 0.8pt phase 0.5pt, dash expand off,
-            %     inner ysep=2pt, inner xsep=2pt, minimum size=0.6em, rounded corners=2pt] {};
-        \end{tikzpicture}%
+\newsavebox{\argumentbox}
+\sbox{\argumentbox}{%
+    \begin{tikzpicture}[baseline=-0.6ex]
+        \node(char)[draw, shape=rectangle, dash=on 1.2pt off 1.05pt phase 0.5pt, dash expand off,
+            inner ysep=2pt, inner xsep=2pt, minimum size=0.6em, rounded corners=2pt] {};
+    \end{tikzpicture}%
+}
+\NewDocumentCommand{\argument}{o}{%
+    \IfValueTF{#1}{% use #1 as a scaling factor, resizebox relative to the text size
+        \scalebox{#1}{\resizebox{!}{0.58em}{\usebox{\argumentbox}}}
+    }{% choose scaling factor based on display/text/script/scriptscript math style
+        \mathchoice{\argument[1.0]}{\argument[1.0]}{\argument[0.7]}{\argument[0.6]}
     }%
 }
 
