@@ -29,7 +29,8 @@
     noLINKBOXES.ifnot = LINKBOXES,
     CENSOR.if   = CENSOR,
     noCENSOR.ifnot = CENSOR,
-    twosided.code = {\PassOptionsToClass{openright,twoside}{report}},
+    twosided.if    = @textured@twosided,
+    onesided.ifnot = @textured@twosided,
 }
 
 \DeclareUnknownKeyHandler{%
@@ -42,6 +43,9 @@
 }
 \ProcessKeyOptions
 
+\if@textured@twosided
+    \PassOptionsToClass{openright,twoside}{report}
+\fi
 \LoadClass{report}
 
 % \RequirePackage[...]{package-name}[<release-info>]
