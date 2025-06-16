@@ -9,7 +9,6 @@
     draft.usage = preamble,
     name.store  = \@textured@name,
     name.usage  = load,
-    % name.default = ..., % probably does not work by default without enabling `expl3`
     random.code = {...}, % execute arbitary code
     FANCY.if    = FANCY,
     noFANCY.ifnot = FANCY,
@@ -23,14 +22,53 @@
     twosided.if    = @textured@twosided,
     onesided.ifnot = @textured@twosided,
 }
-
-\DeclareUnknownKeyHandler{%
-    \PassOptionsToClass{\CurrentOption}{report}
-}
-
 \SetKeys{ % here we can set the defaults
     FANCY,     % by default, enable fancy decorations
     LINKBOXES, % by default, enable link/reference/citation boxes
+}
+
+\DeclareKeys{
+    thesistype.store = \textured@thesisType,
+    title.store = \textured@title,
+    titleplaintext.store = \textured@titlePlaintext,
+    titlefront.store = \textured@titleFront,
+    author.store = \textured@author,
+    authorplaintext.store = \textured@authorPlaintext,
+    yearsubmitted.store = \textured@yearSubmitted,
+    yearrevision.store = \textured@yearRevision,
+    department.store = \textured@department,
+    depttype.store = \textured@deptType,
+    supervisor.store = \textured@supervisor,
+    cosupervisor.store = \textured@coSupervisor,
+    supervisorsdepartment.store = \textured@supervisorsDepartment,
+    studyprogramme.store = \textured@studyProgramme,
+    abstract.store = \textured@abstract,
+    subject.store = \textured@subject,
+    keywords.store = \textured@keywords,
+    keywordsplaintext.store = \textured@keywordsPlaintext,
+}
+\newcommand*{\fillthisin}[1]{\textcolor{red}{#1}} % placeholder for required fields
+\SetKeys{
+    thesistype={master},
+    title={\TeXtured{} Manual},
+    titleplaintext={TeXtured Manual \TeXturedVERSION},
+    titlefront={\ThesisTitle \\{\Huge\color{gray}\TeXturedVERSION}},
+    author={\fillthisin{Author's Name}},
+    authorplaintext={Author's Name},
+    yearsubmitted={\year},
+    department={\fillthisin{Name of the Department/Institute}},
+    depttype={Institute}, % Department (katedra), or an Institute (ústav)
+    supervisor={\fillthisin{Prof.~Name Surname}},
+    supervisorsdepartment={\fillthisin{Supervisor's Department/Institute}},
+    studyprogramme={\fillthisin{Study Programme}},
+    abstract={\fillthisin{Write abstract here.}},
+    subject={\fillthisin{Write subject here.}},
+    keywords={\fillthisin{Manual, Demo, Draft, WIP}},
+    keywordsplaintext={Manual, Demo, Draft, WIP},
+}
+
+\DeclareUnknownKeyHandler{%
+    \PassOptionsToClass{\CurrentOption}{report}
 }
 \ProcessKeyOptions
 
@@ -40,6 +78,9 @@
 \LoadClass{report}
 
 % \RequirePackage[...]{package-name}[<release-info>]
+
+%% Preamble - data, packages, macros, and more
+\input{preamble/main}
 
 % \ClassError[textured]{<error-text>}{<help-text>}
 % \ClassWarning[textured]{<warning-text>}
