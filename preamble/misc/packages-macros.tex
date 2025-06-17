@@ -17,6 +17,14 @@
 \NewTCBox{\macrobox}{!O{}}{link,macrobox,#1}
 \NewTCBox{\custommacrobox}{!O{}}{link,custommacrobox,#1}
 
+\ifLINKBOXES\else
+\RenewDocumentCommand{\packagebox}{O{} m}{#2}
+\RenewDocumentCommand{\filebox}{O{} m}{#2}
+\RenewDocumentCommand{\dirbox}{O{} m}{#2}
+\RenewDocumentCommand{\macrobox}{O{} m}{#2}
+\RenewDocumentCommand{\custommacrobox}{O{} m}{#2}
+\fi
+
 \NewDocumentCommand{\package}{m}{%
     % \href{https://texdoc.org/pkg/#1}
     \hrefold{https://ctan.org/pkg/#1}{%

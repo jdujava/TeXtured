@@ -25,6 +25,13 @@
 \NewTCBox{\hrefbox}{!O{}}{link,hrefbox,#1}
 \NewTCBox{\citebox}{!O{}}{link,citebox,#1}
 
+\ifLINKBOXES\else
+\RenewDocumentCommand{\refbox} {O{} m}{#2}
+\RenewDocumentCommand{\pagebox}{O{} m}{#2}
+\RenewDocumentCommand{\hrefbox}{O{} m}{#2}
+\RenewDocumentCommand{\citebox}{O{} m}{#2}
+\fi
+
 %% Save the original link commands
 \NewCommandCopy{\hrefold}{\href}
 \NewCommandCopy{\urlold}{\url}
