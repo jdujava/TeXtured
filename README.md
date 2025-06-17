@@ -53,6 +53,8 @@ in the root directory of the repository to build the document.
 > If you prefer to use 🍃 `Overleaf`, you can find the `TeXtured` template
 > [<img align="center" alt="Overleaf TeXtured Template" src="https://img.shields.io/badge/Overleaf-TeXtured-blue?color=ccffd2&logo=overleaf">](https://www.overleaf.com/latex/templates/textured/zwtzzwgddbsh)
 > there as well.
+> Note that releases `v1.3.0` and later depend on [`keytheorems`](https://github.com/mbertucci47/keytheorems) package,
+> which is not yet available on 🍃 `Overleaf` (you can however upload `keytheorems.sty` manually).
 
 
 ## 📦 Software Dependencies
