@@ -1,0 +1,239 @@
+\ProvidesPackage{textured-layout}
+
+
+%%% Page dimensions
+%% single-side (electronic) -> use `\documentclass[12pt,a4paper]{report}`
+%% two-sided (for printing) -> use `\documentclass[12pt,a4paper,twoside,openright]{report}`
+\usepackage{geometry} % flexible interface for adjusting page layout/dimensions
+\if@twoside%
+    \setlength\Gm@bindingoffset{15mm} % binding offset for two-sided printing
+\fi%
+\geometry{
+    width=145mm,
+    height=250mm,
+    hmarginratio=1:1,   % space ratio between left and right margins
+    vmarginratio=3:4,   % space ratio between top and bottom margins
+    includehead,        % include header in total height
+    headheight=2.5em,   % height of the header (includes space below the rule)
+    headsep=0mm,        % no extra space between header and text
+    % showframe,          % for DEBUG: helper lines for adjusting layout
+}
+\ifWIP\ifEXTRAMARGIN
+        \geometry{
+            paperwidth=260mm,   % PDF will be wider
+            paperheight=297mm,  % A4 paper height
+            layoutwidth=210mm,  % Real A4 content area
+            layoutheight=297mm,
+            layoutoffset=0mm,   % Align A4 layout to left edge
+            % showcrop,
+        }
+        \usepackage{pict2e}
+        \AddToHook{shipout/background}{% add gray line indicating the usual paper size
+            \color{black!10}\linethickness{0.4pt}
+            \put(210mm,0){\line(0,-1){297mm}}
+        }
+    \fi\fi
+
+%% try to make text on all pages have the same height (default for `twoside`)
+\flushbottom
+
+
+
+%%% Headers and footers, page styles
+\usepackage{fancyhdr}       % custom headers and footers
+
+%% Disable `fancyhdr` warning: "\fancyhead's `E' option without twoside option is useless.
+%%                               Please consider using the `twoside' option"
+\def\f@nch@fancyhf@Echeck#1{}
+
+\newlength{\headerpadding}  % left/right padding of header
+\setlength{\headerpadding}{2pt}
+% \RenewDocumentCommand{\chaptermark}{m}{\markboth{\chaptername\ \thechapter.\ #1}{\chaptername\ \thechapter.\ #1}}
+% \RenewDocumentCommand{\sectionmark}{m}{\markright{\thesection.\ #1}}
+
+%% Style of the header rule and decorations
+\renewcommand*{\headrulewidth}{0.9pt}
+\tikzset{
+    header rule/.style={HeaderRuleColor},
+    header decor/.style={HeaderRuleColor,line width=1.0pt,-{Diamond[open]},overlay},
+}
+%% Save default/chapter header rules in boxes for faster later use
+%%                 (no need to recompile the TikZ code every time)
+\newsavebox{\defaultheaderrule}
+\newsavebox{\chapterheaderrule}
+\sbox{\defaultheaderrule}{% full width header rule (optinally with decorations)
+    \tikz[baseline=-1em]{
+        \fill[header rule] (0,0) rectangle (\textwidth,\headrulewidth);
+        \ifFANCY % add fancy decorations
+            \draw[header decor] (\textwidth,\headrulewidth/2) -- ++( 7pt,0);
+            \draw[header decor] (         0,\headrulewidth/2) -- ++(-7pt,0);
+        \fi
+    }%
+}
+\sbox{\chapterheaderrule}{% half width header rule (optinally with decoration)
+    \tikz[baseline=-1em]{
+        \fill[header rule, path fading=west] (0,0) rectangle (0.45\textwidth,\headrulewidth);
+        \ifFANCY % add fancy decoration (just on the right side)
+            \draw[header decor] (0.45\textwidth,\headrulewidth/2) -- ++(7pt,0);
+        \fi
+    }%
+}
+
+%% Default header style
+\fancypagestyle{header}{
+    \renewcommand*{\headrule}{\usebox{\defaultheaderrule}\linebreak[1]}
+    \fancyhead[LO]{\color{HeaderColor}\hspace{\headerpadding}\textsf{\nouppercase{\leftmark}}}
+    % \fancyhead[LO]{\hspace{\headerpadding}\textcolor{HeaderColor}{\textsf{\nouppercase{\rightmark}}}}
+    \fancyhead[RE]{\color{HeaderColor}\textsf{\nouppercase{\rightmark}}\hspace{\headerpadding}}
+    \fancyhead[RO]{\textbf{\thepage}\hspace{\headerpadding}}
+    \fancyhead[LE]{\hspace{\headerpadding}\textbf{\thepage}}
+    \fancyfoot{}
+    \ifWIP % show draft watermark in footer
+        \fancyfoot[C]{\vskip1ex\relax \ttfamily\textcolor{black!15}{Draft - \today}}
+    \fi
+}
+%% For chapter pages, the `plain` style is used
+\fancypagestyle{plain}[header]{
+    %% NOTE: following does not handle properly the even-numbered pages for the two-sided printing
+    \renewcommand*{\headrule}{\hfill\usebox{\chapterheaderrule}\linebreak[1]}
+    \fancyhead[LO,RE]{} % leave only the page number
+}
+\pagestyle{header} % set up the default header style
+
+
+
+%% Page numbering style and counters for different parts of the document
+\NewDocumentCommand{\frontmatter}{}{     % the front matter
+    \pagenumbering{roman}                %   roman page numbering
+    \gdef\thechapter{\@Alph\c@chapter}   %   uppercase roman chapter numbering
+}
+\NewDocumentCommand{\mainmatter}{}{      % the main matter
+    \cleardoublepage                     %   start on the right page
+    \pagenumbering{arabic}               %   arabic page numbering
+    \setcounter{chapter}{0}              %   reset chapter counter
+    \setcounter{section}{0}              %   reset section counter
+    \gdef\thechapter{\@arabic\c@chapter} %   arabic chapter numbering
+}
+\NewDocumentCommand{\backmatter}{}{      % the back matter (continue with arabic page numbering)
+    \bookmarksetup{startatroot}          %   reset bookmarks level (in case parts are used)
+    %% BUG: following line does not work as expected (adds space too late)
+    % \addtocontents{toc}{\vspace{2ex}}    %   add some space after last part in TOC
+}
+
+
+
+%% Chapter without number, but included in header and TOC
+\NewDocumentCommand{\chapternotnumbered}{m}{
+    \chapter*{#1}
+    \markboth{#1}{#1}                   % use chapter title in header
+    \addcontentsline{toc}{chapter}{#1}  % include chapter in TOC
+}
+
+%%% Chapter and section formatting
+%% `clearempty` option removes page numbers from empty pages when using `\cleardoublepage`
+\usepackage[newparttoc, clearempty]{titlesec}
+
+%% NOTE: also include `\phantomsection` so that hyperlink anchors are properly placed
+%%         (or modern `\MakeLinkTarget`)          (even for non-numbered subsections)
+\titleformat{\section}   {\MakeLinkTarget[section]{}\Large\sffamily\bfseries}{\thesection}   {0.8em}{}
+\titleformat{\subsection}{\MakeLinkTarget[subsection]{}\large\sffamily\bfseries}{\thesubsection}{0.8em}{}
+\titleformat{\paragraph}[runin]{\MakeLinkTarget[paragraph]{}\normalsize\sffamily\bfseries}{\theparagraph}{0em}{}
+
+%% Part title (page) formatting
+\titleformat{\part}[display]
+{\thispagestyle{empty}\sffamily}
+{\LARGE \partname~\Romanbar{\thepart}}
+{0.2em}{\fontsize{30pt}{36pt}\selectfont\bfseries}
+
+%%% Chapter title formatting
+%% No extra space above and below chapter headings, big number/letter behind chapter title
+%% inspired by https://tex.stackexchange.com/a/690632
+\NewDocumentCommand{\chaphead}{s O{} m}{
+    \vspace*{-25pt}% reduce vertical space before the title
+    {\setlength{\parindent}{0pt}\raggedright
+        \Huge\sffamily\bfseries
+        \ifFANCY
+            \chapterheadingletter{#2}% fancy Chapter number/letter
+        \else
+            \IfBooleanF{#1}{#2\hspace{0.7em}}% just a basic Chapter number/letter
+        \fi
+        #3\par\nobreak% Chapter title
+        \vspace{20pt}% extra vertical space after the title
+    }
+}
+%% -> modifying /usr/share/texmf-dist/tex/latex/base/report.cls
+\def\@makechapterhead#1{\chaphead[\thechapter]{#1}}                % for numbered Chapters simply use their number
+\def\@makeschapterhead#1{\chaphead*[\ExtractLeadingChars{#1}]{#1}} % extract first letter of the unnumbered Chapter title
+
+%% Chapter number/letter formatting
+\NewDocumentCommand{\chapterheadingletter}{m}{%
+    \makebox[0pt][l]{%              Make box of zero width, don't move other stuff horizontally
+        \raisebox{-16pt}[0pt][0pt]{% Align the number vertically, don't move other stuff vertically
+            \hspace{0.55em}\color{ChapterNumberColor}% Horizontal whitespace, text color
+            \usefont{T1}{qzc}{m}{it}\fontsize{95pt}{95pt}\selectfont% Font type and size (TeX Gyre Chorus)
+            #1 % Chapter heading letter
+        }%
+    }%
+}
+%% Macro to extract first `#1` characters from `#2` (see https://tex.stackexchange.com/a/402840)
+%% TODO: latex treesitter grammar support ExplSyntaxOn/Off, command names containting also `_:`
+\ExplSyntaxOn
+\cs_generate_variant:Nn \tl_item:nn { f } % `f` argument -> full expansion to the first unexpandable token
+\NewDocumentCommand{\ExtractLeadingChars}{O{1} m}{
+    \tl_item:fn { #2 } { #1 }
+}
+\ExplSyntaxOff
+
+
+%% Table of Contents
+% \addtocontents{toc}{\vspace{-0.9em}}  % change space after "Contents" title in TOC
+\newcommand*{\contentsandlists}{
+    {\hypersetup{hidelinks}
+        \tableofcontents
+
+        %% Add list of structured environments
+        %%  -> see `keytheorems` package documentation for more customization
+        % \newcommand*{\listtheoremname}{List of Definitions, Remarks, \ldots}
+        % \cleardoublepage\MakeLinkTarget{}
+        % \currentpdfbookmark{\listtheoremname}{loe} % add PDF Index/Outline entry
+        % \listofkeytheorems[onlynamed, swapnumber, title=\listtheoremname]
+
+        %% Add list of figures and tables
+        %%  -> see `tocbibind` package (or maybe also `titletoc`)
+        % \listoffigures
+        % \listoftables
+    }
+}
+
+%%% TOC formatting
+\usepackage{titletoc}   % formatting of TOC entries
+\usepackage{tocbibind}  % more things in table of contents
+
+\setcounter{secnumdepth}{1} % subsections are not numbered (no need for *), but are included in the TOC
+\setcounter{tocdepth}{2}    % include subsections in toc, but not subsubsections (this is the default)
+\contentsmargin[0.6em]{2em} % margin for the page numbers in the TOC
+
+%% bold math for chapter titles in TOC, slightly bigger space between label and title
+%% BUG: pdfLaTeX with changed `\contentsmargin` does not properly align page numbers
+%%             (works properly when using absolute \contentsmargin, or with luaLaTeX)
+%% HACK: to obatain consistent placement of page numbers (bold or not), we need to toggle
+%%       off `\bfseries` with `\normalfont`, and only then apply it inside `\contentspage`
+\titlecontents{chapter}[1.6em]{\addvspace{2.4ex}\bfseries} % <section> <left> <above-code>
+{\contentslabel{1.4em}}{\hspace*{-1.4em}} % <numbered-entry-format> <numberless-entry-format>
+{\hfill\normalfont\contentspage[\bfseries\thecontentspage]} % <filler-page-format> <--- HACK
+
+%% prettier visual alignment of section label with chapter title
+\titlecontents{section}[4.0em]{} % <section> <left> <above-code>
+{\contentslabel{2.3em}}{\hspace*{-2.3em}} % <numbered-entry-format> <numberless-entry-format>
+{\textcolor{gray}{\titlerule*[9pt]{.}}\contentspage} % <filler-page-format>
+
+%% subsection entries in TOC are "inline" separated by a bullet
+\titlecontents*{subsection}[4.7em]{\footnotesize\color{Gray40}}  % <section> <left> <above-code>
+{}{}{~\thecontentspage} % <numbered-entry-format> <numberless-entry-format> <filler-page-format>
+[][\ \textbullet\ ][\hspace*{0.6em}\vspace{0.1em}]  % <begin> <separator> <end>
+
+%% part entries in TOC are centered, bigger, and without page number
+\titlecontents{part}[2em]{\addvspace{3ex}\filcenter} % centered part title
+{\small \partname~\thecontentslabel\\*[-0.2ex]\Large\bfseries}{\Large\bfseries}
+{}[\addvspace{1.0ex}] % without page number
+

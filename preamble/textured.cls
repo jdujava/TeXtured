@@ -86,6 +86,7 @@
 
 %% Preamble - data, packages, macros, and more
 \input{preamble/main}
+\RequirePackage{textured-layout}
 
 % \ClassError[textured]{<error-text>}{<help-text>}
 % \ClassWarning[textured]{<warning-text>}
