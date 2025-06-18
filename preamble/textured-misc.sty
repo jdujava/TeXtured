@@ -1,0 +1,164 @@
+\ProvidesPackage{textured-misc}
+
+
+%% Enclose with gray delimiters (by default parantheses)
+\NewDocumentCommand{\grayenclose}{s O{(} m O{)}}{%
+    \ifmmode
+        \let\colorcmd\mathcolor%
+        \DeclareCommandCopy{\Left}{\left}%
+        \DeclareCommandCopy{\Right}{\right}%
+    \else%
+        \let\colorcmd\textcolor%
+        \DeclareCommandCopy{\Left}{\big}%
+        \DeclareCommandCopy{\Right}{\big}%
+    \fi% (just use one command for both cases)
+    \IfBooleanTF{#1}{%
+        \colorcmd{gray}{\Left#2}#3\colorcmd{gray}{\Right#4}%
+    }{%
+        \colorcmd{gray}{#2}#3\colorcmd{gray}{#4}%
+    }%
+}
+
+
+%% Macros for - links to packages, and verbatim macros for LaTeX commands
+%%            - verbatim macros for commands defined specifically by TeXtured
+
+%% will also utilize styles defined in `/preamble/hacks/custom-reference-boxes.tex`
+\usepackage{tcolorbox}
+\tcbset{
+    packagebox/.style ={bottom=0.20ex, fontupper=\ttfamily},
+    filebox/.style ={colframe=black!70!cyan!35, colback=black!10!cyan!3, bottom=0.20ex, fontupper=\ttfamily},
+    dirbox/.style ={colframe=black!80!cyan!40, colback=black!60!cyan!8, bottom=0.20ex, fontupper=\ttfamily},
+    macrobox/.style ={colframe=black!15, colback=black!3, bottom=0.20ex, fontupper=\ttfamily},
+    custommacrobox/.style ={colframe=black!25!green!25, colback=black!5!green!5, bottom=0.20ex, fontupper=\ttfamily},
+}
+
+\NewTCBox{\packagebox}{!O{}}{link,hrefbox,packagebox,#1}
+\NewTCBox{\filebox}{!O{}}{link,filebox,#1}
+\NewTCBox{\dirbox}{!O{}}{link,dirbox,#1}
+\NewTCBox{\macrobox}{!O{}}{link,macrobox,#1}
+\NewTCBox{\custommacrobox}{!O{}}{link,custommacrobox,#1}
+
+\ifLINKBOXES\else
+\RenewDocumentCommand{\packagebox}{O{} m}{#2}
+\RenewDocumentCommand{\filebox}{O{} m}{#2}
+\RenewDocumentCommand{\dirbox}{O{} m}{#2}
+\RenewDocumentCommand{\macrobox}{O{} m}{#2}
+\RenewDocumentCommand{\custommacrobox}{O{} m}{#2}
+\fi
+
+\NewDocumentCommand{\package}{m}{%
+    % \href{https://texdoc.org/pkg/#1}
+    \hrefold{https://ctan.org/pkg/#1}{%
+        \packagebox[right=0.1em]{#1\textsuperscript{\tiny\(\,\to\,\)\textsf{CTAN}}}%
+    }%
+}
+\NewDocumentCommand{\fileTeXtured}{O{-\baselineskip} m}{
+    \marginpar{
+        \vspace{#1}
+        \hspace{-\marginparsep}%
+        \llap{%
+            \filebox{#2}%
+        }%
+    }
+}
+\NewDocumentCommand{\dirTeXtured}{O{-1.5\baselineskip} m}{
+    \marginpar{
+        \vspace{#1}
+        \hspace{-\marginparsep}%
+        \llap{%
+            \dirbox{#2}%
+        }%
+    }
+}
+
+\NewDocumentCommand{\macro}{O{}v}{\macrobox[#1]{#2}}
+\NewDocumentCommand{\fakemacro}{O{}m}{\macrobox[#1]{\fakeverb{#2}}}
+\NewDocumentCommand{\custommacro}{O{}v}{\custommacrobox[#1]{#2}}
+\NewDocumentCommand{\fakecustommacro}{O{}m}{\custommacrobox[#1]{\fakeverb{#2}}}
+
+
+
+%%% TikZ, and other drawing packages
+
+\usepackage{tikz}
+\usetikzlibrary{
+    fadings,
+    arrows.meta,
+    calc,
+    cd,
+    decorations.pathmorphing, decorations.markings,
+    trees,
+    fit, matrix,
+}
+
+%% Directory Tree Structure
+\tikzset{
+    dirtree/.style={ % http://www.texample.net/tikz/examples/filesystem-tree/
+        draw=black!80!cyan!40, thick, rounded corners=0.2em,
+        growth parent anchor=west,
+        grow via three points={one child at (1.0,-0.78) and
+            two children at (1.0,-0.78) and (1.0,-1.56)},
+        edge from parent path={([xshift=1.2em]\tikzparentnode.south west) |- (\tikzchildnode.west)},
+        every node/.style={text=black, anchor=west, inner sep=0.7ex, draw=black!70!cyan!35, fill=black!10!cyan!3, text depth=.25ex, execute at begin node=\vphantom{Aj}},
+        directory/.style={draw=black!80!cyan!40, fill=black!60!cyan!8},
+        font=\ttfamily,
+    },
+}
+
+%%% Quiver macros (for https://q.uiver.app/ diagrams)
+%% A TikZ style for curved arrows of a fixed height, due to AndréC.
+\tikzset{curve/.style={settings={#1},to path={(\tikztostart)
+    .. controls ($(\tikztostart)!\pv{pos}!(\tikztotarget)!\pv{height}!270:(\tikztotarget)$)
+    and ($(\tikztostart)!1-\pv{pos}!(\tikztotarget)!\pv{height}!270:(\tikztotarget)$)
+    .. (\tikztotarget)\tikztonodes}},
+    settings/.code={\tikzset{quiver/.cd,#1}
+        \def\pv##1{\pgfkeysvalueof{/tikz/quiver/##1}}},
+    quiver/.cd,pos/.initial=0.35,height/.initial=0}
+
+%% TikZ arrowhead/tail styles.
+\tikzset{tail reversed/.code={\pgfsetarrowsstart{tikzcd to}}}
+\tikzset{2tail/.code={\pgfsetarrowsstart{Implies[reversed]}}}
+\tikzset{2tail reversed/.code={\pgfsetarrowsstart{Implies}}}
+%% TikZ arrow styles.
+\tikzset{no body/.style={/tikz/dash pattern=on 0 off 1mm}}
+
+%% Custom equal sign style - https://tex.stackexchange.com/a/443023
+\tikzset{
+    double line with arrow/.style args={#1,#2}{decorate,decoration={
+        markings,%
+        mark=at position 0 with {
+            \coordinate (ta-base-1) at (0,1.2pt);
+            \coordinate (ta-base-2) at (0,-1.2pt);
+        },
+        mark=at position 1 with {
+            \draw[#1] (ta-base-1) -- (0,1.2pt);
+            \draw[#2] (ta-base-2) -- (0,-1.2pt);
+        }
+    }},
+    Equal/.style args={#1}{-,double line with arrow={{-,#1},{-,#1}}},
+}
+
+
+
+
+
+%% Inkscape figures
+%% https://mirrors.nic.cz/tex-archive/info/svg-inkscape/InkscapePDFLaTeX.pdf
+%% this is (and a lot more) already implemented in `svg` package, but no reason to use it
+%% TODO: disable this for ArXiv submission (probably just leaving SVGs out will work fine)
+\usepackage{shellesc}
+\usepackage{filemod}
+\NewDocumentCommand{\exportInkscapeSVG}{O{./figures/Inkscape/} m}{%
+    \filemodCmp{#1#2.pdf}{#1#2.svg}{}{% regenerate PDF+LaTeX code if SVG is newer
+        \ClassNote{TeXtured}{(Re)generating Inkscape SVG to PDF+LaTeX figure:\MessageBreak #1#2.svg}%
+        \ShellEscape{#1inkscape-export-to-latex "#1#2"}% use `inkscape-export-to-latex` script in the same directory
+    }%
+}
+%% the third argument is the name of the SVG file without the extension
+\NewDocumentCommand{\includeInkscapeSVG}{O{0.8\linewidth} O{./figures/Inkscape/} m}{%
+    \exportInkscapeSVG[#2]{#3}%
+    \def\svgwidth{#1}% set the width of the figure
+    \input{#2#3.pdf_tex}%
+}
+\DeclareCommandCopy{\includesvg}{\includeInkscapeSVG} % alias

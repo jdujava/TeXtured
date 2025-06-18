@@ -87,6 +87,7 @@
 %% Preamble - data, packages, macros, and more
 \RequirePackage{textured-debug}
 \RequirePackage{textured-general}
+\RequirePackage{textured-misc}
 \input{preamble/main}
 \RequirePackage{textured-layout}
 \RequirePackage{textured-envs}
