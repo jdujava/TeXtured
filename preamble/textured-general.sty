@@ -1,0 +1,224 @@
+\ProvidesPackage{textured-general}
+
+
+%% Colors
+\usepackage[rgb,table]{xcolor} % color facilities
+
+%% TODO: slightly darker gray color for "optional" words
+\definecolor{ChapterNumberColor}{gray}{0.88}
+\definecolor{HeaderColor}{gray}{0.35}
+\definecolor{HeaderRuleColor}{gray}{0.75}
+\definecolor{UrlColor}{RGB}{255,127,100}
+\definecolor{CiteColor}{RGB}{127,230,252}
+
+\definecolor{Gray10}{gray}{0.1}
+\definecolor{Gray20}{gray}{0.2}
+\definecolor{Gray30}{gray}{0.3}
+\definecolor{Gray40}{gray}{0.4}
+\definecolor{Gray50}{gray}{0.5}
+\definecolor{Gray60}{gray}{0.6}
+\definecolor{Gray70}{gray}{0.7}
+\definecolor{Gray80}{gray}{0.8}
+\definecolor{Gray90}{gray}{0.9}
+
+\definecolor{LightGrayFill}{gray}{0.97}
+
+
+%%% Typesetting, figures, tables, etc.
+
+\ifpdftex % only for pdfLaTeX
+    \usepackage[T1]{fontenc} % better support for accented characters
+\fi
+\usepackage{lmodern}  % Latin Modern fonts
+\usepackage{romanbar} % Roman numerals with bars, provides `\Romanbar{...}`
+
+%% slightly more breathing space between lines
+\linespread{1.05}\selectfont
+
+%% Commands for accessing extra Latin Modern fonts
+%%     - `sbc` - sans bold condensed
+%%     - `sfe` - sans serif extended (font family `lmssq` for "Latin Modern Sans Serif Quotation")
+%% https://www.tug.org/pracjourn/2006-1/robertson/robertson.pdf
+\newcommand*{\sbcseries}{\sffamily\fontseries{sbc}\selectfont}
+\newcommand*{\sfefamily}{\fontfamily{lmssq}\selectfont}
+\DeclareTextFontCommand{\textsbc}{\sbcseries}
+\DeclareTextFontCommand{\textsfe}{\sfefamily}
+
+%% use slanted shape for emphasis `\emph{...}`, and for nested emphasis use italics
+\DeclareEmphSequence{\slshape,\itshape}
+
+\usepackage{microtype}           % improve typography
+\DisableLigatures[-]{family=tt*} % disable ligatures in typewriter font
+\usepackage{parskip}             % no paragraph indentation
+\usepackage{csquotes}            % context-sensitive quotation facilities
+
+%% Enumerate/itemize environments
+\usepackage[alwaysadjust,neverdecrease]{paralist}   % improved enumerate and itemize
+\setdefaultleftmargin{1.87em}{1.7em}{1.5em}{1em}{1em}{1em}
+\setdefaultitem{$\bullet$}{\textbullet}{\textasteriskcentered}{\textperiodcentered}
+\setdefaultenum{\bfseries (1)}{\bfseries (a)}{\bfseries (i)}{A.}
+
+
+%% Configuration of figures, tables, captions, ...
+
+%% Use same numbering for figures, tables, and equations
+\makeatletter
+\let\c@figure\c@table
+\let\c@equation\c@table
+\makeatother
+
+%%% Graphics
+\usepackage{graphicx}   % embedding of pictures
+\graphicspath{          % default paths to figures
+    {./figures/}
+    {./figures/Inkscape/}
+    {./frontmatter/img/}
+}
+%% Macro for appending to the graphics path
+\ExplSyntaxOn
+\NewDocumentCommand{\appendtographicspath}{m}{
+    \tl_if_exist:cF { Ginput@path } { \tl_new:c { Ginput@path } }
+    \tl_gput_right:cn { Ginput@path } { #1 }
+}
+\ExplSyntaxOff
+
+%%% Tables
+\usepackage{adjustbox}      % center big tables
+\usepackage{array}          % custom column types in tables
+\usepackage{booktabs}       % improved horizontal lines in tables
+
+%% Increase default vertical space between rows in tables (default is 1.0)
+\renewcommand*{\arraystretch}{1.1}
+
+\IfPackageAtLeastTF{xcolor}{2024-09-29}{}{
+    %% HACK: `ninecolors` is needed for `tabularray`, but fails to load with rgb color
+    %%       model (before 2024/09/29) -> see https://tex.stackexchange.com/a/614702
+    \selectcolormodel{natural}  % temporarily switch to natural color model
+    \usepackage{ninecolors}     % now we can load `ninecolors` package
+    \selectcolormodel{rgb}      % switch back to RGB color model
+}
+
+\usepackage{tabularray}     % advanced LaTeX tables
+\usepackage{codehigh}       % verbatim in tables (with `\fakeverb` macro)
+\UseTblrLibrary{amsmath, booktabs, siunitx} % load libraries for `tabularray`
+
+
+%% Does \centering automatically, provides side captions (`\fcapside`) and much more
+%% Inspired by https://collaborating.tuhh.de/m21/public/theses/itt-latex-template
+\usepackage{floatrow}
+\floatsetup{ % for all floats
+    footnoterule = none,
+    footposition = bottom,
+}
+\floatsetup[figure]{
+    capbesideposition = right,
+    capbesidesep = quad,
+}
+
+%% If you want to position the caption above the figure, use the following
+% \floatsetup[table]{
+%     style = plaintop, % caption always above, no matter where \caption is called
+% }
+
+%% Set caption width to be the same as the table width
+% \floatsetup[longtable]{LTcapwidth=table} % https://tex.stackexchange.com/a/345772/120853
+
+\usepackage{caption}    % customizing captions in floating environments
+\usepackage{subcaption}
+
+% \DeclareCaptionLabelSeparator{slash}{~/~} % `␣/␣` between label and caption
+\DeclareCaptionLabelSeparator{slash}{\hspace{0.25em}/\hspace{0.25em}} % `␣/␣` between label and caption
+\captionsetup{
+    format        = plain,  % no hanging indent
+    indention     = 0.6em,  % but still slightly indent the caption
+    % format        = hang,   % alternative: hanging indent
+    font          = small,
+    labelfont     = {sf,bf},
+    labelsep      = slash,
+    labelformat   = simple,
+    tableposition = bottom,
+    parskip       = .3\baselineskip plus 1pt,
+}
+
+\makeatletter
+% Make this new length and indent, same length as regular caption indent:
+\newlength{\floatfootruleindent}
+\setlength{\floatfootruleindent}{\caption@indent}% Set the new length
+% A bit hacky; introduce a rule underneath caption if \floatfoot is called:
+\renewcommand*{\floatfootskip}{2pt\color{Gray50}\hspace{\floatfootruleindent}\hrulefill}%
+\makeatother
+
+\DeclareCaptionFont{ftfont}{%
+    \scriptsize%
+    \color{Gray60}%
+    \sffamily\raggedleft%
+}
+\captionsetup[floatfoot]{
+    footfont=ftfont, % https://tex.stackexchange.com/q/9547/120853
+}
+
+%%% You can change the justification of all side-captions here
+% \captionsetup[capbesidefigure]{
+%     % When using sidecaptions, the linewidth can be rather small and awkward breaks and
+%     % many underfull hboxes occur. Therefore, raggedright.
+%     justification=raggedright,
+% }
+%
+% \captionsetup[subfigure]{%
+%     labelformat=simple,% 'parens' uses parantheses, 'brace' just the right one
+%     labelsep=slash,%
+%     labelfont={sf,bf},%
+%     list=off,% list=off removes subfigures from LoF
+% }%
+%
+% \captionsetup[subtable]{%
+%     labelformat=simple,% 'parens' uses parantheses, 'brace' just the right one
+%     labelsep=slash,%
+%     labelfont={sf,bf},%
+%     list=off,% list=off removes subfigures from LoF
+% }%
+
+%% Change counter from Arabic number to letter:
+\renewcommand*{\theContinuedFloat}{\alph{ContinuedFloat}}
+
+
+
+%% Hyperlinks, PDF metadata
+\usepackage[allowmove]{url}
+\usepackage{hyperref}   % clickable links and metadata
+\usepackage{bookmark}   % more control over PDF bookmarks
+
+\usepackage{zref-titleref}
+\usepackage{zref-clever}
+\zcsetup{
+    cap,     % capitalize the first letter of the reference type name
+    noabbrev % do not use abbreviations
+}
+
+\hypersetup{
+    linktoc = all,         % whole entry in TOC is clickable link
+    colorlinks = true,     % color links/references (if not using boxed variants provided by \Cref{...})
+    urlcolor = [rgb]{0.82,0.25,0.08}, % tweak the default URL color
+    pdfborder = {0 0 0},   % to disable borders/frames around links (even when colorlinks=false)
+    pdflinkmargin = 1.0pt, % extra link area around the text box (default 1pt)
+    pdfdisplaydoctitle,    % https://tex.stackexchange.com/a/435434/120853
+}
+\makeatletter
+\AtBeginDocument{%
+    \hypersetup{ % PDF metadata
+        pdfauthor   = {\textured@authorPlaintext},
+        pdftitle    = {\textured@titlePlaintext},
+        pdfsubject  = {\textured@subject},
+        pdfkeywords = {\textured@keywordsPlaintext},
+        pdfcreator  = {LaTeX with hyperref, and biblatex/biber},
+    }
+}
+\makeatother
+\bookmarksetup{
+    numbered, % include chapter/section numbers in PDF outline
+    open, openlevel=1, % expand bookmarks to level 1 (chapters)
+}
+
+
+%% NOTE: look of references, hyperlinks, and citations is customized
+%%       mainly in `preamble/hacks/custom-reference-boxes.tex`
