@@ -73,6 +73,9 @@
 }
 \ProcessKeyOptions
 
+%% add glyph-to-Unicode mappings for PDF/A compliance
+\input{preamble/pdfA-compliance/glyphtounicode}
+
 \if@textured@twosided
     \PassOptionsToClass{openright,twoside}{report}
 \fi
