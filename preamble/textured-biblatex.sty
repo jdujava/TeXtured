@@ -1,0 +1,264 @@
+\ProvidesPackage{textured-biblatex}
+
+%%% References/Bibliography
+\usepackage[
+    style=ext-numeric-verb, sorting=none,
+    date=year, articlein=false, isbn=false,
+    maxnames=16, maxcitenames=4,
+    backref=true, backrefstyle=none,
+    datamodel=preamble/references/biblatex-extra-fields,
+]{biblatex}
+
+%% Custom bibliography fields can be added in `preamble/references/biblatex-extra-fields.dbx`
+%% see for example explanation in https://suchicodes.com/resources/blog/65a59395
+
+%% Add bibliography resource
+\addbibresource{preamble/bibliography.bib}
+
+\newcommand*{\references}{
+    \defbibheading{bibintoclabel}[\bibname]{%
+        \chapter*{##1}%
+        \label{ch:References}%
+        \addcontentsline{toc}{chapter}{##1}%
+        \markboth{##1}{##1}%
+    }
+    \defbibnote{note}{%
+        % \vspace{-3em}
+        \begin{flushright}
+            \footnotesize
+            % Asterisk in [\textcolor{black!35}{Author(s) Year}*] and (\textcolor{black!35}{Year}*) marks a secondary source/review article. \\
+            % Asterisk in \texttt{[\({\mspace{1mu}\color{black!30}\bullet}\)*]} marks a secondary source/review article. \\
+            Back-references to the pages where the publication was cited are given by \pagebox{\(\color{black!60}\bullet\)}.
+        \end{flushright}
+        \vspace{0.4em}
+    }
+    % \emergencystretch=1em % prevent some of the overfull hboxes
+    % \hyphenpenalty 100 % try to prevent (some) hyphenation
+    % \printbibliography[heading=bibintoc, title=References]
+    \printbibliography[heading=bibintoclabel, title=References, prenote=note]
+}
+
+
+%%% Custom categories
+%% `todo` category for references to be added (marked with red)
+\DeclareBibliographyCategory{todo}
+\addtocategory{todo}{TODO}
+
+%% `secondary` category for secondary sources (will be marked with `*`)
+\DeclareBibliographyCategory{secondary}
+%% add secondary citations to this category 
+\addtocategory{secondary}{secondary_review}
+
+
+%%% Modification of fields in References/Bibliography
+
+%% if DOI is present, remove URL
+%% ignore certain fields completely
+%% set year to current year if title is TODO
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+        \map[overwrite]{
+            \step[fieldsource=doi, final]  % if DOI is not present, terminate
+            \step[fieldset=url, null]      % (if DOI is present) remove URL
+            % \step[fieldset=eprint, null]
+        }
+        \map{
+            \step[fieldset=pages, null]
+            \step[fieldset=number, null]
+            \step[fieldset=volume, null]
+            \step[fieldset=series, null]
+            \step[fieldset=location, null]
+            \step[fieldset=address, null]
+        }
+        \map{
+            \step[fieldsource=title, match={TODO}, final] % match TODO in title
+            \step[fieldset=year, fieldvalue={\the\year}]  % set year to current year
+        }
+    }
+}
+
+%% Custom localisation strings
+\DeclareCapitalPunctuation{} % disable automatic capitalization of localisation strings
+\NewBibliographyString{arxiv, github, gitlab} % define new localisation strings
+\DefineBibliographyStrings{english}{
+    url = {{}\textsc{url}},     % included `{}` to avoid automatic capitalization, see
+    arxiv = {{}\textsc{arXiv}}, % https://tex.stackexchange.com/a/472547 for more details
+    github = {\textsc{GitHub}},
+    gitlab = {\textsc{GitLab}},
+    in = {\footnotesize\textsc{In}},
+    % in = {},
+    editor = {editor},
+    editors = {editors},
+}
+
+%% smaller space after "in:"
+\renewcommand*{\intitlepunct}{{\footnotesize\addcolon\,}}
+% \renewcommand*{\intitlepunct}{\addcolon\space}
+
+%% TODO: PhD or Ph.D.?
+
+
+
+%% Modification of `cite` command -> wrap whole citation with a `tcolorbox` frame
+%%% Wrap whole citation with braces in a `\citebox` frame, the whole being clickable link
+
+% \DeclareOuterCiteDelims{cite}{\bibopenbracket}{\bibclosebracket}
+\DeclareOuterCiteDelims{cite}{}{} % disable default outer delimiters
+
+%% modifying /usr/share/texmf-dist/tex/latex/biblatex/cbx/numeric-verb.cbx
+%% loaded subsequently in /usr/share/texmf-dist/tex/latex/biblatex-ext/ext-numeric-verb.cbx
+\renewbibmacro*{cite}{%
+    \printtext[bibhyperref]{%
+        \citebox{%    <---- wrap the whole citation with a `tcolorbox` frame
+            %% turn postnote into custom prenote
+            \iffieldundef{postnote}{}{{\normalfont\hspace{0.18em}\printfield{postnote}\hspace{0.15em}}}%
+            \lbrack%  <---- always consistently use brackets
+            \printfield{labelprefix}%
+            \printfield{labelnumber}%
+            \ifbool{bbx:subentry}{\printfield{entrysetcount}}{}%
+            \rbrack%  <---- always consistently use brackets
+        }%
+    }%
+}
+
+%% do not put commas between multiple citations when using `\cite{something,something}`
+\renewcommand*{\multicitedelim}{\space}
+% \renewcommand*{\multicitedelim}{\addsemicolon\space}
+
+%% disable default postnote
+\renewbibmacro*{postnote}{%
+    % \iffieldundef{postnote}
+    % {}
+    % {\setunit{\printdelim{postnotedelim}}%
+    %     \printfield{postnote}}
+}
+
+%%% Alternative style of multicitations
+% \renewcommand*{\multicitedelim}{\addcomma} % no space between multiple citations, just a comma
+%
+% %% wrap the citation commands in a `\citebox`
+% \NewCommandCopy{\autociteOrig}{\autocite}
+% \NewCommandCopy{\citeOrig}    {\cite}
+% \RenewDocumentCommand{\autocite}{O{} O{} m}{\citebox{\autociteOrig[#1][#2]{#3}}}
+% \RenewDocumentCommand{\cite}    {O{} O{} m}{\citebox{\citeOrig[#1][#2]{#3}}}
+
+
+
+%%% References style tweaks
+
+%% separation modifications
+\setlength\bibitemsep{0.53\baselineskip}
+\setlength\biblabelsep{1.5\labelsep}
+
+%% label number always in brackets with monospaced font
+%% -> modifying /usr/share/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+\DeclareFieldFormat{labelnumberwidth}{\ttfamily\mkbibbrackets{#1}}
+% \DeclareFieldFormat{labelnumberwidth}{\citebox{\mkbibbrackets{#1}}}
+
+%% red color for `todo` category
+%% asterisk in labelnumber for secondary sources (in `secondary` category)
+\DeclareFieldFormat{labelnumber}{%
+    \ifcategory{todo}{\color{red}\(\sbullet[1.2]\)}{#1}%
+    \ifcategory{secondary}{*}{}%
+}
+
+%% names in "small caps"
+% \DeclareNameWrapperFormat*{author}{\textsc{#1}}
+
+%% type "editor(s)" in parentheses
+\DeclareFieldFormat{editortype}{\mkbibparens{#1}}
+\DeclareDelimFormat{editortypedelim}{\addspace}
+
+%% titles in sans (with red for `todo` category)
+\DeclareFieldFormat*{title}{\sffamily\ifcategory{todo}{\textcolor{red}{#1}}{#1}}
+
+%% punctuation between title and subtitle
+\renewcommand*{\subtitlepunct}{\space{\normalfont\textbullet}\space}
+
+%% emphasize publishers (same as journals in IEEE style)
+% \DeclareListFormat{publisher}{\mkbibemph{#1}}
+
+%% emphasize journals and publishers, in dark gray color
+% \DeclareListFormat{publisher}{\mkbibemph{\textcolor{darkgray}{#1}}}
+% \DeclareFieldFormat{journaltitle}{\mkbibemph{\textcolor{darkgray}{#1}}}
+% \DeclareFieldFormat{booktitle}{\mkbibemph{\textcolor{darkgray}{#1}}}
+
+%% date in bold (without parentheses)
+\DeclareFieldFormat{issuedate}{#1}
+\renewcommand*{\volnumdatedelim}{\addcomma\space}
+\DeclareFieldFormat*{date}{\mkbibbold{#1}}
+% \DeclareFieldFormat*{date}{\ifcategory{secondary}{\mkbibbold{#1}*}{\mkbibbold{#1}}}
+% \DeclareFieldFormat{biblabeldate}{\mkbibparens{\mkbibbold{#1}}}
+
+
+
+%% Customize DOI/arXiv/GitHub/URL formatting
+%% add format for `github`/`gitlab` field
+\DeclareFieldFormat*{github}{%
+    \bibstring{github}\addcolon\space%
+    \ifhyperref{\href{https://github.com/#1}{\nolinkurl{#1}}}{\nolinkurl{#1}}%
+}
+\DeclareFieldFormat*{gitlab}{%
+    \bibstring{gitlab}\addcolon\space%
+    \ifhyperref{\href{https://gitlab.com/#1}{\nolinkurl{#1}}}{\nolinkurl{#1}}%
+}
+
+%% put DOI/arXiv/GitHub/URL on a new line
+%% support also `github` field
+%%  -> changed from /usr/share/texmf-dist/tex/latex/biblatex-ext/ext-standard.bbx
+\renewbibmacro*{doi+eprint+url}{%
+    \setlength{\parskip}{0pt} % fix spacing of \fullcite in the body text of the document
+    \printtext{\par} % doi+eprint+url are printed on a new line
+    \footnotesize    % make it small, so it (ideally) fits on one line
+    \raggedright     % right-align the text (so that there are no overfull hboxes for long URLs)
+    \renewcommand{\newunitpunct}{\space}                  % no periods on this line
+    \renewcommand{\newblockpunct}{\penalty-9\relax\space} % avoid line breaks after labels "DOI:", "arXiv:", ...
+    \ifboolexpr{togl {bbx:doi} and not test {\iffieldxref{doi}}}{\printfield{doi}}{}%
+    \newunit\newblock
+    \ifboolexpr{togl {bbx:eprint} and not test {\iffieldxref{eprint}}}{\usebibmacro{eprint}}{}%
+    \newunit\newblock
+    \ifboolexpr{not test {\iffieldxref{github}}}{\printfield{github}}{}% <--- added print of `github` field
+    \newunit\newblock
+    \ifboolexpr{not test {\iffieldxref{gitlab}}}{\printfield{gitlab}}{}% <--- added print of `gitlab` field
+    \newunit\newblock
+    \ifboolexpr{togl {bbx:url} and not test {\iffieldxref{url}}}{\usebibmacro{url+urldate}}{}
+}
+
+%% print arXiv via \bibstring{arxiv}
+%%  -> changed from /usr/share/texmf-dist/tex/latex/biblatex/biblatex.def
+\DeclareFieldFormat*{eprint:arxiv}{%
+    \bibstring{arxiv}\addcolon\space % <--- added \bibstring{arxiv}
+    \ifhyperref
+    {\href{https://arxiv.org/abs/#1}{%
+            \nolinkurl{#1}%
+            \iffieldundef{eprintclass}
+            {}
+            {\addspace\texttt{\mkbibbrackets{\thefield{eprintclass}}}}}}
+    {\nolinkurl{#1}%
+        \iffieldundef{eprintclass}
+        {}
+        {\addspace\texttt{\mkbibbrackets{\thefield{eprintclass}}}}}}
+
+
+
+%% Custom backreferences
+%%% Custom `backref`
+%% https://tex.stackexchange.com/questions/272159/biblatex-change-format-of-backreference
+%% https://tex.stackexchange.com/questions/76133/bibliography-backref-on-new-line-with-smaller-font-size
+%% https://tex.stackexchange.com/questions/91548/bump-right-aligned-text-to-next-line-iff-no-room
+%% -> changed from /usr/share/texmf-dist/tex/latex/biblatex/biblatex.def
+\renewcommand*{\finentrypunct}{}
+\DeclareFieldFormat{pagerefformat}{
+    \nobreak\hfill\penalty50\hskip0.3em\null\nobreak
+    % \hfill\mkbibparens{{\scriptsize #1}}\normalsize
+    \hfill\scriptsize{#1}\normalsize%
+    \parfillskip=0pt \finalhyphendemerits=0 \par
+}
+\renewbibmacro*{pageref}{%
+    \iflistundef{pageref}
+    {}
+    {\printtext[pagerefformat]{% use custom format
+            \printlist[pageref][-\value{listtotal}]{pageref}}}}%
+
+%% NOTE: the `hyperlink` command in `pageref` formatting is tweaked
+%%         in `preamble/custom-reference-boxes.tex`
