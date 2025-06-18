@@ -1,5 +1,6 @@
 \pdfbookmark{Title Page}{titlepage} % add PDF outline entry
 \thispagestyle{empty} % no number on the title page
+\makeatletter
 \begin{center}
     \begin{adjustbox}{center,trim=0 0.2cm 4cm 0.2cm}
         \includegraphics[width=1.4\textwidth]{MFF-logo.pdf}
@@ -11,24 +12,22 @@
     \vfill
 
     {\ifFANCY\sffamily\Huge\else\bfseries\LARGE\fi
-        \MakeUppercase{\ThesisType} THESIS}
+        \MakeUppercase{\textured@thesisType}~THESIS}
 
     \vfill
 
     {\Huge
-        \ThesisAuthor}
+        \textured@author}
 
     \vspace{1em}
 
-    %% if `\ThesisTitleFront` is not defined, use `\ThesisTitle`
-    \providecommand*{\ThesisTitleFront}{\ThesisTitle}
-    % {\Huge \bfseries \ThesisTitleFront \par}
+    % {\Huge \bfseries \textured@titleFront \par}
     {\fontsize{30pt}{36pt}\selectfont \bfseries
-        \ThesisTitleFront \par}
+        \textured@titleFront \par}
 
     \vfill
 
-    \Department
+    \textured@department
 
     \vspace{1.1em}
 
@@ -36,26 +35,27 @@
         \large
         \renewcommand{\arraystretch}{1.2}
         \begin{tabular}{>{\sffamily\color{Gray40}}r @{\hspace{1.0em}} l}
-            Supervisor of the Thesis    & \Supervisor     \\
-            \ifdef{\CoSupervisor}{%
-            Co-Supervisor of the Thesis & \CoSupervisor   \\
-            }{}
-            \ifdef{\StudyProgramme}{% TODO: programme vs program?
-            Study Programme             & \StudyProgramme \\
-            }{}
+            Supervisor of the Thesis    & \textured@supervisor     \\
+            \ifx\textured@coSupervisor\empty\else
+            Co-Supervisor of the Thesis & \textured@coSupervisor   \\
+            \fi
+            \ifx\textured@studyProgramme\empty\else % TODO: programme vs program?
+            Study Programme             & \textured@studyProgramme \\
+            \fi
         \end{tabular}
     \end{center}
 
     \vspace{2em}
 
     \ifFANCY\sffamily\fi
-    Prague \YearSubmitted \\
-    \ifdef{\YearRevision}{%
-        \emph{Revised version \YearRevision} \par
-    }{}
+    Prague \textured@yearSubmitted \\
+    \ifx\textured@yearRevision\empty\else
+        \emph{Revised version \textured@yearRevision} \par
+    \fi
     \ifWIP
         \small\ttfamily \textcolor{red}{(Draft - \today)} \par
     \fi
 \end{center}
 
+\makeatother
 \newpage

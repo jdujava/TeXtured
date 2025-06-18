@@ -17,7 +17,30 @@
     % noFANCY,   % disable some of the more fancy stylistic choices
     % twosided,  % choose the two-sided layout (for printing)
 }{textured}
+
 \documentclass[12pt,a4paper]{preamble/textured}
+
+% Setup document data
+\newcommand*{\fillthisin}[1]{\textcolor{red}{#1}} % placeholder for required fields
+\SetKeys[textured]{
+    thesistype={master},
+    title={\TeXtured{} Manual},
+    titleplaintext={TeXtured Manual \TeXturedVERSION},
+    titlefront={\TeXtured{} Manual \\{\Huge\color{gray}\TeXturedVERSION}},
+    author={\fillthisin{Author's Name}},
+    authorplaintext={Author's Name},
+    yearsubmitted={\the\year},
+    department={\fillthisin{Name of the Department/Institute}},
+    depttype={Institute}, % Department (katedra), or an Institute (ústav)
+    supervisor={\fillthisin{Prof.~Name Surname}},
+    supervisorsdepartment={\fillthisin{Supervisor's Department/Institute}},
+    % cosupervisor={Co-Supervisor's Name},
+    studyprogramme={\fillthisin{Study Programme}},
+    abstract={\fillthisin{Write abstract here.}},
+    subject={Write subject here.},
+    keywords={\fillthisin{Manual, Demo, Draft, WIP}},
+    keywordsplaintext={Manual, Demo, Draft, WIP},
+}
 
 %% Only uncommented files are included (faster compilation)
 %% NOTE: If no files are uncommented, all files are included
@@ -41,9 +64,9 @@
 
 \frontmatter
 \include{frontmatter/title}
-% \include{frontmatter/declaration}
-% \include{frontmatter/dedication}
-% \include{frontmatter/information}
+\include{frontmatter/declaration}
+\include{frontmatter/dedication}
+\include{frontmatter/information}
 
 \contentsandlists
 

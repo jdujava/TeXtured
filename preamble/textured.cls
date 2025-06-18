@@ -47,24 +47,25 @@
     keywords.store = \textured@keywords,
     keywordsplaintext.store = \textured@keywordsPlaintext,
 }
-\newcommand*{\fillthisin}[1]{\textcolor{red}{#1}} % placeholder for required fields
 \SetKeys{
     thesistype={master},
-    title={\TeXtured{} Manual},
-    titleplaintext={TeXtured Manual \TeXturedVERSION},
-    titlefront={\ThesisTitle \\{\Huge\color{gray}\TeXturedVERSION}},
-    author={\fillthisin{Author's Name}},
-    authorplaintext={Author's Name},
-    yearsubmitted={\year},
-    department={\fillthisin{Name of the Department/Institute}},
-    depttype={Institute}, % Department (katedra), or an Institute (ústav)
-    supervisor={\fillthisin{Prof.~Name Surname}},
-    supervisorsdepartment={\fillthisin{Supervisor's Department/Institute}},
-    studyprogramme={\fillthisin{Study Programme}},
-    abstract={\fillthisin{Write abstract here.}},
-    subject={\fillthisin{Write subject here.}},
-    keywords={\fillthisin{Manual, Demo, Draft, WIP}},
-    keywordsplaintext={Manual, Demo, Draft, WIP},
+    title={Title},
+    titleplaintext=\textured@title,
+    titlefront=\textured@title,
+    author={Author},
+    authorplaintext=\textured@author,
+    yearsubmitted={\the\year},
+    % yearrevision=\empty,
+    department={Department/Institute},
+    depttype={Department/Institute},
+    supervisor={Supervisor},
+    % cosupervisor=\empty,
+    supervisorsdepartment={Supervisor's Department/Institute},
+    studyprogramme={Study Programme},
+    abstract={Abstract},
+    subject={Subject},
+    keywords={Keywords},
+    keywordsplaintext=\textured@keywords,
 }
 
 \DeclareUnknownKeyHandler{%

@@ -10,11 +10,6 @@
     noabbrev % do not use abbreviations
 }
 
-%% Fallbacks for PDF metadata commands
-\providecommand*{\ThesisAuthorPlaintext}{\ThesisAuthor}
-\providecommand*{\ThesisTitlePlaintext}{\ThesisTitle}
-\providecommand*{\KeywordsPlaintext}{\Keywords}
-
 \hypersetup{
     linktoc = all,         % whole entry in TOC is clickable link
     colorlinks = true,     % color links/references (if not using boxed variants provided by \Cref{...})
@@ -23,13 +18,17 @@
     pdflinkmargin = 1.0pt, % extra link area around the text box (default 1pt)
     pdfdisplaydoctitle,    % https://tex.stackexchange.com/a/435434/120853
 }
-\hypersetup{ % PDF metadata
-    pdfauthor   = {\ThesisAuthorPlaintext},
-    pdftitle    = {\ThesisTitlePlaintext},
-    pdfsubject  = {\Subject},
-    pdfkeywords = {\KeywordsPlaintext},
-    pdfcreator  = {LaTeX with hyperref, and biblatex/biber},
+\makeatletter
+\AtBeginDocument{%
+    \hypersetup{ % PDF metadata
+        pdfauthor   = {\textured@authorPlaintext},
+        pdftitle    = {\textured@titlePlaintext},
+        pdfsubject  = {\textured@subject},
+        pdfkeywords = {\textured@keywordsPlaintext},
+        pdfcreator  = {LaTeX with hyperref, and biblatex/biber},
+    }
 }
+\makeatother
 \bookmarksetup{
     numbered, % include chapter/section numbers in PDF outline
     open, openlevel=1, % expand bookmarks to level 1 (chapters)

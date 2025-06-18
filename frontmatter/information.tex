@@ -13,19 +13,20 @@
 
 \subsection*{Information}
 
+\makeatletter
 \begin{tblr}{
         colspec = {r X},
         column{1} = {font=\small\sffamily\color{Gray40}},
         column{2} = {font=\small},
     }
-    Title       & \ThesisTitle                             \\
-    Author      & \ThesisAuthor                            \\
-    \DeptType{} & \Department                              \\
-    Supervisor  & \Supervisor{} --- \SupervisorsDepartment \\
-    % Abstract    & \Abstract                                \\
-    Keywords    & \Keywords                                \\
+    Title                & \textured@title                                            \\
+    Author               & \textured@author                                           \\
+    \textured@deptType{} & \textured@department                                       \\
+    Supervisor           & \textured@supervisor{} --- \textured@supervisorsDepartment \\
+    Keywords             & \textured@keywords                                         \\
 \end{tblr}
 
 \subsection*{Abstract}
 
-\Abstract
+\textured@abstract
+\makeatother
