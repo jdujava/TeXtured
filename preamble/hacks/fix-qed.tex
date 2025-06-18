@@ -2,6 +2,7 @@
 %%        I dont entirely know what I am doing here, but seems to work
 %%        -> changed from /usr/share/texmf-dist/tex/latex/amscls/amsthm.sty
 \makeatletter
+\AddToHook{package/amsthm/after}{%
 \renewcommand*{\equation@qed}{%
     \iftagsleft@
         \hbox{\phantom{\quad\qedsymbol}}%
@@ -20,5 +21,6 @@
             \if@eqnsw \setbox\z@ \fi % <--- changed
         }%
     \fi
+}
 }
 \makeatother
