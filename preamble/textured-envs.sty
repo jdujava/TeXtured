@@ -1,0 +1,175 @@
+\ProvidesPackage{textured-envs}
+
+%%% Macros for definitions, theorems, claims, examples, ...
+\usepackage{keytheorems}   % key-value interface for enhanced theorem/proof environments
+                           % extending `amsthm` (modern implementation of `thmtools` package)
+
+\usepackage{tcolorbox} % flexible frames/boxes
+\tcbuselibrary{skins, breakable, theorems}
+
+%% Default style options for `tcolorbox` environments (used in theorems, remarks, ...)
+\newlength{\depthofj} \settodepth{\depthofj}{j} % save depth of character "j" (typical descender)
+\tcbset{
+    skin=enhanced, % for better looking frame breaking
+    colframe=black, colback=white,
+    boxrule=0.4pt, arc=3pt, boxsep=0em,
+    left=0.9em, right=0.9em, top=1.3ex, bottom=1.3ex-0.8\depthofj, % try to reduce effect of descenders
+    % enlarge bottom at break by=-\depthofj,
+    % pad at break*=3ex,
+    beforeafter skip=0.5\baselineskip plus 2pt,
+}
+\tcbset{ % persist font color from the text before the box, see https://github.com/T-F-S/tcolorbox/issues/305
+    every box/.style={coltext=.}, % dot `.` refers to the current text color (just before the box)
+}                                 % set inside `every box`, thus using color at the place of box creation
+
+%%% Definitions of theorem/remark-like environments
+\newkeytheoremstyle{thmcommon}{
+    headfont=\bfseries\sffamily,
+    notefont=\mdseries\sffamily,
+    bodyfont=\normalfont,
+    headpunct={\strut.}, % dot, and `\strut` to ensure consistent height of the first line
+}
+
+%% More flexible placement of "qed" symbol (star/optional argument tweaks the vertical shift)
+%% NOTE: this is used in all theorem/remark-like environments to ensure consistent height
+%%       of the final line, particularly when the last line is an equation
+\NewCommandCopy{\oldqedhere}{\qedhere}
+\RenewDocumentCommand{\qedhere}{s o}{%
+    \def\qedshift{0.6ex}%                % by default, set shift corresponfing to normal height display math
+    \IfBooleanT{#1}{\def\qedshift{1.5ex}}% if starred, set shift corresponding to big operators (\sum, ...)
+    \IfValueT{#2}{\def\qedshift{#2}}%    % if optional argument is passed, set shift to the custom value
+    \NewCommandCopy{\oldqed}{\qedsymbol}%
+    \renewcommand*{\qedsymbol}{\raisebox{-\qedshift}{\oldqed}}%
+    \oldqedhere%
+}
+
+%% provide a reference type name for `zref-clever` package
+%% NOTE: the plural form is defined only heuristically, tweak manually later if necessary
+\NewDocumentCommand{\declareCleverTypeName}{m}{
+    \zcRefTypeSetup{#1}{
+        name-sg = #1,  Name-sg = \MakeTitlecase{#1},  % singular form (second is capitalized)
+        name-pl = #1s, Name-pl = \MakeTitlecase{#1}s, % plural form   (second is capitalized)
+    }
+}
+
+
+
+%% Ensure consistent height of the final line with `\strut`
+%% `\hspace{-1.␣␣em}` to enable longer last line in theorem-like environments,
+%%                    otherwise the line is breaking earlier then necesarry
+\newcommand*{\theoremqed}{\hspace{-1.195em}\strut}
+
+%% Factory for new theorem-like environments
+\NewDocumentCommand{\NewTheoremLike}{O{qed=\theoremqed} m}{
+    \declarekeytheorem{#2}[
+        sibling=table,   % same numbering as tables/figures
+        style=thmcommon, % use the common theorem style
+        #1,              % other options, such as `qed` symbol
+        tcolorbox-no-titlebar={parbox=false, breakable}, % wrap in a `tcolorbox`, allow breaking
+        % TODO: maybe set refname, Refname already here, see https://github.com/mbertucci47/keytheorems/issues/21
+    ]
+    \declareCleverTypeName{#2} % provide a reference type name
+}
+\NewDocumentCommand{\NewTheoremLikes}{>{\SplitList{,}}m}{\ProcessList{#1}{\NewTheoremLike}}
+
+%% Define theorem-like environments
+\NewTheoremLikes{definition, theorem, lemma, corollary, proposition}
+
+%% Tweak plural form of `corollary` reference type name
+\zcRefTypeSetup{corollary}{
+    name-sg = corollary,   Name-sg = Corollary,   % singular form
+    name-pl = corollaries, Name-pl = Corollaries, % plural form
+}
+
+
+
+%% Mark denoting end of remark-like environment;
+%% `\strut` to ensure consistent height of the final line
+%% `\hspace{-0.9em}` to enable longer last line in remark-like environments,
+%%                   otherwise the line is breaking earlier then necesarry
+\newcommand*{\remarkqed}{\hspace{-0.9em}\textcolor{black!60}{\(\lrcorner\)}\strut}
+
+%% Factory for new remark-like environments
+\NewDocumentCommand{\NewRemarkLike}{O{qed=\remarkqed} m}{
+    \declarekeytheorem{#2}[
+        sibling=table,   % same numbering as tables/figures
+        style=thmcommon, % use the common theorem style
+        #1,              % other options, such as `qed` symbol
+        tcolorbox-no-titlebar={ % wrap in a `tcolorbox`
+            parbox=false,
+            breakable, % allow breaking
+            blanker,   % no frame
+            overlay first={ %% marks indicating that the box continues to the next page
+                \draw[-{>[length=2pt]}, line width=0.7pt, black!15] ([xshift=0.5em,yshift=0.9ex]frame.south east) -- +(0.08,0) arc[start angle=90, end angle=0, radius=0.05] -- +(0,-0.2);
+            },
+            overlay middle={
+                \draw[-{>[length=2pt]}, line width=0.7pt, black!15] ([xshift=0.5em,yshift=0.9ex]frame.south east) -- +(0.08,0) arc[start angle=90, end angle=0, radius=0.05] -- +(0,-0.2);
+                \draw[{<[length=2pt]}-, line width=0.7pt, black!15] ([xshift={-0.5em-0.15},yshift={-1.1ex}]frame.north west) -- +(-0.1,0) arc[start angle=270, end angle=180, radius=0.05] -- +(0,0.2);
+            },
+            overlay last={
+                \draw[{<[length=2pt]}-, line width=0.7pt, black!15] ([xshift={-0.5em-0.15},yshift={-1.1ex}]frame.north west) -- +(-0.1,0) arc[start angle=270, end angle=180, radius=0.05] -- +(0,0.2);
+            },
+        }
+    ]
+    \declareCleverTypeName{#2} % provide a reference type name
+}
+\NewDocumentCommand{\NewRemarkLikes}{>{\SplitList{,}}m}{\ProcessList{#1}{\NewRemarkLike}}
+
+%% Define remark-like environments
+\NewRemarkLikes{remark, example, derivation, calculation, idea, tip}
+
+
+%%% Proof environment
+
+%% Proof QED symbol
+%% `\hspace{-1em}` to enable longer last line in the proof environment,
+%%                 otherwise the line is breaking earlier then necesarry
+\newsavebox{\proofsmallsquare}
+\sbox{\proofsmallsquare}{\color{black!60}\(\square[0.4em][aligntableaux=bottom]\mspace{1mu}\)}
+\newcommand*{\proofqed}{
+    \hspace{-1em}\raisebox{-0.01em}{\usebox{\proofsmallsquare}}% tweak positioning
+    \strut% ensure consistent height of the final line
+}
+
+%% Make proof environment remark-like without numbering
+\let\proof\relax
+\NewRemarkLike[numbered=no, qed=\proofqed]{proof}
+\NewRemarkLike[numbered=no, name={Idea of the Proof}, qed=\proofqed]{proofidea}
+
+%% NOTE: Suggestion on how to pass arguments to `tcolorbox` when calling proof
+%% https://tex.stackexchange.com/questions/565220/is-it-possibe-to-pass-options-to-a-tcolorboxenvironment
+%% Maybe useful for nesting, or other rare behavior.
+
+
+
+%%% Helper TODO/WIP environments
+
+%% Quick inline todo command
+\NewDocumentCommand{\todo}{O{} >{\TrimSpaces} m}{%
+    \textcolor{red}{%
+        \textsf{TODO\IfBlankF{#1}{(#1)}}%
+        \IfBlankTF{#2}{.}{: #2}%
+    }%
+}
+
+%% Base style for todo-like environments
+\tcbset{
+    todolike/.style={
+        % breakable, after upper=\strut, parbox=false,
+        breakable, parbox=false,
+        colframe=pink, sharp corners=west, boxrule=0pt, leftrule=4pt,
+        coltitle=black, fonttitle=\sffamily\bfseries,
+        attach title to upper={\ },
+        beforeafter skip=0.5\baselineskip plus 2pt,
+    }
+}
+%% Factory for new todo-like environments
+\NewDocumentCommand{\NewTodoLike}{mm}{
+    \NewTColorBox{#1}{o}{todolike, colback=#2, title={#1\IfValueT{##1}{ \textmd{(##1)}}.}}
+}
+
+%% Define todo-like environments
+\NewTodoLike{Todo}{pink!20}
+\NewTodoLike{Question}{orange!10}
+\NewTodoLike{Suggestion}{cyan!10}
+\NewTodoLike{Note}{cyan!50!green!10}
