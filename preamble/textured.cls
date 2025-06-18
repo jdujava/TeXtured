@@ -97,6 +97,7 @@
 \RequirePackage{textured-debug}
 \RequirePackage{textured-general}
 \RequirePackage{textured-misc}
+\RequirePackage{textured-biblatex}
 \input{preamble/main}
 \RequirePackage{textured-layout}
 \RequirePackage{textured-envs}
