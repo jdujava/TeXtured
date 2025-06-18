@@ -97,9 +97,10 @@
 \RequirePackage{textured-debug}
 \RequirePackage{textured-general}
 \RequirePackage{textured-misc}
-\RequirePackage{textured-biblatex}
 \input{preamble/main}
 \RequirePackage{textured-layout}
+\RequirePackage{textured-biblatex}
+\RequirePackage{textured-math}
 \RequirePackage{textured-envs}
 
 % \ClassError[textured]{<error-text>}{<help-text>}
