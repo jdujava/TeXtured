@@ -1,5 +1,8 @@
 ## This file contains instructions and configurations for the `latexmk` program
 
+## allow to input files from the preamble directory (where the .cls file resides)
+ensure_path('TEXINPUTS', 'preamble/');
+
 ## Choose TeX engine for PDF generation
 $pdf_mode = 1; # use pdfTeX
 # $pdf_mode = 4; # use LuaTeX
