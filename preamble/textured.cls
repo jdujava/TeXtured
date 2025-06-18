@@ -21,6 +21,7 @@
     noCENSOR.ifnot = CENSOR,
     twosided.if    = @textured@twosided,
     onesided.ifnot = @textured@twosided,
+    showframe.code = {\PassOptionsToPackage{showframe}{geometry}},
 }
 \SetKeys{ % here we can set the defaults
     FANCY,     % by default, enable fancy decorations
