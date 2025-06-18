@@ -1,0 +1,497 @@
+\ProvidesPackage{textured-math}
+
+
+%% Math/Physics packages
+\usepackage{amsmath}    % extensions for typesetting of math
+\usepackage{mathtools}  % advanced math typesetting
+\usepackage{scalerel}   % scaling of math symbols (\ThisStyle, \SavedStyle, ...)
+% \usepackage{esint}      % various fancy integral symbols
+% \usepackage{arydshln}   % dashlines
+
+%% Math fonts & symbols
+\usepackage{amsfonts}   % math fonts
+\usepackage{amssymb}    % math fonts
+\usepackage{bm}         % boldface math via `\bm`
+
+%% Some notation used in physics
+\usepackage{physics}
+
+% \usepackage{tensor}     % tensor indices
+\usepackage{tensind}    % tensor indices
+\tensordelimiter{@}
+\tensorformat{c}
+\NewDocumentCommand{\tens}{o m m}{
+    \IfValueTF{#1}{@[#1]{#2}#3@}{@{#2}#3@}
+}
+
+%% Numbers/Units
+\usepackage{siunitx}
+%% TODO: customize font style propagation
+\sisetup{
+    range-phrase = {--},            % en-dash as number range separator
+    range-units = single,           % print unit only once at the end
+    exponent-product = {\cdot},     % default is `\times`
+    per-mode = symbol,              % use `/` for per
+    uncertainty-mode = separate,    % use `±` for uncertainties
+    % table-align-uncertainty = false,
+    % table-alignment-mode = format,
+    % table-number-alignment = center,
+}
+
+
+\usepackage{mathfixs}   % fix some odd behaviour in math mode, add math macros
+% \ProvideMathFix{autobold} % TeXtured contains automatic swith to bold and sans math
+\ProvideMathFix{greekcaps=it}
+\ProvideMathFix{frac,rfrac,vfrac,vfracskippre=4mu}
+% \ProvideMathFix{der,diff}
+
+%% Tiny space in math mode
+%% As of now the `mathfixs` implementation doesn't work in section titles
+% \ProvideMathFix{multskip=1mu} % tiny space `\.` in math mode
+\NewCommandCopy{\dotaccent}{\.}
+\renewcommand*{\.}{\TextOrMath{\dotaccent}{\mspace{1mu}}}
+\NewCommandCopy{\acuteaccent}{\'}
+\renewcommand*{\'}{\TextOrMath{\acuteaccent}{\mspace{-1mu}}}
+
+%% if `amsmath` package is loaded, slightly reduce the space after `\colon`
+\AddToHook{package/amsmath/after}{\AddToHook{cmd/colon/after}{\mspace{-2mu}}}%
+
+\usepackage[extdef]{delimset} % flexible typesetting and declaration delimeters sets
+
+%% TODO: fix/adapt a lot of stuff after the new release
+% \usepackage{eqnlines} % modern framework for typesetting single- and multi-line equations
+
+
+
+
+%% TODO: think about what style is appropriate
+%% Set the default bold math sans font to be `sbc` (sans bold condensed)
+%% https://tex.stackexchange.com/questions/27843/level-of-boldness-changeable
+\newcommand*{\mathsfbfdefault}{sbc}
+\SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\mathsfbfdefault}{n}
+% \SetMathAlphabet{\mathsf}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
+
+%% Math sans slanted font
+\DeclareMathAlphabet{\mathsfit}{T1}{\sfdefault}{\mddefault}{\sldefault}
+\SetMathAlphabet{\mathsfit}{bold}{T1}{\sfdefault}{\bfdefault}{\sldefault}
+
+%% When using sans font for surrounding text, also adapt the math font
+%%  -> use Computer Modern Bright when `\mathversion{sans}` is active
+%% see https://tex.stackexchange.com/q/33165
+%%     https://mirrors.nic.cz/tex-archive/fonts/cmbright/cmbright.pdf
+%% Requirements (font packages): `cmbright`, `hfbright`, `iwona`
+\DeclareMathVersion{sans}
+\SetSymbolFont{operators}{sans}{OT1}{cmbr}{m}{n}
+\SetSymbolFont{letters}{sans}{OML}{cmbrm}{m}{it}
+\SetSymbolFont{symbols}{sans}{OMS}{cmbrs}{m}{n}
+\SetSymbolFont{largesymbols}{sans}{OMX}{iwona}{m}{n}
+\SetMathAlphabet{\mathit}{sans}{OT1}{cmbr}{m}{sl}
+\SetMathAlphabet{\mathsf}{sans}{OT1}{lmss}{m}{n} % still use `lmodern` for `\mathsf`
+\SetMathAlphabet{\mathbf}{sans}{OT1}{cmbr}{bx}{n}
+\SetMathAlphabet{\mathtt}{sans}{OT1}{cmtl}{m}{n}
+
+%% TODO: bold sans math is not optimal...
+\DeclareMathVersion{boldsans}
+\SetSymbolFont{operators}{boldsans}{OT1}{cmbr}{b}{n}
+\SetSymbolFont{letters}{boldsans}{OML}{cmbrm}{b}{it}
+\SetSymbolFont{largesymbols}{boldsans}{OMX}{iwona}{bx}{n}
+\SetMathAlphabet{\mathit}{boldsans}{OT1}{cmbr}{b}{sl}
+\SetMathAlphabet{\mathsf}{boldsans}{OT1}{lmss}{\mathsfbfdefault}{n} % still use `lmodern` for `\mathsf`
+\SetMathAlphabet{\mathbf}{boldsans}{OT1}{cmbr}{bx}{n}
+\SetMathAlphabet{\mathtt}{boldsans}{OT1}{cmtl}{b}{n}
+
+%%% Automatic switching between math versions
+\newif\ifInSansMode % keep track of whether we are in sans mode
+\newif\ifInBoldMode % keep track of whether we are in bold mode
+\AddToHook{cmd/sffamily/after}{\InSansModetrue \ifInBoldMode\mathversion{boldsans}\else\mathversion{sans}\fi}
+\AddToHook{cmd/rmfamily/after}{\InSansModefalse\ifInBoldMode\mathversion{bold}\else\mathversion{normal}\fi}
+\AddToHook{cmd/bfseries/after}{\InBoldModetrue \ifInSansMode\mathversion{boldsans}\else\mathversion{bold}\fi}
+\AddToHook{cmd/mdseries/after}{\InBoldModefalse\ifInSansMode\mathversion{sans}\else\mathversion{normal}\fi}
+
+
+%% BUG: \mathbf{} is weird, use \bm with \mathrm
+\NewDocumentCommand{\bmrm}{m}{\bm{\mathrm{#1}}}
+
+%% Sans Greek Letters
+\DeclareSymbolFont{sfletters}{OML}{cmbrm}{m}{it}
+\DeclareSymbolFont{sflettersbold}{OML}{cmbrm}{b}{it}
+\DeclareMathSymbol{\sbGamma}{\mathalpha}{sflettersbold}{0}
+
+%% Alternative caligraphic math font `mathpazo`
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+%% Load doublebrackets symbols (requires `stmaryrd` font package)
+%% (need to declare `pdfglyphtounicode` translations to satisfy PDF/A -> done in `pdfA-compliance.tex`)
+\DeclareSymbolFont{stmry}{U}{stmry}{m}{n}
+\DeclareMathDelimiter{\dblbracketleft}{\mathopen}{stmry}{"4A}{stmry}{"71}
+\DeclareMathDelimiter{\dblbracketright}{\mathclose}{stmry}{"4B}{stmry}{"79}
+
+%% Shorter minus sign - https://tex.stackexchange.com/a/469724
+\DeclareMathSymbol{\shortminus}{\mathbin}{AMSa}{"39}
+\newcommand*{\shortminusone}{\mspace{-1.1mu}\scalemath{1.2}[1]{\shortminus}\mspace{-1.4mu} 1}
+
+
+%% HACK: Reduce verbosity of "No alphabet change ..." messages
+%% https://tex.stackexchange.com/a/663843
+\makeatletter
+\let\old@font@info\@font@info
+\def\@font@info#1{%
+    \expandafter\ifx\csname\detokenize{#1}\endcsname\relax
+        \old@font@info{#1}%
+    \fi
+    \expandafter\xdef\csname\detokenize{#1}\endcsname{}%
+}
+\makeatother
+
+
+%%% Space tweaking macros, thanks goes to https://github.com/valentjn/thesis-arxiv
+
+% math version of \settowidth, automatically choosing the right style
+% (textstyle, displaystyle, ...)
+\makeatletter
+\def\mathsettowidth#1#2{%
+    \setbox\@tempboxa\hbox{\(\m@th\mathpalette{}{#2}\)}%
+    #1=\wd\@tempboxa%
+    \setbox\@tempboxa\box\voidb@x%
+}
+\makeatother
+
+%% \halfhphantom works like \hphantom, except that it creates a box
+%% that is only half as wide as that of \hphantom
+\newlength{\halfhphantomlength}
+\NewDocumentCommand{\halfhphantom}{m}{%
+    \ifmmode\mathsettowidth{\halfhphantomlength}{#1}%
+    \else\settowidth{\halfhphantomlength}{#1}\fi%
+    \setlength{\halfhphantomlength}{\halfhphantomlength/2}%
+    \hspace{\halfhphantomlength}%
+}
+
+%% \lhphantom{abc}{defghij} positions the text "abc" as follows:
+%% |abc    |
+%%  defghij
+\NewDocumentCommand{\lhphantom}{mm}{%
+    \ifmmode\mathrlap{#1}\else\rlap{#1}\fi%
+    \hphantom{#2}%
+}
+
+%% \chphantom{abc}{defghij} positions the text "abc" as follows:
+%% |  abc  |
+%%  defghij
+\NewDocumentCommand{\chphantom}{mm}{%
+    \halfhphantom{#2}%
+    \ifmmode\mathclap{#1}\else\clap{#1}\fi%
+    \halfhphantom{#2}%
+}
+
+%% \rhphantom{abc}{defghij} positions the text "abc" as follows:
+%% |    abc|
+%%  defghij
+\NewDocumentCommand{\rhphantom}{mm}{%
+    \hphantom{#2}%
+    \ifmmode\mathllap{#1}\else\llap{#1}\fi%
+}
+
+
+
+%%% Macros for math symbols
+
+%% Punctuation in math mode
+\newcommand*{\eqend}{\,.}
+\newcommand*{\eqcomma}{\,,}
+
+%% Equals in given dimension
+\NewDocumentCommand{\eqdim}{O{} m}{
+    \IfBlankTF{#1}
+    {\mathrel{\overset{\mathcolor{black!70}{d\.=\.#2}}{\scalebox{2.8}[1]{\(=\)}}}}
+    {\mathrel{\overset{\mathcolor{black!70}{#2}}{\scalebox{#1}[1]{\(=\)}}}}
+}
+%% Phantom with relation spacing
+\NewDocumentCommand{\relphantom}{m}{\mathrel{\phantom{#1}}}
+%% Continuation of expression to the next line
+\NewDocumentCommand{\graytimes}{}{\mathcolor{gray}{\times}}
+
+% %% (Optional) Automatically use \mathcolor in math mode
+% \NewCommandCopy{\textcolorOrig}{\textcolor}
+% \RenewDocumentCommand{\textcolor}{O{} m m}{%
+%     \ifmmode%
+%         \let\colorcmd\mathcolor%
+%     \else%
+%         \let\colorcmd\textcolorOrig%
+%     \fi%
+%     \IfBlankTF{#1}{\colorcmd{#2}{#3}}{\colorcmd[#1]{#2}{#3}}%
+% }
+
+%% Determinants (use normal position of superscript/subscript)
+\AddToHook{cmd/det/after}{\nolimits} % functionally replaces the following 2 lines
+% \NewCommandCopy{\olddet}{\det}
+% \renewcommand*{\det}{\olddet\nolimits}
+\DeclareMathOperator{\Det}{Det}
+
+%% Misc math macros
+\NewCommandCopy{\transpose}{\intercal}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\sgn}{sgn}
+\newcommand*{\Id}{\bm{1}}
+\newcommand*{\const}{\mathrm{const.}}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\diag}{diag}
+\newcommand*{\bdry}{\partial}
+\newcommand*{\disjunion}{\sqcup} % TODO: spacing too small sometimes (in subscripts)
+\NewDocumentCommand{\inclusion}{s}{\IfBooleanTF{#1}{\hookleftarrow}{\hookrightarrow}}
+\NewDocumentCommand{\surjection}{s}{\IfBooleanTF{#1}{\twoheadleftarrow}{\twoheadrightarrow}}
+\NewDocumentCommand{\exchange}{O{\quad}}{\xleftrightarrow{#1}}
+
+%% Imaginary unit and Euler's number
+%% inspired by Niklas Beisert
+\NewDocumentCommand{\I}{}{\mathring{\imath}}
+\NewDocumentCommand{\E}{s}{\IfBooleanTF{#1}{\mathrm{e}}{\mathinner{\mathrm{e}}}}
+
+%% Big O notation (\biggO for centered O)
+\NewDocumentCommand{\bigO} {l m}{\fbraces#1{\lparen}{\rparen}                   {O} {#2}}
+\NewDocumentCommand{\biggO}{l m}{\fbraces#1{\lparen}{\rparen}{\raisemath{-0.1ex}{O}}{#2}}
+
+%%% Various fields and number sets
+\newcommand*{\R}{\mathbb{R}}
+\newcommand*{\Z}{\mathbb{Z}}
+\newcommand*{\C}{\mathbb{C}}
+\newcommand*{\F}{\mathbb{F}}
+\newcommand*{\N}{\mathbb{N}}
+
+%% Group/Representation Theory
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\gl}{\mathfrak{gl}}
+\DeclareMathOperator{\GL}{\mathsf{GL}}
+\let\sl\relax % override (anyway deprecated) `sl` command
+\DeclareMathOperator{\sl}{\mathfrak{sl}}
+\DeclareMathOperator{\SL}{\mathsf{SL}}
+\DeclareMathOperator{\oo}{\mathfrak{o}}
+\DeclareMathOperator{\OO}{\mathsf{O}}
+\DeclareMathOperator{\so}{\mathfrak{so}}
+\NewDocumentCommand{\SO}{s}{\operatorname{\IfBooleanTF{#1}{\widetilde{\mathsf{SO}}}{\mathsf{SO}}}}
+\DeclareMathOperator{\ISO}{\mathsf{ISO}}
+\DeclareMathOperator{\spin}{\mathfrak{spin}}
+\DeclareMathOperator{\Spin}{\mathsf{Spin}}
+\DeclareMathOperator{\U}{\mathsf{U}}
+\DeclareMathOperator{\su}{\mathfrak{su}}
+\DeclareMathOperator{\SU}{\mathsf{SU}}
+\DeclareMathOperator{\Sp}{\mathsf{Sp}}
+\newcommand*{\g}{\mathfrak{g}}
+\newcommand*{\rankgroup}{\mathsf{r}}
+
+%%% Differential Geometry
+
+\DeclareMathOperator{\Sect}{Sect}
+\NewDocumentCommand{\Tangent}{s e{_}}{\IfBooleanTF{#1}{\bm{T}^{*}\mspace{-2mu}}{\bm{T}}\IfValueT{#2}{_{\mspace{-2mu}#2}}}
+\NewDocumentCommand{\TSect}{s e{^_}}{\IfBooleanTF{#1}{\mathcal{T}^{*}\mspace{-2mu}}{\mathcal{T}}\IfValueT{#2}{^{#2}}\IfValueT{#3}{_{\mspace{0mu}#3}}\mspace{-2mu}}
+\NewDocumentCommand{\Lie}{}{\mathcal{L}}
+\DeclarePairedDelimiterX{\Liebracket}[2]{\dblbracketleft}{\dblbracketright}{#1,#2}
+% \DeclarePairedDelimiterX{\Liebracket}[2]{\lbrack}{\rbrack}{#1,#2}
+
+\DeclareMathOperator{\Tor}{\mathsf{Tor}}
+\NewDocumentCommand{\Riem}{O{}}{\IfBlankTF{#1}{\bm{R}}{\tens{\bm{R}}{#1}}}
+\NewDocumentCommand{\Ric}{O{}}{\IfBlankTF{#1}{\bmrm{Ric}}{\tens{\bmrm{Ric}}{#1}}}
+\NewDocumentCommand{\Rscalar}{}{\mathcal{R}}
+
+%% Override `physics` package command `\dd` to optionally use bold `d`
+\RenewDocumentCommand{\dd}{s O{} m}{
+    \mathinner{
+        \IfBooleanTF{#1}{\bm{\mathrm{d}}}{\mathrm{d}}^{\mspace{-1mu}#2}#3
+    }
+}
+%% Bold differential
+\NewCommandCopy{\dotunderaccent}{\d}
+\RenewDocumentCommand{\d}{O{} m}{\TextOrMath{\dotunderaccent{#2}}{\dd*[#1]{#2}}}
+
+
+%% Covariant derivative (with optional arguments for space tweaking)
+\NewDocumentCommand{\cder}{s O{a} e{_}}{
+    \IfBooleanT{#1}{\mspace{-2mu}} % use starred variant when more \cder after each other
+    \bm{\nabla}
+    \IfValueT{#3}{             % when subscript index is given
+        _{                     % start subscript
+            \mspace{-7mu}      % remove extra space after nabla
+            \chphantom{#3}{#2} % print #3 with the width of #2
+        }
+    }
+}
+%% Coordinate derivative
+\NewDocumentCommand{\del}{s}{\IfBooleanTF{#1}{\partial}{\bm{\partial}}}
+\NewDocumentCommand{\fdel}{O{} m}{{\frac{\del #1}{\del #2}}}
+\NewDocumentCommand{\Dv}{O{} m}{{\frac{\bmrm{D} #1}{\mathrm{d} #2}}}
+\NewDocumentCommand{\Laplacian}{}{\triangle}
+\NewDocumentCommand{\dAlembertian}{s}{
+    \mathord{\raisemath{0.07ex}{
+            \mspace{1.5mu}
+            \IfBooleanTF{#1}{\square[0.35em][boxframe=0.05em]}{\square[][boxframe=0.06em]}
+            \.\.
+        }}
+}
+% \RenewDocumentCommand{\dAlembertian}{s}{\mathord{\raisemath{-0.05ex}{\oldsquare}}}
+
+%%% Tweaking of math index positioning, spacing, etc.
+%%% (also definitions of new arrows, etc.)
+
+%% TODO: see if \cramped{...} could be used sometimes to make
+%%       (inline) math prettier (to avoid weird line spacing weird)
+
+%% Modify size of `\bigwedge`/`\bigodot` and the position of their superscripts
+\NewDocumentCommand{\Ext}{e{^}}{
+    \scalerel*{\bigwedge}{\xmathstrut[-0.1]{0.1}} % scale down the \bigwedge a bit
+    \IfValueT{#1}{^{\mspace{-2mu}#1}} % shift possible superscript little bit to the left
+}
+\NewDocumentCommand{\Odot}{e{^}}{
+    \scalerel*{\bigodot}{\xmathstrut[-0.1]{0.1}} % scale down the \bigodot a bit
+    \IfValueT{#1}{^{\mspace{-0mu}#1}} % (do not) shift possible superscript little bit to the left
+}
+
+%% Exchange \epsilon and \varepsilon
+\NewCommandCopy{\oldepsilon}{\epsilon}
+\NewCommandCopy{\oldvarepsilon}{\varepsilon}
+\renewcommand*{\epsilon}{\oldvarepsilon}
+\renewcommand*{\varepsilon}{\oldepsilon}
+
+%% Math version of `\raisebox` and `\scalebox`
+\NewDocumentCommand{\raisemath}{m}{\mathpalette{\raisemathAux{#1}}}% \raisemath{<len>}{...}
+\NewDocumentCommand{\raisemathAux}{mmm}{\raisebox{#1}{\(#2#3\)}}
+\NewDocumentCommand{\scalemath}{m O{}}{\mathpalette{\scalemathAux{#1}[#2]}}% \scalemath{<factor>}{...}
+\NewDocumentCommand{\scalemathAux}{m O{} mm}{\IfBlankTF{#2}{\scalebox{#1}{\(#3#4\)}}{\scalebox{#1}[#2]{\(#3#4\)}}}
+
+%% Modify subscript position
+\NewDocumentCommand{\lowerindex}{O{0pt} O{0pt} e{_^}}{
+    \IfValueT{#3}{_{\raisemath{#1}{#3}}}
+    \IfValueT{#4}{^{\raisemath{#2}{#4}}}
+}
+
+%% Modify superscript/subscript positions for some greek letters
+\NewCommandCopy{\oldchi}{\chi}
+\renewcommand*{\chi}{\oldchi\lowerindex[-1.5pt]}
+\NewCommandCopy{\olddelta}{\delta}
+\renewcommand*{\delta}{\olddelta\lowerindex[1pt][1.0pt]}
+\newcommand*{\bmdelta}{\bm{\olddelta}\lowerindex[1pt][1.0pt]}
+\newcommand*{\altdelta}{{\olddelta\xmathstrut[-0.2]{0.0}}}
+\newcommand*{\altbmdelta}{{\bm{\olddelta}\xmathstrut[-0.2]{0.0}}}
+
+%% Smaller \in, \notin, \subset, ...
+%% https://tex.stackexchange.com/questions/34393/the-mysteries-of-mathpalette
+\NewDocumentCommand{\smallermath}{O{0.05ex} O{0.85} m}{\raisemath{#1}{\scalemath{#2}{#3}}}
+\newcommand*{\smallplus}  {\mathrel{\smallermath{+}}}
+\newcommand*{\textplus}   {\ensuremath{\.\smallplus\.}}
+\newcommand*{\smallin}    {\mathrel{\smallermath{\in}}}
+\newcommand*{\smallnotin} {\mathrel{\smallermath{\notin}}}
+\newcommand*{\smallsubset}{\mathrel{\smallermath{\subset}}}
+\newcommand*{\smallotimes}{\mathbin{\smallermath[0ex]{\oldotimes}}}
+% \newcommand*{\smallotimes}{\.\smallerrel{\oldotimes}\.}
+
+
+%% Fix spacing of \left( .. \middle| .. \right)
+\NewCommandCopy{\leftOrig}{\left}
+\NewCommandCopy{\rightOrig}{\right}
+\NewCommandCopy{\middleOrig}{\middle}
+\renewcommand*{\left}{\mathopen{}\mathclose\bgroup\leftOrig}
+\renewcommand*{\right}{\aftergroup\egroup\rightOrig}
+\RenewDocumentCommand{\middle}{sm}{\IfBooleanTF{#1}{\.\middleOrig#2\.}{\mathrel{}\middleOrig#2\mathrel{}}}
+\NewDocumentCommand{\innermiddle}{m}{\mathinner{}\middleOrig#1\mathinner{}}
+
+%% Less space around \setminus (\mathord instead of \mathinner)
+\DeclareMathSymbol{\setminus}{\mathord}{symbols}{"6E}
+
+%% Redefine `\square` to Young tableaux
+\usepackage{ytableau}           % Young Tableaux
+\ytableausetup{centertableaux}
+\NewCommandCopy{\oldsquare}{\square}
+\NewCommandCopy{\oldotimes}{\otimes}
+\RenewDocumentCommand{\square}{O{0.55em} O{} O{}}{%
+    \IfBlankTF{#1}{\ytableausetup{boxsize=0.55em}}{\ytableausetup{boxsize=#1}}%
+    \ytableausetup{aligntableaux=top, boxframe = normal, #2}%
+    \operatorname{\ydiagram[#3]{1}}%
+}
+\NewDocumentCommand{\smallsquare}{O{0.35em}}{\square[#1]}
+
+%% Sizeable bullet
+\NewDocumentCommand{\sbullet}{O{0.5}}{%
+    \mathbin{\ThisStyle{\vcenter{\hbox{\scalebox{#1}{\(\SavedStyle\bullet\)}}}}}
+}
+\NewDocumentCommand{\fdot}{}{\mathcolor{black!80}{\sbullet[0.65]}}
+\NewDocumentCommand{\adot}{}{\sbullet[0.52]}
+\NewDocumentCommand{\idot}{s}{\mathcolor{darkgray}{\IfBooleanTF{#1}{\.\sbullet[0.4]\.}{\sbullet[0.4]}}}
+
+%% (abstract) index placeholders
+\NewDocumentCommand{\aind}{}{\bullet}
+\NewDocumentCommand{\dind}{}{\mathcolor{black!60}{\sbullet[1.2]}}
+\NewDocumentCommand{\ind}{}{\mathcolor{lightgray}{\bullet}}
+
+%% Argument placeholder
+\newsavebox{\argumentbox}
+\sbox{\argumentbox}{%
+    \begin{tikzpicture}[baseline=-0.6ex]
+        \node(char)[draw, shape=rectangle, dash=on 1.2pt off 1.05pt phase 0.5pt, dash expand off,
+            inner ysep=2pt, inner xsep=2pt, minimum size=0.6em, rounded corners=2pt] {};
+    \end{tikzpicture}%
+}
+\NewDocumentCommand{\argument}{o}{%
+    \IfValueTF{#1}{% use #1 as a scaling factor, resizebox relative to the text size
+        \scalebox{#1}{\resizebox{!}{0.58em}{\usebox{\argumentbox}}}
+    }{% choose scaling factor based on display/text/script/scriptscript math style
+        \mathchoice{\argument[1.0]}{\argument[1.0]}{\argument[0.7]}{\argument[0.6]}
+    }%
+}
+
+%% Curly arrows
+\tikzset{
+    leadsto/.style={-{Stealth[length=0.6em,open,round]},decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.2em,post length=0.6em}},
+    toleads/.style={{Stealth[length=0.6em,open,round]}-,decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.6em,post length=0.2em}},
+    correspondsto/.style={{Stealth[length=0.6em,open,round]}-{Stealth[length=0.6em,open,round]},decorate,decoration={snake,amplitude=0.20ex,segment length=0.5em,pre length=0.7em,post length=0.7em}},
+}
+\NewDocumentCommand{\longleadsto}{s O{} O{}}{%
+    \ensuremath{\mathrel{
+            \tikz[baseline=-0.5ex, inner sep=0ex, font=\scriptsize]{
+                \node[minimum width=2.15em, inner xsep=0.6em, align=center] (a){\hphantom{#2}\\[0ex]\hphantom{#3}};
+                \IfBlankF{#2}{\node[inner sep=0.3ex, above=0.3ex, xshift=-0.1em] at (a){#2};}
+                \IfBlankF{#3}{\node[inner sep=0.3ex, below=0.3ex, xshift=-0.1em] at (a){#3};}
+                \IfBooleanTF{#1}
+                {\draw[line width=0.6pt, toleads] (a.west) -- (a.east);}
+                {\draw[line width=0.6pt, leadsto] (a.west) -- (a.east);}
+            }
+        }}%
+}
+%% https://tex.stackexchange.com/questions/170092/xleftrightarrows-command-in-tikz-with-arrows-matching-the-latex-font?rq=1
+\NewDocumentCommand{\correspondsto}{O{}O{}}{%
+    \ensuremath{\mathrel{
+            \tikz[baseline=-0.5ex, inner sep=0ex, font=\scriptsize]{
+                \node[minimum width=3.48em, inner xsep=0.8em, align=center] (a){\hphantom{#1}\\[0ex]\hphantom{#2}};
+                \IfBlankF{#1}{\node[inner sep=0.3ex, above=0.3ex] at (a){#1};}
+                \IfBlankF{#2}{\node[inner sep=0.3ex, below=0.3ex] at (a){#2};}
+                \draw[line width=0.6pt, correspondsto] (a.west) -- (a.east);
+            }
+        }}%
+}
+
+%% Quotient macro
+\NewDocumentCommand{\bigslant}{O{0.2}O{1.7}mm}{
+    \left.\mspace{-1mu}\raisemath{#1em}{#3}
+    \mspace{-#2mu} \middleOrig/ \mspace{-\fpeval{#2+1}mu}
+    \raisemath{-#1em}{#4} \mspace{-\fpeval{5*#1}mu} \right.
+}
+% \NewDocumentCommand{\coset}{O{0.05} O{0.1} m m}{\bigslant[#1][#2]{#3}{#4}}
+\NewDocumentCommand{\coset}{O{}O{} m m}{#3/#4}
+\NewDocumentCommand{\gt}{}{\bigslant{\g}{\mathfrak{t}}}
+\NewDocumentCommand{\gts}{}{\bigslant[0.15]{\scriptstyle\g}{\scriptstyle\mathfrak{t}}}
+\NewDocumentCommand{\onehalf}{}{\mspace{-2mu}\bigslant[0.15]{\scriptscriptstyle 1 \mspace{-1.2mu}}{\scriptscriptstyle 2}}
+
+%% Cancel macro
+\definecolor{cancelgray}{gray}{0.85}
+\tikzset{
+    main node/.style={inner sep=0,outer sep=0},
+    label node/.style={inner sep=0.3em,font=\tiny,overlay},
+    strike out/.style={shorten <=-.2em,shorten >=-.2em,overlay,thick,double distance = 0em,line cap=round},
+}
+\NewDocumentCommand{\cancel}{O{cancelgray}mo}{%
+    \tikz[baseline=(N.base)]{
+        \node[main node](N){\(#2\)};
+        \IfValueT{#3}{\node[label node, gray, anchor=south] at (N.north){#3};}
+        \draw[strike out, #1]  (N.south west) -- (N.north east);
+    }
+}
