@@ -85,14 +85,16 @@
 % \RequirePackage[...]{package-name}[<release-info>]
 
 %% Preamble - data, packages, macros, and more
+% \input{preamble/main}
+
 \RequirePackage{textured-debug}
 \RequirePackage{textured-general}
 \RequirePackage{textured-misc}
-\input{preamble/main}
 \RequirePackage{textured-layout}
 \RequirePackage{textured-biblatex}
 \RequirePackage{textured-math}
 \RequirePackage{textured-envs}
+\RequirePackage{textured-hacks}
 
 % \ClassError[textured]{<error-text>}{<help-text>}
 % \ClassWarning[textured]{<warning-text>}

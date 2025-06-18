@@ -1,0 +1,200 @@
+\ProvidesPackage{textured-hacks}
+
+%%%% Custom Reference Boxes
+%% Functionality of PDF frames around links is nice, but their look can be improved.
+%% Moreover, not all PDF viewers support/show them.
+%% In the following we setup frames around ref/href/url/cite links via `tcolorbox`.
+
+%% Universal style options applied to all links
+\tcbset{
+    link/.style={
+        nobeforeafter, box align=base, boxsep=0em, before upper={\vphantom{]}},
+        left=0.15em, right=0.15em, top=0.25ex, bottom=0.05ex,
+        arc=0.1em, rounded corners=all, boxrule=0.3mm,
+        grow sidewards by=0.05em, enlarge bottom by=-0.05ex, enlarge top by=-0.4ex,
+    }
+}
+%% Style modifications for different types of links
+\tcbset{
+    refbox/.style ={colframe=black!30, colback=black!3},
+    % refbox/.style ={colframe=black!30, colback=black!3, fontupper=\sffamily},
+    pagebox/.style={refbox, boxsep=0.1ex, bottom=0.25ex, fontupper=\ttfamily},
+    hrefbox/.style={colframe=black!10!UrlColor!70, colback=UrlColor!15},
+    citebox/.style={left=0em, right=0em, bottom=0.25ex, colframe=black!10!CiteColor!80, colback=CiteColor!20, fontupper=\ttfamily},
+}
+%% Definition of the link boxes (loading corresponding styles)
+\NewTCBox{\refbox} {!O{}}{link,refbox, #1}
+\NewTCBox{\pagebox}{!O{}}{link,pagebox,#1}
+\NewTCBox{\hrefbox}{!O{}}{link,hrefbox,#1}
+\NewTCBox{\citebox}{!O{}}{link,citebox,#1}
+
+\ifLINKBOXES\else
+\RenewDocumentCommand{\refbox} {O{} m}{#2}
+\RenewDocumentCommand{\pagebox}{O{} m}{#2}
+\RenewDocumentCommand{\hrefbox}{O{} m}{#2}
+\RenewDocumentCommand{\citebox}{O{} m}{#2}
+\fi
+
+%% Save the original link commands
+\NewCommandCopy{\hrefold}{\href}
+\NewCommandCopy{\urlold}{\url}
+
+%% Overwrite the default link commands to use the new boxes
+\RenewDocumentCommand{\href}{O{} m m}{\hrefold{#2}{\hrefbox[#1]{#3}}}        % remote links (DOI, arXiv, etc.)
+\RenewDocumentCommand{\url}{O{} m}{\href[#1]{#2}{\nolinkurl{#2}}}            % URLs (using the new \href command)
+
+%% Clever reference with reference type name and page number in a superscript, all wrapped in a box
+%% TODO: maybe automatically omit the page number if the reference is on the same page?
+%% TODO: maybe (optionally) append name of theorem/remark/...?
+\DeclareDocumentCommand{\Cref}{s m}{%
+    \hyperref[#2]{%                                        link around the whole reference box
+        \refbox[right={\IfBooleanTF{#1}{0.15em}{0.1em}}]{% box around the reference (tweak right padding)
+            \zcref*[noref]{#2}~\zcref*[noname]{#2}%        reference type name and label (number)
+            \IfBooleanF{#1}{%                              if not starred, add page number to the superscript
+                \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\zpageref{#2}}%
+            }%
+        }%
+    }%
+}
+%% Like \Cref, but use reference title
+\DeclareDocumentCommand{\Nref}{s m}{%
+    \hyperref[#2]{%                                        link around the whole reference box
+        \refbox[right={\IfBooleanTF{#1}{0.15em}{0.1em}}]{% box around the reference (tweak right padding)
+            \ztitleref{#2}%                                reference title
+            \IfBooleanF{#1}{%                              if not starred, add page number to the superscript
+                \textsuperscript{\ttfamily\tiny\(\,\to\,\)p.\zpageref{#2}}%
+            }%
+        }%
+    }%
+}
+
+%% TODO: figure out how to push `tcbox` on the next line if it would cause overfull hbox...
+%%          issues: https://github.com/T-F-S/tcolorbox/issues/223
+%%                  https://github.com/T-F-S/tcolorbox/issues/272
+
+
+%% Backreferences in the bibliography
+\NewDocumentCommand{\pagelink}{O{} m}{\hyperlink{page.#2}{\pagebox[#1]{#2}}}
+%% -> changed from /usr/share/texmf-dist/tex/latex/biblatex/biblatex.def
+\makeatletter
+\DeclareListFormat{pageref}{%
+  \ifnumless{\abx@pagerefstyle}{0}
+    {\usebibmacro{list:plain}%
+     \ifhyperref
+       % {\hyperlink{page.#1}{#1}} % changed
+       {\pagelink{#1}}             % <--- to this
+       {#1}}
+    {\ifnumequal{\value{listcount}}{1}
+       {\usebibmacro{pageref:init}}
+       {}%
+     \usebibmacro{pageref:comp}{#1}%
+     \ifnumequal{\value{listcount}}{\value{liststop}}
+       {\usebibmacro{pageref:dump}}
+       {}}}
+\makeatother
+
+
+
+%%  HACK: Fix bug, where \qedhere overwrotes the proper behavior of \tag
+%%        I dont entirely know what I am doing here, but seems to work
+%%        -> changed from /usr/share/texmf-dist/tex/latex/amscls/amsthm.sty
+\makeatletter
+\AddToHook{package/amsthm/after}{%
+\renewcommand*{\equation@qed}{%
+    \iftagsleft@
+        \hbox{\phantom{\quad\qedsymbol}}%
+        \gdef\alt@tag{%
+            \rlap{\hbox to\displaywidth{\hfil\qedsymbol}}%
+            \global\let\alt@tag\@empty
+        }%
+    \else
+        \gdef\alt@tag{%
+            \global\let\alt@tag\@empty
+            \vtop{\ialign{\hfil####\cr
+                    % \tagform@\theequation\cr % <--- original
+                    \make@display@tag\cr % <--- changed
+                    \qedsymbol\cr}}%
+            % \setbox\z@ % <--- original
+            \if@eqnsw \setbox\z@ \fi % <--- changed
+        }%
+    \fi
+}
+}
+\makeatother
+
+
+%% HACK: fix https://github.com/T-F-S/tcolorbox/issues/297 (for hyperref before 2025/05/20)
+%% see https://github.com/latex3/hyperref/commit/6f0378f4339538d397874873d338c85c8b03c6bb#diff-78b0d75637be67a5e057881594b09f87fa61562fb56bde1e1298c81c30fa45e8R431
+%% modifies /usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
+\ExplSyntaxOn
+\makeatletter
+\IfPackageAtLeastTF{hyperref}{2025-05-20}{}{
+ \cs_undefine:N \__hyp_target_raise:n
+ \cs_new_protected:Npn \__hyp_target_raise:n #1
+  {
+   \mode_if_vertical:TF
+    { #1 }
+    {
+     \Hy@SaveSpaceFactor
+     \penalty\@M
+     \smash
+      {
+       \box_move_up:nn
+        { \normalbaselineskip }
+        {
+         \hbox:n
+          {
+           \Hy@RestoreSpaceFactor
+           #1
+           \Hy@SaveSpaceFactor
+          }
+        }
+      }
+     \kern0pt
+     \Hy@RestoreSpaceFactor
+    }
+  }
+}
+\makeatother
+\ExplSyntaxOff
+
+
+
+%%  BUG: `floatrow` captions (that is ones set with `\fcapside` or `\ffigbox`)
+%%       do not respect the `parskip` option of the `caption` package.
+%%       More generally, the usual paragraph spacing is not applied in such captions.
+
+%%  HACK: By commenting out the `\everypar{}` in the `\@arrayparboxrestore` macro,
+%%        the ordinary paragraph spacing is restored in the `floatrow` captions.
+%%        However, I am not entirely sure why this works..
+
+\makeatletter
+\newcommand*{\redefineparboxrestore}{%
+    \def\@arrayparboxrestore{%
+        \let\if@nobreak\iffalse
+        \let\if@noskipsec\iffalse
+        \let\par\@@par
+        \let\-\@dischyph
+        \let\'\@acci\let\`\@accii\let\=\@acciii
+        \parindent\z@ \parskip\z@skip
+        % \everypar{} % <--- commented out, so that paragraphs work properly in the caption
+        \linewidth\hsize
+        \@totalleftmargin\z@
+        \leftskip\z@skip \rightskip\z@skip \@rightskip\z@skip
+        \parfillskip\@flushglue
+        \lineskip\normallineskip
+        \lineskiplimit\normallineskiplimit
+        \baselineskip\normalbaselineskip
+        \sloppy}%
+}
+\NewCommandCopy{\fcapsideOrig}{\fcapside}
+\RenewDocumentCommand{\fcapside}{O{\FBwidth} >{\TrimSpaces}+m >{\TrimSpaces}+m}{%
+    \redefineparboxrestore%
+    \fcapsideOrig[#1]{#2}{#3}%
+}
+\NewCommandCopy{\ffigboxOrig}{\ffigbox}
+\RenewDocumentCommand{\ffigbox}{O{\FBwidth} >{\TrimSpaces}+m >{\TrimSpaces}+m}{%
+    \redefineparboxrestore%
+    \ffigboxOrig[#1]{#2}{#3}%
+}
+\makeatother
