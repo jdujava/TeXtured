@@ -2,6 +2,7 @@
 
 ## allow to input files from the preamble directory (where the .cls file resides)
 ensure_path('TEXINPUTS', 'preamble/');
+ensure_path('BIBINPUTS', 'preamble/');
 
 ## Choose TeX engine for PDF generation
 $pdf_mode = 1; # use pdfTeX
