@@ -94,6 +94,7 @@
 % \RequirePackage[...]{package-name}[<release-info>]
 
 %% Preamble - data, packages, macros, and more
+\RequirePackage{textured-debug}
 \input{preamble/main}
 \RequirePackage{textured-layout}
 \RequirePackage{textured-envs}
