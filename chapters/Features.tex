@@ -480,7 +480,7 @@ Put your \texttt{Inkscape} figures into \path{figures/Inkscape/} directory, and 
     \item Automatic export after changing the \texttt{svg} (need to enable \macro{--shell-escape} for \hologo{pdfTeX} or \hologo{LuaTeX}, done via \path{.latexmkrc}).
     \item Watermark via a \texttt{PostScript} injection.
           \begin{remark}[Watermark String]
-              By default, the watermark string is composed as \enquote{\copyright \textlangle\textit{year}\textrangle{} \textlangle\textit{author's name}\textrangle}, where the author's name is extracted from \custommacro{\ThesisAuthorPlaintext}.
+              By default, the watermark string is composed as \enquote{\copyright \textlangle\textit{year}\textrangle{} \textlangle\textit{author's name}\textrangle}, where the author's name is extracted from \custommacro{\textured@authorPlaintext}.
               You can customize it in the shell script \path{figures/Inkscape/inkscape-export-to-latex} to your liking.
           \end{remark}
     \item Automatic fix of \macro{/Interpolation} key problem.
