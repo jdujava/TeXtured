@@ -42,11 +42,11 @@
 
 %% subsection entries in TOC are "inline" separated by a bullet
 \titlecontents*{subsection}[4.7em]{\footnotesize\color{Gray40}}  % <section> <left> <above-code>
-{}{}{ \thecontentspage} % <numbered-entry-format> <numberless-entry-format> <filler-page-format>
+{}{}{~\thecontentspage} % <numbered-entry-format> <numberless-entry-format> <filler-page-format>
 [][\ \textbullet\ ][\hspace*{0.6em}\vspace{0.1em}]  % <begin> <separator> <end>
 
 %% part entries in TOC are centered, bigger, and without page number
 \titlecontents{part}[2em]{\addvspace{3ex}\filcenter} % centered part title
-{\small Part \thecontentslabel\\*[-0.2ex]\Large\bfseries}{\Large\bfseries}
+{\small Part~\thecontentslabel\\*[-0.2ex]\Large\bfseries}{\Large\bfseries}
 {}[\addvspace{1.0ex}] % without page number
 
