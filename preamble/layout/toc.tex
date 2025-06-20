@@ -41,9 +41,10 @@
 {\textcolor{gray}{\titlerule*[9pt]{.}}\contentspage} % <filler-page-format>
 
 %% subsection entries in TOC are "inline" separated by a bullet
+\newcommand*{\sspace}{\hspace{0.34em plus 0.5em minus 0.12em}} % slightly more stretchable space
 \titlecontents*{subsection}[4.7em]{\footnotesize\color{Gray40}}  % <section> <left> <above-code>
 {}{}{~\thecontentspage} % <numbered-entry-format> <numberless-entry-format> <filler-page-format>
-[][\ \textbullet\ ][\hspace*{0.6em}\vspace{0.1em}]  % <begin> <separator> <end>
+[][\sspace\textbullet\sspace][\hspace*{0.6em}\vspace{0.1em}]  % <begin> <separator> <end>
 
 %% part entries in TOC are centered, bigger, and without page number
 \titlecontents{part}[2em]{\addvspace{3ex}\filcenter} % centered part title
