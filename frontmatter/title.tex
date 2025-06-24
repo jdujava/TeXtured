@@ -2,7 +2,7 @@
 \thispagestyle{empty} % no number on the title page
 \makeatletter
 \begin{center}
-    \begin{adjustbox}{center,trim=0 0.2cm 4cm 0.2cm}
+    \begin{adjustbox}{center,trim=0 0.2cm 4cm 0.7cm}
         \includegraphics[width=1.4\textwidth]{MFF-logo.pdf}
     \end{adjustbox}
 
@@ -50,11 +50,10 @@
     \ifFANCY\sffamily\fi
     Prague \textured@yearSubmitted \\
     \ifx\textured@yearRevision\empty\else
-        \emph{Revised version \textured@yearRevision} \par
+        \emph{Revised version \textured@yearRevision} \\
     \fi
-    \ifWIP
-        \small\ttfamily \textcolor{red}{(Draft - \today)} \par
-    \fi
+    \small\ttfamily
+    \ifWIP\textcolor{red}{(Draft - \today)}\else~\fi
 \end{center}
 
 \makeatother
