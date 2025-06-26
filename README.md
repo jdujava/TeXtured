@@ -78,8 +78,8 @@ LaTeX build tools:
 - `biber` - bibliography processing tool for `biblatex`
 
 > [!WARNING]
-> To properly build the documenet, the template requires `TeX Live` 2024 or later (otherwise, some packages may not be available, or you may encounter some bugs).
-> Using the latest version of `TeX Live` is highly recommended, which is used in the Github Actions workflow to build
+> To properly build the document, the template requires `TeX Live` 2024 or later (otherwise, some packages may not be available, or you may encounter some bugs).
+> Using the latest version of `TeX Live` is highly recommended, which is used in the GitHub Actions workflow to build
 > [<img align="center" alt="TeXtured Manual" src="https://img.shields.io/badge/TeXtured-Manual%E2%80%89%F0%9F%93%93-blue?color=ccfaff">](https://jdujava.github.io/TeXtured/thesis.pdf).
 
 > [!NOTE]
