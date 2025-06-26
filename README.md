@@ -41,6 +41,19 @@ It showcases the features of `TeXtured` template and provides a guide on how to 
     <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=jdujava/TeXtured&type=Date" />
 </picture>
 
+## 🌟 Showcase
+
+The main part of the `TeXtured` template development was carried out during the preparation of:<br>
+  Jonáš Dujava, [Strongly Coupled Quantum Field Theory in Anti-de Sitter Spacetime](https://jdujava.github.io/ONinAdS/SCQFTinAdS.pdf) — Master Thesis<br>
+    `arXiv`: [2507.07111 \[hep-th\]](https://arxiv.org/abs/2507.07111), `GitHub`: [jdujava/ONinAdS](https://github.com/jdujava/ONinAdS)
+
+Early predecessor of the `TeXtured` template:<br>
+  Jonáš Dujava, [Counting operators in Effective Field Theories](https://jdujava.github.io/CountingInEFT/CountingInEFT.pdf) — Bachelor Thesis<br>
+    `arXiv`: [2211.05759 \[hep-th\]](https://arxiv.org/abs/2211.05759), `GitHub`: [jdujava/CountingInEFT](https://github.com/jdujava/CountingInEFT)
+
+> [!TIP]
+> If you want to showcase your work utilizing the `TeXtured` template, feel free to open a pull request!
+
 ## 🏗️ Building
 
 Be sure to have all the dependencies installed — at least the `LaTeX` build tools, see below — and run
@@ -94,4 +107,4 @@ Exceptions:
  All other files are marked with
 [<img align="center" alt="License: CC0-1.0" src="https://img.shields.io/github/license/jdujava/TeXtured?color=fbe2ff">](https://creativecommons.org/publicdomain/zero/1.0/).
 
-Even though you are free to use the source code of `TeXtured` any way you like, attribution/acknowledgement is welcome.
+Even though you are free to use the source code of `TeXtured` any way you like, an acknowledgement is welcome (for example by including a citation using `\autocite{TeXtured}`).
