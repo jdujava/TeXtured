@@ -34,6 +34,7 @@ It showcases the features of `TeXtured` template and provides a guide on how to 
 > [!TIP]
 > If you find something interesting or useful, but adopting the whole template
 > is simply too much, feel free to just copy and use relevant parts of the code.
+> Also, consider starring (⭐) the repository to help others find it!
 
 <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=jdujava/TeXtured&type=Date&theme=dark" />
