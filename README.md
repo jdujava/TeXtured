@@ -45,11 +45,25 @@ It showcases the features of `TeXtured` template and provides a guide on how to 
 ## 🌟 Showcase
 
 The main part of the `TeXtured` template development was carried out during the preparation of:<br>
-  Jonáš Dujava, [Strongly Coupled Quantum Field Theory in Anti-de Sitter Spacetime](https://jdujava.github.io/ONinAdS/SCQFTinAdS.pdf) — Master Thesis<br>
+  Jonáš Dujava, [Strongly Coupled Quantum Field Theory in Anti-de Sitter Spacetime `[PDF]`](https://jdujava.github.io/ONinAdS/SCQFTinAdS.pdf) — Master Thesis<br>
     `arXiv`: [2507.07111 \[hep-th\]](https://arxiv.org/abs/2507.07111), `GitHub`: [jdujava/ONinAdS](https://github.com/jdujava/ONinAdS)
+<details>
+    <summary>👀 Quick Preview <em>(click to see a selection of pages, above is the link to the whole <code>PDF</code>)</em></summary>
+    <img width="2776" height="2105" alt="thesis-dual00" src="https://github.com/user-attachments/assets/5c7608e8-4ed1-4e6b-b201-335fbe7fe7e3" />
+    <img width="2776" height="2105" alt="thesis-dual01" src="https://github.com/user-attachments/assets/376a5b62-5b14-483c-87ba-da0808c51a32" />
+    <img width="2776" height="2105" alt="thesis-dual02" src="https://github.com/user-attachments/assets/de77881b-d21e-42d6-aba4-302239bd7164" />
+    <img width="2776" height="2105" alt="thesis-dual03" src="https://github.com/user-attachments/assets/bf719391-f5e7-4e56-baa8-05fe330bbc86" />
+    <img width="2776" height="2105" alt="thesis-dual04" src="https://github.com/user-attachments/assets/b9ed8eaa-23b9-4cda-87b8-4dcc2510910b" />
+    <img width="2776" height="2105" alt="thesis-dual05" src="https://github.com/user-attachments/assets/50cd1894-b374-4206-9d81-78498f15c25b" />
+    <img width="2776" height="2105" alt="thesis-dual06" src="https://github.com/user-attachments/assets/702ce869-1f9c-4ceb-a1ce-f7ce815bfb3f" />
+    <img width="2776" height="2105" alt="thesis-dual07" src="https://github.com/user-attachments/assets/502eafd8-7c24-47f8-84a2-3fef5415e351" />
+    <img width="2776" height="2105" alt="thesis-dual08" src="https://github.com/user-attachments/assets/0bd1db62-d2a4-4ff0-b126-0c176ac76123" />
+    <img width="2776" height="2105" alt="thesis-dual09" src="https://github.com/user-attachments/assets/a10b0779-4fb0-444b-b360-99545077d92a" />
+    <img width="2776" height="2105" alt="thesis-dual10" src="https://github.com/user-attachments/assets/338c5301-bc35-47cc-ada8-b3548c160399" />
+</details>
 
 Early predecessor of the `TeXtured` template:<br>
-  Jonáš Dujava, [Counting operators in Effective Field Theories](https://jdujava.github.io/CountingInEFT/CountingInEFT.pdf) — Bachelor Thesis<br>
+  Jonáš Dujava, [Counting operators in Effective Field Theories `[PDF]`](https://jdujava.github.io/CountingInEFT/CountingInEFT.pdf) — Bachelor Thesis<br>
     `arXiv`: [2211.05759 \[hep-th\]](https://arxiv.org/abs/2211.05759), `GitHub`: [jdujava/CountingInEFT](https://github.com/jdujava/CountingInEFT)
 
 > [!TIP]
