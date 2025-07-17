@@ -13,7 +13,13 @@
 %%  -> changed from /usr/share/texmf-dist/tex/latex/biblatex-ext/ext-standard.bbx
 \renewbibmacro*{doi+eprint+url}{%
     \setlength{\parskip}{0pt} % fix spacing of \fullcite in the body text of the document
-    \printtext{\par} % doi+eprint+url are printed on a new line
+    \ifboolexpr{
+        test {\iffieldundef{doi}} and
+        test {\iffieldundef{url}} and
+        test {\iffieldundef{eprint}} and
+        test {\iffieldundef{github}} and
+        test {\iffieldundef{gitlab}}
+    }{}{\printtext{\par}} % doi+eprint+url are printed on a new line
     \footnotesize    % make it small, so it (ideally) fits on one line
     \raggedright     % right-align the text (so that there are no overfull hboxes for long URLs)
     \renewcommand{\newunitpunct}{\space}                  % no periods on this line
