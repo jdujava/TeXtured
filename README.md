@@ -3,13 +3,15 @@
     <img alt="TeXtured Template" height="100px" src="https://raw.githubusercontent.com/jdujava/TeXtured/refs/heads/master/figures/TeXtured-logo-dark-mode.svg#gh-dark-mode-only">
 </div>
 <div align="center">
-
- [![TeXtured Manual](https://img.shields.io/badge/TeXtured-Manual%E2%80%89%F0%9F%93%93-blue?color=ccfaff&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
- [![GitHub Release](https://img.shields.io/github/v/release/jdujava/textured?color=ade1ff&style=for-the-badge)](https://github.com/jdujava/TeXtured/releases)
- [![GitHub License](https://img.shields.io/github/license/jdujava/TeXtured?color=fbe2ff&style=for-the-badge)](#-license)
- [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jdujava/TeXtured/main.yml?color=aafaba&style=for-the-badge)](https://jdujava.github.io/TeXtured/thesis.pdf)
- [![TeXtured Stars](https://img.shields.io/github/stars/jdujava/TeXtured?color=ffeca4&style=for-the-badge)](https://github.com/jdujava/TeXtured/stargazers)
-
+  <a href="https://jdujava.github.io/TeXtured/thesis.pdf"><img alt="TeXtured Manual" src="https://img.shields.io/badge/TeXtured-Manual%E2%80%89%F0%9F%93%93-blue?color=ccfaff&style=for-the-badge"></a>
+  &nbsp;
+  <a href="https://github.com/jdujava/TeXtured/releases"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/jdujava/textured?color=ade1ff&style=for-the-badge"></a>
+  &nbsp;
+  <a href="#-license"><img alt="GitHub License" src="https://img.shields.io/github/license/jdujava/TeXtured?color=fbe2ff&style=for-the-badge"></a>
+  &nbsp;
+  <a href="https://jdujava.github.io/TeXtured/thesis.pdf"><img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/jdujava/TeXtured/main.yml?color=aafaba&style=for-the-badge"></a>
+  &nbsp;
+  <a href="https://github.com/jdujava/TeXtured/stargazers"><img alt="TeXtured Stars" src="https://img.shields.io/github/stars/jdujava/TeXtured?color=ffeca4&style=for-the-badge"></a>
 </div>
 
 Do you care in the slightest about what your readers think about your document,
@@ -49,17 +51,17 @@ The main part of the `TeXtured` template development was carried out during the 
     `arXiv`: [2507.07111 \[hep-th\]](https://arxiv.org/abs/2507.07111), `GitHub`: [jdujava/ONinAdS](https://github.com/jdujava/ONinAdS)
 <details>
     <summary>👀 Quick Preview <em>(click to see a selection of pages, above is the link to the whole <code>PDF</code>)</em></summary>
-    <img width="2776" height="2105" alt="thesis-dual00" src="https://github.com/user-attachments/assets/5c7608e8-4ed1-4e6b-b201-335fbe7fe7e3" />
-    <img width="2776" height="2105" alt="thesis-dual01" src="https://github.com/user-attachments/assets/376a5b62-5b14-483c-87ba-da0808c51a32" />
-    <img width="2776" height="2105" alt="thesis-dual02" src="https://github.com/user-attachments/assets/de77881b-d21e-42d6-aba4-302239bd7164" />
-    <img width="2776" height="2105" alt="thesis-dual03" src="https://github.com/user-attachments/assets/bf719391-f5e7-4e56-baa8-05fe330bbc86" />
-    <img width="2776" height="2105" alt="thesis-dual04" src="https://github.com/user-attachments/assets/b9ed8eaa-23b9-4cda-87b8-4dcc2510910b" />
-    <img width="2776" height="2105" alt="thesis-dual05" src="https://github.com/user-attachments/assets/50cd1894-b374-4206-9d81-78498f15c25b" />
-    <img width="2776" height="2105" alt="thesis-dual06" src="https://github.com/user-attachments/assets/702ce869-1f9c-4ceb-a1ce-f7ce815bfb3f" />
-    <img width="2776" height="2105" alt="thesis-dual07" src="https://github.com/user-attachments/assets/502eafd8-7c24-47f8-84a2-3fef5415e351" />
-    <img width="2776" height="2105" alt="thesis-dual08" src="https://github.com/user-attachments/assets/0bd1db62-d2a4-4ff0-b126-0c176ac76123" />
-    <img width="2776" height="2105" alt="thesis-dual09" src="https://github.com/user-attachments/assets/a10b0779-4fb0-444b-b360-99545077d92a" />
-    <img width="2776" height="2105" alt="thesis-dual10" src="https://github.com/user-attachments/assets/338c5301-bc35-47cc-ada8-b3548c160399" />
+    <img alt="thesis-dual00" src="https://github.com/user-attachments/assets/5c7608e8-4ed1-4e6b-b201-335fbe7fe7e3" />
+    <img alt="thesis-dual01" src="https://github.com/user-attachments/assets/376a5b62-5b14-483c-87ba-da0808c51a32" />
+    <img alt="thesis-dual02" src="https://github.com/user-attachments/assets/de77881b-d21e-42d6-aba4-302239bd7164" />
+    <img alt="thesis-dual03" src="https://github.com/user-attachments/assets/bf719391-f5e7-4e56-baa8-05fe330bbc86" />
+    <img alt="thesis-dual04" src="https://github.com/user-attachments/assets/b9ed8eaa-23b9-4cda-87b8-4dcc2510910b" />
+    <img alt="thesis-dual05" src="https://github.com/user-attachments/assets/50cd1894-b374-4206-9d81-78498f15c25b" />
+    <img alt="thesis-dual06" src="https://github.com/user-attachments/assets/702ce869-1f9c-4ceb-a1ce-f7ce815bfb3f" />
+    <img alt="thesis-dual07" src="https://github.com/user-attachments/assets/502eafd8-7c24-47f8-84a2-3fef5415e351" />
+    <img alt="thesis-dual08" src="https://github.com/user-attachments/assets/0bd1db62-d2a4-4ff0-b126-0c176ac76123" />
+    <img alt="thesis-dual09" src="https://github.com/user-attachments/assets/a10b0779-4fb0-444b-b360-99545077d92a" />
+    <img alt="thesis-dual10" src="https://github.com/user-attachments/assets/338c5301-bc35-47cc-ada8-b3548c160399" />
 </details>
 
 Early predecessor of the `TeXtured` template:<br>
