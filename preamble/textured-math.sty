@@ -133,7 +133,6 @@
 
 %% HACK: Reduce verbosity of "No alphabet change ..." messages
 %% https://tex.stackexchange.com/a/663843
-\makeatletter
 \let\old@font@info\@font@info
 \def\@font@info#1{%
     \expandafter\ifx\csname\detokenize{#1}\endcsname\relax
@@ -141,20 +140,17 @@
     \fi
     \expandafter\xdef\csname\detokenize{#1}\endcsname{}%
 }
-\makeatother
 
 
 %%% Space tweaking macros, thanks goes to https://github.com/valentjn/thesis-arxiv
 
 % math version of \settowidth, automatically choosing the right style
 % (textstyle, displaystyle, ...)
-\makeatletter
 \def\mathsettowidth#1#2{%
     \setbox\@tempboxa\hbox{\(\m@th\mathpalette{}{#2}\)}%
     #1=\wd\@tempboxa%
     \setbox\@tempboxa\box\voidb@x%
 }
-\makeatother
 
 %% \halfhphantom works like \hphantom, except that it creates a box
 %% that is only half as wide as that of \hphantom

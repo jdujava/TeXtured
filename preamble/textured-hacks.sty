@@ -76,7 +76,6 @@
 %% Backreferences in the bibliography
 \NewDocumentCommand{\pagelink}{O{} m}{\hyperlink{page.#2}{\pagebox[#1]{#2}}}
 %% -> changed from /usr/share/texmf-dist/tex/latex/biblatex/biblatex.def
-\makeatletter
 \DeclareListFormat{pageref}{%
   \ifnumless{\abx@pagerefstyle}{0}
     {\usebibmacro{list:plain}%
@@ -91,14 +90,12 @@
      \ifnumequal{\value{listcount}}{\value{liststop}}
        {\usebibmacro{pageref:dump}}
        {}}}
-\makeatother
 
 
 
 %%  HACK: Fix bug, where \qedhere overwrotes the proper behavior of \tag
 %%        I dont entirely know what I am doing here, but seems to work
 %%        -> changed from /usr/share/texmf-dist/tex/latex/amscls/amsthm.sty
-\makeatletter
 \AddToHook{package/amsthm/after}{%
 \renewcommand*{\equation@qed}{%
     \iftagsleft@
@@ -120,14 +117,12 @@
     \fi
 }
 }
-\makeatother
 
 
 %% HACK: fix https://github.com/T-F-S/tcolorbox/issues/297 (for hyperref before 2025/05/20)
 %% see https://github.com/latex3/hyperref/commit/6f0378f4339538d397874873d338c85c8b03c6bb#diff-78b0d75637be67a5e057881594b09f87fa61562fb56bde1e1298c81c30fa45e8R431
 %% modifies /usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
 \ExplSyntaxOn
-\makeatletter
 \IfPackageAtLeastTF{hyperref}{2025-05-20}{}{
  \cs_undefine:N \__hyp_target_raise:n
  \cs_new_protected:Npn \__hyp_target_raise:n #1
@@ -155,7 +150,6 @@
     }
   }
 }
-\makeatother
 \ExplSyntaxOff
 
 
@@ -168,7 +162,6 @@
 %%        the ordinary paragraph spacing is restored in the `floatrow` captions.
 %%        However, I am not entirely sure why this works..
 
-\makeatletter
 \newcommand*{\redefineparboxrestore}{%
     \def\@arrayparboxrestore{%
         \let\if@nobreak\iffalse
@@ -197,4 +190,3 @@
     \redefineparboxrestore%
     \ffigboxOrig[#1]{#2}{#3}%
 }
-\makeatother
