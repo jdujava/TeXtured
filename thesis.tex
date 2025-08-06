@@ -11,7 +11,7 @@
 \PassOptionsToClass{
     WIP,         % THIS IS A WORK-IN-PROGRESS VERSION (comment out for the final version)
     % EXTRAMARGIN, % add extra right margin in WIP version (for notes/corrections)
-    % noLINKBOXES, % disable link/reference boxes for faster compilations
+    noLINKBOXES, % disable link/reference boxes for faster compilations
     CENSOR,      % THIS IS A CENSORED VERSION
     % noFANCY,   % disable some of the more fancy stylistic choices
     % twosided,  % choose the two-sided layout (for printing)
@@ -60,6 +60,15 @@
     % chapters/Summary,
     % chapters/Appendix,
 }
+
+% \DeclareDocumentCommand{\todo}{O{} m}{\relax}
+% \NewDocumentCommand{\hreflocal}{O{} m m}{\relax}
+% \NewDocumentCommand{\marginlocal}{O{0ex} m}{\relax}
+%
+% \RenewDocumentEnvironment{Todo}{m O{} +b}{}{}
+% \RenewDocumentEnvironment{Question}{m O{} +b}{}{}
+% \RenewDocumentEnvironment{Suggestion}{m O{} +b}{}{}
+% \RenewDocumentEnvironment{Note}{m O{} +b}{}{}
 
 \input{preamble/user/main}
 
