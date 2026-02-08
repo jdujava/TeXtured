@@ -32,6 +32,8 @@
   author = {Test Author}
 }
 
+\START
+
 \begin{document}
 
 \chapter{Test Chapter}
@@ -41,3 +43,5 @@ Testing bibliography: \autocite{TeXtured}.
 \references
 
 \end{document}
+
+\END

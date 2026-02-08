@@ -34,6 +34,8 @@
   fancy = true
 }
 
+\START
+
 \begin{document}
 
 \chapter{Test Chapter}
@@ -41,3 +43,5 @@
 Testing class options and toggles.
 
 \end{document}
+
+\END

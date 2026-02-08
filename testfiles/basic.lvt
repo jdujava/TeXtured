@@ -26,6 +26,8 @@
   author = {Test Author}
 }
 
+\START
+
 \begin{document}
 
 \chapter{Test Chapter}
@@ -44,3 +46,5 @@ This is a test theorem.
 \end{theorem}
 
 \end{document}
+
+\END

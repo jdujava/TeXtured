@@ -41,6 +41,8 @@
   monthyear = {February 2026}
 }
 
+\START
+
 \begin{document}
 
 % Include frontmatter templates from installed class
@@ -53,3 +55,5 @@
 Testing frontmatter template inclusion.
 
 \end{document}
+
+\END
