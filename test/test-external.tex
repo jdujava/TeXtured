@@ -1,0 +1,52 @@
+% Test Document for Locally Installed TeXtured Class
+% Copy this to any directory and compile to test installation
+
+\DocumentMetadata{lang=en, pdfversion=1.7, pdfstandard=A-2u}
+
+\documentclass[12pt,a4paper]{textured}
+
+\SetKeys[textured]{
+  thesistype       = {master},
+  title            = {Test Document},
+  titleplaintext   = {Test Document},
+  author           = {Test Author},
+  authorplaintext  = {Test Author},
+  yearsubmitted    = {2025},
+  department       = {Test Department},
+  depttype         = {Department},
+  supervisor       = {Prof. Test Supervisor},
+  supervisorsdepartment = {Supervisor Department},
+  studyprogramme   = {Test Programme},
+  keywords         = {test, textured, installation},
+}
+
+\begin{document}
+
+\chapter{Installation Test}
+
+This document tests the locally installed TeXtured class.
+
+\section{Basic Features}
+
+This tests basic typesetting and math:
+\begin{equation}
+  E = mc^2
+\end{equation}
+
+\section{Theorem Environments}
+
+\begin{theorem}[Pythagorean Theorem]
+  In a right triangle, $a^2 + b^2 = c^2$.
+\end{theorem}
+
+\begin{proof}
+  This is a standard result.
+\end{proof}
+
+\section{Bibliography Test}
+
+The bibliography should auto-load: \autocite{TeXtured}.
+
+\references
+
+\end{document}

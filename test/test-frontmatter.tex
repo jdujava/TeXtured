@@ -1,0 +1,57 @@
+% Test Document with Frontmatter Templates
+% This demonstrates using the bundled frontmatter templates
+
+\DocumentMetadata{lang=en, pdfversion=1.7, pdfstandard=A-2u}
+
+\documentclass[12pt,a4paper]{textured}
+
+\SetKeys[textured]{
+  thesistype       = {master},
+  title            = {Using Frontmatter Templates},
+  titleplaintext   = {Using Frontmatter Templates},
+  author           = {Test Author},
+  authorplaintext  = {Test Author},
+  yearsubmitted    = {2025},
+  department       = {Department of Computer Science},
+  depttype         = {Department},
+  supervisor       = {Prof. Advisor Name},
+  supervisorsdepartment = {Supervisor Department},
+  studyprogramme   = {Computer Science},
+  abstract         = {This document demonstrates using the frontmatter templates bundled with the TeXtured class.},
+  keywords         = {frontmatter, templates, textured},
+}
+
+\begin{document}
+
+\frontmatter
+
+% Use bundled frontmatter templates
+% These are installed with the class in textured/frontmatter/
+\include{textured/frontmatter/title}
+\include{textured/frontmatter/declaration}
+\include{textured/frontmatter/dedication}
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{Introduction}
+
+This document demonstrates that the frontmatter templates are accessible
+when the class is installed locally.
+
+The templates are found automatically because they are installed to
+\texttt{\textasciitilde/texmf/tex/latex/textured/frontmatter/}
+
+\section{Template Access}
+
+Users can either:
+\begin{itemize}
+  \item Use \verb|\include{textured/frontmatter/title}| (as in this document)
+  \item Copy templates to their project and customize them
+  \item Create their own frontmatter using the class commands
+\end{itemize}
+
+\references
+
+\end{document}
