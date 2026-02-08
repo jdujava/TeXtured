@@ -18,6 +18,9 @@
 %
 %===============================================================================
 
+\input regression-test.tex
+\START
+
 \DocumentMetadata{pdfstandard=A-2u}
 \documentclass{textured}
 
@@ -25,8 +28,6 @@
   title = {Test Document},
   author = {Test Author}
 }
-
-\START
 
 \begin{document}
 

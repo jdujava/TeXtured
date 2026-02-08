@@ -24,6 +24,9 @@
 %
 %===============================================================================
 
+\input regression-test.tex
+\START
+
 \DocumentMetadata{pdfstandard=A-2u}
 \documentclass[12pt,a4paper]{textured}
 
@@ -33,8 +36,6 @@
   draft = false,
   fancy = true
 }
-
-\START
 
 \begin{document}
 

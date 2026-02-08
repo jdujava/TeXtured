@@ -24,6 +24,9 @@
 %
 %===============================================================================
 
+\input regression-test.tex
+\START
+
 \DocumentMetadata{pdfstandard=A-2u}
 \documentclass{textured}
 
@@ -31,8 +34,6 @@
   title = {Bibliography Test},
   author = {Test Author}
 }
-
-\START
 
 \begin{document}
 

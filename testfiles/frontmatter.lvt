@@ -28,6 +28,9 @@
 %
 %===============================================================================
 
+\input regression-test.tex
+\START
+
 \DocumentMetadata{pdfstandard=A-2u}
 \documentclass{textured}
 
@@ -40,8 +43,6 @@
   place = {Prague},
   monthyear = {February 2026}
 }
-
-\START
 
 \begin{document}
 
