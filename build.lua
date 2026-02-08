@@ -182,6 +182,13 @@ function docinit_hook()
   mkdir(docdir .. "/examples/chapters")
   cp("*.tex", "examples/chapters", docdir .. "/examples/chapters")
   
+  -- Copy figures for Appendix chapter
+  mkdir(docdir .. "/figures")
+  mkdir(docdir .. "/figures/Inkscape")
+  cp("*.pdf", "figures/Inkscape", docdir .. "/figures/Inkscape")
+  cp("*.svg", "figures/Inkscape", docdir .. "/figures/Inkscape")
+  cp("*.pdf_tex", "figures/Inkscape", docdir .. "/figures/Inkscape")
+  
   -- Create directories for .aux files
   mkdir(docdir .. "/textured")
   mkdir(docdir .. "/textured/frontmatter")
