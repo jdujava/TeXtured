@@ -158,6 +158,11 @@ Complete examples in the repository:
 - `examples/minimal.tex` – Minimal working example
 - `examples/thesis-full.tex` – Full-featured thesis example
 
+**Note about figures**: The manual (textured.pdf) demonstrates Inkscape SVG
+integration and includes example figures. These figures are used only for
+manual generation and are not installed with the class. For a complete thesis
+starter template with figure handling scripts, see the TeXtured repository.
+
 ## PDF/A Compliance
 
 For archival-quality PDF/A-2u output:

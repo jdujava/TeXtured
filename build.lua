@@ -169,6 +169,8 @@ typesetfiles = {"thesis.tex"}
 supportfiles = {}
 
 -- Hook to prepare directory structure for documentation build
+-- Note: Figures and scripts are used ONLY for manual generation, not distributed
+-- with installed class. Future thesis template will include complete figure workflow.
 function docinit_hook()
   local docdir = typesetdir or "build/doc"
   
@@ -182,7 +184,7 @@ function docinit_hook()
   mkdir(docdir .. "/examples/chapters")
   cp("*.tex", "examples/chapters", docdir .. "/examples/chapters")
   
-  -- Copy figures for Appendix chapter
+  -- Copy figures for Appendix chapter (manual demonstration only)
   mkdir(docdir .. "/figures")
   mkdir(docdir .. "/figures/Inkscape")
   cp("*.pdf", "figures/Inkscape", docdir .. "/figures/Inkscape")
