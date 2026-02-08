@@ -1,0 +1,191 @@
+% Minimal TeXtured Example
+% This demonstrates the basic usage of the TeXtured document class
+
+% IMPORTANT: PDF/A compliance requires \DocumentMetadata before \documentclass
+\DocumentMetadata{lang=en, pdfversion=1.7, pdfstandard=A-2u}
+
+% Pass options to the class using \PassOptionsToClass
+\PassOptionsToClass{
+    FANCY,       % Enable fancy typography
+    % WIP,       % Work-in-progress mode (todos, draft watermarks)
+    noLINKBOXES, % Disable colored link boxes (faster compilation)
+    % CENSOR,    % Enable censoring of designated passages
+}{textured}
+
+\documentclass[12pt,a4paper]{textured}
+
+% Configure document metadata using key-value interface
+\SetKeys[textured]{
+  thesistype       = {master},           % bachelor, master, or doctoral
+  title            = {A Minimal TeXtured Example},
+  titleplaintext   = {A Minimal TeXtured Example},
+  author           = {Your Name},
+  authorplaintext  = {Your Name},
+  yearsubmitted    = {2025},
+  department       = {Department of Computer Science},
+  depttype         = {Department},       % Department or Institute
+  supervisor       = {Prof. Advisor Name},
+  supervisorsdepartment = {Supervisor's Department},
+  studyprogramme   = {Computer Science},
+  keywords         = {LaTeX, thesis, TeXtured, example},
+  keywordsplaintext = {LaTeX, thesis, TeXtured, example},
+  subject          = {Demonstration of TeXtured class features},
+  abstract         = {This is a minimal example demonstrating the TeXtured document class for academic theses.},
+}
+
+% Bibliography: Add your own bibliography files
+% \addbibresource{mybibliography.bib}
+
+% Optional: To cite TeXtured itself, the package provides textured.bib
+% (After CTAN installation, this will be findable automatically)
+\addbibresource{textured.bib}
+
+\begin{document}
+
+\frontmatter
+
+% Optional: Use included MFF CUNI frontmatter templates
+% \include{frontmatter/title}
+% \include{frontmatter/declaration}
+% \include{frontmatter/dedication}
+
+% Or create custom title page:
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+{\Huge\bfseries A Minimal TeXtured Example\par}
+\vspace{1.5cm}
+{\Large Your Name\par}
+\vspace{0.5cm}
+{\large Department of Computer Science\par}
+\vspace{3cm}
+{\large A demonstration of the TeXtured document class\par}
+\vfill
+{\large Master's Thesis\par}
+\vspace{0.5cm}
+{\large January 2025\par}
+\end{titlepage}
+
+\cleardoublepage
+
+\cleardoublepage
+
+\tableofcontents
+
+\cleardoublepage
+
+\mainmatter
+
+\chapter{Introduction}
+
+This is a minimal example demonstrating the TeXtured document class, a professionally typeset \LaTeX{} class for academic theses.
+
+\section{What is TeXtured?}
+
+TeXtured provides a complete framework for writing elegant academic documents with:
+\begin{itemize}
+  \item Professional typography with optional fancy features
+  \item Modern \LaTeX{} conventions (\verb|\NewDocumentCommand|, \verb|\DeclareKeys|)
+  \item PDF/A-2u compliance for long-term archival
+  \item Rich mathematical typesetting and theorem environments
+  \item Work-in-progress mode with todos and debug features
+  \item Modular architecture with specialized style packages
+\end{itemize}
+
+\section{Quick Example}
+
+To use TeXtured, simply load the class and configure your document metadata:
+
+\begin{verbatim}
+\DocumentMetadata{pdfstandard=A-2u}
+\PassOptionsToClass{FANCY}{textured}
+\documentclass{textured}
+\SetKeys[textured]{
+  title  = {My Thesis},
+  author = {Your Name},
+  ...
+}
+\end{verbatim}
+
+For complete documentation, see the TeXtured manual and the repository at \url{https://github.com/jdujava/TeXtured}.
+
+\chapter{Mathematical Content}
+
+TeXtured provides excellent support for mathematical typesetting.
+
+\section{Equations}
+
+Here is a simple equation:
+\begin{equation}
+  E = mc^2
+  \label{eq:einstein}
+\end{equation}
+
+And a more complex example using aligned equations:
+\begin{align}
+  \nabla \times \mathbf{E} &= -\frac{\partial \mathbf{B}}{\partial t}, \\
+  \nabla \times \mathbf{B} &= \mu_0 \mathbf{J} + \mu_0 \varepsilon_0 \frac{\partial \mathbf{E}}{\partial t}.
+\end{align}
+
+\section{Theorem Environments}
+
+TeXtured includes pre-configured theorem environments:
+
+\begin{theorem}[Pythagorean Theorem]
+  \label{thm:pythagoras}
+  For a right triangle with legs $a$ and $b$, and hypotenuse $c$:
+  \begin{equation}
+    a^2 + b^2 = c^2 \eqend
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  The proof is left as an exercise for the reader.
+\end{proof}
+
+\begin{lemma}
+  Every result used in a proof should be stated as a lemma.
+\end{lemma}
+
+\begin{corollary}
+  Theorem~\ref{thm:pythagoras} implies that the hypotenuse is always the longest side.
+\end{corollary}
+
+\chapter{Advanced Features}
+
+\section{Remark Environments}
+
+\begin{definition}
+  A \emph{minimal example} is the smallest complete demonstration of a concept.
+\end{definition}
+
+\begin{remark}
+  TeXtured provides many remark-like environments for supplementary content.
+\end{remark}
+
+\begin{example}
+  Consider the triangle with sides $a=3$, $b=4$, and $c=5$. By Theorem~\ref{thm:pythagoras}:
+  \[
+    3^2 + 4^2 = 9 + 16 = 25 = 5^2
+  \]
+  Hence this is a right triangle.
+\end{example}
+
+\section{Citing TeXtured}
+
+If you use TeXtured for your thesis, you can cite it using the provided bibliography entry \autocite{TeXtured}.
+
+\section{Further Reading}
+
+For more examples and complete documentation:
+\begin{itemize}
+  \item See \texttt{thesis.tex} in the repository for a full-featured example
+  \item Read the TeXtured manual (PDF documentation)
+  \item Visit the GitHub repository: \url{https://github.com/jdujava/TeXtured}
+\end{itemize}
+
+\backmatter
+
+\references
+
+\end{document}
