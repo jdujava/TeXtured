@@ -1,0 +1,52 @@
+The textured LaTeX document class and supporting style files
+=============================================================
+
+Copyright 2024-2026 Jonas Dujava
+
+This work may be distributed and/or modified under the conditions of
+the LaTeX Project Public License, either version 1.3c of this license
+or (at your option) any later version.
+
+The latest version of this license is in
+  https://www.latex-project.org/lppl.txt
+and version 1.3c or later is part of all distributions of LaTeX
+version 2008-05-04 or later.
+
+This work has the LPPL maintenance status `maintained'.
+
+The Current Maintainer of this work is Jonas Dujava.
+
+This work consists of the files:
+  textured.cls
+  textured-debug.sty
+  textured-envs.sty
+  textured-general.sty
+  textured-hacks.sty
+  textured-layout.sty
+  textured-math.sty
+  textured-misc.sty
+  textured-biblatex.sty
+
+and the documentation files:
+  README.md
+  textured.pdf (generated from the manual source)
+
+---
+
+Note: Example files, templates, and bibliography files provided
+in the examples/ directory are provided as-is for demonstration
+purposes and may be freely used, modified, and distributed without
+restriction.
+
+---
+
+MFF CUNI Logo Attribution
+==========================
+
+The MFF CUNI logo (frontmatter/img/MFF-logo.pdf) is property of the
+Faculty of Mathematics and Physics, Charles University, Prague.
+
+The logo is included with the class for convenience when creating
+theses for MFF CUNI, but remains the intellectual property of the
+university. For official usage guidelines, see:
+  https://www.mff.cuni.cz/en/faculty/visual-identity
