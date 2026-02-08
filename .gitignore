@@ -7,7 +7,6 @@
 ## and pushed to `gh-pages` branch, is is generally advised to ignore it
 ## (which makes the repository smaller and faster to clone)
 /*.pdf
-!textured.pdf
 
 ## LanguageTool
 .ltex
