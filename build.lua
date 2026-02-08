@@ -139,7 +139,7 @@ tdslocations = {
   "bibtex/bib/textured/*.bib",
   "doc/latex/textured/README.md",
   "doc/latex/textured/CHANGELOG.md",
-  "doc/latex/textured/LICENSE-textured",
+  "doc/latex/textured/LICENSE",
   "doc/latex/textured/textured.pdf",
   "doc/latex/textured/examples/*.tex",
   "doc/latex/textured/examples/chapters/*.tex",
@@ -205,7 +205,7 @@ sourcefiles = {
   "*.tex",
   "*.bib",
   "*.md",
-  "LICENSE-textured",
+  "LICENSE",
   "frontmatter/*.tex",
   "frontmatter/*.md",
   "frontmatter/img/*.pdf"
@@ -215,7 +215,7 @@ sourcefiles = {
 ctanfiles = {
   "README.md",
   "CHANGELOG.md",
-  "LICENSE-textured",
+  "LICENSE",
   "*.cls",
   "*.sty",
   "*.tex",
@@ -329,7 +329,7 @@ local function install_files()
   mkdir(docdir)
   cp("README.md", sourcefiledir, docdir)
   cp("CHANGELOG.md", sourcefiledir, docdir)
-  cp("LICENSE-textured", sourcefiledir, docdir)
+  cp("LICENSE", sourcefiledir, docdir)
   
   print("Installation complete!")
   print("\nVerify with:")

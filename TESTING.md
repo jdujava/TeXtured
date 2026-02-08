@@ -62,7 +62,7 @@ When you run `l3build install`, the following TDS-compliant structure is created
 └── doc/latex/textured/  (optional)
     ├── README.md
     ├── CHANGELOG.md
-    └── LICENSE-textured
+    └── LICENSE
 ```
 
 ## How It Works

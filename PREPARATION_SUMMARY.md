@@ -20,7 +20,7 @@ textured/
 │   ├── information.tex
 │   ├── img/MFF-logo.pdf
 │   └── README.md
-├── LICENSE-textured          ← LPPL 1.3c license
+├── LICENSE                  ← LPPL 1.3c license
 ├── README.md                 ← Package documentation
 └── CHANGELOG.md              ← Version history
 ```

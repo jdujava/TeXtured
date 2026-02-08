@@ -176,7 +176,7 @@ For archival-quality PDF/A-2u output:
 ## License
 
 This work is subject to the LaTeX Project Public License, version 1.3c or later.  
-See LICENSE-textured or https://www.latex-project.org/lppl.txt
+See LICENSE or https://www.latex-project.org/lppl.txt
 
 Copyright 2024-2025 Jonas Dujava
 

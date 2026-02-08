@@ -1,5 +1,5 @@
-The textured LaTeX document class and supporting style files
-=============================================================
+The textured LaTeX document class and supporting files
+======================================================
 
 Copyright 2024-2026 Jonas Dujava
 
@@ -26,17 +26,26 @@ This work consists of the files:
   textured-math.sty
   textured-misc.sty
   textured-biblatex.sty
+  glyphtounicode.tex
+  textured.bib
+
+the frontmatter template files:
+  frontmatter/title.tex
+  frontmatter/declaration.tex
+  frontmatter/dedication.tex
+  frontmatter/information.tex
+  frontmatter/README.md
 
 and the documentation files:
   README.md
-  textured.pdf (generated from the manual source)
+  CHANGELOG.md
+  thesis.pdf (generated from the manual source)
 
 ---
 
-Note: Example files, templates, and bibliography files provided
-in the examples/ directory are provided as-is for demonstration
-purposes and may be freely used, modified, and distributed without
-restriction.
+Note: Example files provided in the examples/ directory are
+provided as-is for demonstration purposes and may be freely
+used, modified, and distributed without restriction.
 
 ---
 
