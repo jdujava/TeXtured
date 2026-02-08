@@ -1,0 +1,46 @@
+%===============================================================================
+% Test: Basic Document Compilation
+%===============================================================================
+%
+% Purpose:
+%   Verifies that the textured class loads correctly and compiles a minimal
+%   document with basic features.
+%
+% What this tests:
+%   - Class loading with PDF/A-2u metadata
+%   - SetKeys interface for document metadata
+%   - Basic document structure (chapters, sections)
+%   - Math environment rendering (equations)
+%   - Theorem environment from textured-envs.sty
+%
+% Expected output:
+%   PDF with formatted chapter, section headings, equation, and theorem box
+%
+%===============================================================================
+
+\DocumentMetadata{pdfstandard=A-2u}
+\documentclass{textured}
+
+\SetKeys[textured]{
+  title = {Test Document},
+  author = {Test Author}
+}
+
+\begin{document}
+
+\chapter{Test Chapter}
+
+This is a basic test document to verify the class loads correctly.
+
+\section{Math Test}
+Here's an equation:
+\begin{equation}
+  E = mc^2
+\end{equation}
+
+\section{Theorem Test}
+\begin{theorem}[Test Theorem]
+This is a test theorem.
+\end{theorem}
+
+\end{document}

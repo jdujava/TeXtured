@@ -1,0 +1,43 @@
+%===============================================================================
+% Test: Class Options
+%===============================================================================
+%
+% Purpose:
+%   Verifies that class options can be set via SetKeys interface.
+%
+% What this tests:
+%   - SetKeys interface for class configuration
+%   - 12pt font size option (standard LaTeX)
+%   - a4paper size (standard LaTeX)  
+%   - draft=false toggle (custom TeXtured option)
+%   - fancy=true toggle (custom TeXtured option for typography)
+%
+% Expected output:
+%   PDF compiled with specified options, demonstrating that the
+%   options system works correctly.
+%
+% Options tested:
+%   - 12pt: Base font size
+%   - a4paper: Page size
+%   - draft: Controls draft features (todos, watermarks)
+%   - fancy: Controls decorative typographic elements
+%
+%===============================================================================
+
+\DocumentMetadata{pdfstandard=A-2u}
+\documentclass[12pt,a4paper]{textured}
+
+\SetKeys[textured]{
+  title = {Options Test},
+  author = {Test Author},
+  draft = false,
+  fancy = true
+}
+
+\begin{document}
+
+\chapter{Test Chapter}
+
+Testing class options and toggles.
+
+\end{document}

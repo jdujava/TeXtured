@@ -1,0 +1,43 @@
+%===============================================================================
+% Test: Bibliography Functionality  
+%===============================================================================
+%
+% Purpose:
+%   Verifies that bibliography loading and citation commands work correctly.
+%
+% What this tests:
+%   - Auto-loading of textured.bib via textured-biblatex.sty
+%   - Citation with \autocite{} command
+%   - Bibliography generation with \references command
+%   - Biber integration (requires latexmk in l3build)
+%
+% Expected output:
+%   PDF with:
+%   - In-text citation [1] referencing TeXtured Overleaf template
+%   - References section with formatted bibliography entry
+%   - Backref showing which page cited the reference
+%
+% Dependencies:
+%   - textured.bib must be in BIBINPUTS path (installed or local)
+%   - biber must run to generate .bbl file
+%   - Multiple LaTeX passes needed for references
+%
+%===============================================================================
+
+\DocumentMetadata{pdfstandard=A-2u}
+\documentclass{textured}
+
+\SetKeys[textured]{
+  title = {Bibliography Test},
+  author = {Test Author}
+}
+
+\begin{document}
+
+\chapter{Test Chapter}
+
+Testing bibliography: \autocite{TeXtured}.
+
+\references
+
+\end{document}

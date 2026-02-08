@@ -1,0 +1,55 @@
+%===============================================================================
+% Test: Frontmatter Templates
+%===============================================================================
+%
+% Purpose:
+%   Verifies that bundled frontmatter templates can be included and compile.
+%
+% What this tests:
+%   - Frontmatter template files in textured/frontmatter/
+%   - \include{textured/frontmatter/...} paths work correctly
+%   - MFF CUNI logo loads from textured/frontmatter/img/
+%   - Template compilation with document metadata
+%
+% Expected output:
+%   PDF with formatted frontmatter pages:
+%   - Title page with university logo
+%   - Declaration page  
+%   - Dedication page
+%
+% Dependencies:
+%   - Frontmatter templates must be installed to tex/latex/textured/frontmatter/
+%   - .latexmkrc must create .aux/textured/frontmatter/ directory
+%   - Logo file: textured/frontmatter/img/MFF-logo.pdf
+%
+% Note:
+%   This test requires the class to be installed via `l3build install` OR
+%   the frontmatter directory to be in the local path.
+%
+%===============================================================================
+
+\DocumentMetadata{pdfstandard=A-2u}
+\documentclass{textured}
+
+\SetKeys[textured]{
+  title = {Frontmatter Test},
+  author = {Test Author},
+  department = {Department of Test},
+  supervisor = {Prof. Test Supervisor},
+  studyprogram = {Test Program},
+  place = {Prague},
+  monthyear = {February 2026}
+}
+
+\begin{document}
+
+% Include frontmatter templates from installed class
+\include{textured/frontmatter/title}
+\include{textured/frontmatter/declaration}
+\include{textured/frontmatter/dedication}
+
+\chapter{Test Chapter}
+
+Testing frontmatter template inclusion.
+
+\end{document}
