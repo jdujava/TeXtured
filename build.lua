@@ -165,24 +165,26 @@ installfiles = {
 typesetfiles = {"thesis.tex"}
 
 -- Support files for documentation (used during doc build)
--- thesis.tex needs examples/chapters/ and preamble/user/ files
-supportfiles = {
-  "examples/chapters/*.tex"
-}
+-- Note: l3build doesn't preserve directory structure, so we use docinit_hook
+supportfiles = {}
 
--- Hook to copy preamble directory structure for documentation build
+-- Hook to prepare directory structure for documentation build
 function docinit_hook()
-  -- Copy preamble/user/ directory to build/doc/
   local docdir = typesetdir or "build/doc"
+  
+  -- Copy preamble/user/ directory
   mkdir(docdir .. "/preamble")
   mkdir(docdir .. "/preamble/user")
   cp("*.tex", "preamble/user", docdir .. "/preamble/user")
   
+  -- Copy examples/chapters/ directory
+  mkdir(docdir .. "/examples")
+  mkdir(docdir .. "/examples/chapters")
+  cp("*.tex", "examples/chapters", docdir .. "/examples/chapters")
+  
   -- Create directories for .aux files
   mkdir(docdir .. "/textured")
   mkdir(docdir .. "/textured/frontmatter")
-  mkdir(docdir .. "/examples")
-  mkdir(docdir .. "/examples/chapters")
   
   return 0
 end
