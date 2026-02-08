@@ -45,19 +45,19 @@
 %% Only uncommented files are included (faster compilation)
 %% NOTE: If no files are uncommented, all files are included
 \includeonlysmart{
-    % frontmatter/title,
-    % frontmatter/declaration,
-    % frontmatter/dedication,
-    % frontmatter/information,
-    % chapters/Introduction,
-    % chapters/QuickSummary,
-    % chapters/Notation,
-    % chapters/Design,
-    % chapters/Usage,
-    % chapters/Features,
-    % chapters/Tips,
-    % chapters/Summary,
-    % chapters/Appendix,
+    textured/frontmatter/title,
+    textured/frontmatter/declaration,
+    textured/frontmatter/dedication,
+    textured/frontmatter/information,
+    examples/chapters/Introduction,
+    examples/chapters/QuickSummary,
+    examples/chapters/Notation,
+    examples/chapters/Design,
+    examples/chapters/Usage,
+    examples/chapters/Features,
+    examples/chapters/Tips,
+    examples/chapters/Summary,
+    examples/chapters/Appendix,
 }
 
 \input{preamble/user/main}
@@ -68,28 +68,28 @@
 \begin{document}
 
 \frontmatter
-\include{frontmatter/title}
-\include{frontmatter/declaration}
-\include{frontmatter/dedication}
-\include{frontmatter/information}
+\include{textured/frontmatter/title}
+\include{textured/frontmatter/declaration}
+\include{textured/frontmatter/dedication}
+\include{textured/frontmatter/information}
 
 \contentsandlists
 
-\include{chapters/Introduction}
-\include{chapters/QuickSummary}
-\include{chapters/Notation}
+\include{examples/chapters/Introduction}
+\include{examples/chapters/QuickSummary}
+\include{examples/chapters/Notation}
 
 \mainmatter
-\include{chapters/Design}
-\include{chapters/Usage}
-\include{chapters/Features}
-\include{chapters/Tips}
+\include{examples/chapters/Design}
+\include{examples/chapters/Usage}
+\include{examples/chapters/Features}
+\include{examples/chapters/Tips}
 
 \backmatter
-\include{chapters/Summary}
+\include{examples/chapters/Summary}
 
 \appendix
-\include{chapters/Appendix}
+\include{examples/chapters/Appendix}
 
 \references
 

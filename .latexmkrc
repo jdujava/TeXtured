@@ -34,7 +34,11 @@ $aux_dir = '.aux';
 ## in order to compile the `tex` files without problems, since pdfLaTeX
 ## does not create the directories on its own.
 ## https://tex.stackexchange.com/questions/323820/i-cant-write-on-file-foo-aux
-## NOTE: the following handles only one level of subdirectories
-print `find . -maxdepth 2 -type f -name "*.tex" | # find all tex files up to 2 levels deep
+## NOTE: the following handles up to 3 levels of subdirectories
+print `find . -maxdepth 3 -type f -name "*.tex" | # find all tex files up to 3 levels deep
     sed -nE 's|\\./(.*)/.*|\\1|p' | sort -u |     # extract directory names
     xargs -I {} mkdir -pv "$aux_dir"/{}           # create corresponding directories in aux_dir`;
+
+## Also create aux directories for textured class frontmatter files
+## (needed when using \include{textured/frontmatter/...})
+print `mkdir -pv "$aux_dir"/textured/frontmatter`;
