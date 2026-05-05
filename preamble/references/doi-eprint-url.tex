@@ -19,7 +19,7 @@
         test {\iffieldundef{eprint}} and
         test {\iffieldundef{github}} and
         test {\iffieldundef{gitlab}}
-    }{}{\printtext{\par}} % doi+eprint+url are printed on a new line
+    }{\printtext{\relax}}{\printtext{\par}} % doi+eprint+url are printed on a new line
     \footnotesize    % make it small, so it (ideally) fits on one line
     \raggedright     % right-align the text (so that there are no overfull hboxes for long URLs)
     \renewcommand{\newunitpunct}{\space}                  % no periods on this line
