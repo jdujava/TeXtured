@@ -71,7 +71,9 @@ Early predecessor of the `TeXtured` template:<br>
 Other documents utilizing the `TeXtured` template:<br>
   Sahil Jhawar, [Data-Driven Study of Kilonovae from Binary Neutron Star Mergers `[PDF]`](https://sahiljhawar.in/MScThesis/SahilJhawar_MSc_Thesis.pdf) — Master Thesis<br>
     `GitHub`: [sahiljhawar/MScThesis](https://github.com/sahiljhawar/MScThesis)
-
+  <br>
+  Edoardo Alaimo, [Thin-film Filters for Solar Astrophysics: Science and Technology Development for the NASA MUSE Mission `[PDF]`](https://iris.unipa.it/handle/10447/699876) — PhD Thesis<br>
+  
 > [!TIP]
 > If you want to showcase your work utilizing the `TeXtured` template, feel free to open a pull request!
 
